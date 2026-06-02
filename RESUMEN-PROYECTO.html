@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dávalos & Asociados · Resumen del Proyecto · Escala Consultora</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Geist', system-ui, sans-serif; background: #0a0a0a; color: #e4e4e7; -webkit-font-smoothing: antialiased; }
+  .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+  .grain::before {
+    content:''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', monospace; line-height: 1.5; }
+  .pill-violet { background: rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
+  .pill-cyan { background: rgba(6,182,212,.15); border:1px solid rgba(6,182,212,.3); color:#a5f3fc; }
+  .pill-emerald { background: rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.3); color:#a7f3d0; }
+  .pill-amber { background: rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3); color:#fcd34d; }
+  .pill-rose { background: rgba(244,63,94,.18); border:1px solid rgba(244,63,94,.4); color:#fda4af; }
+  .pill-zinc { background: rgba(161,161,170,.12); border:1px solid rgba(161,161,170,.25); color:#d4d4d8; }
+
+  .card { background: rgba(9,9,11,.55); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 24px; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(255,255,255,.14); }
+  .card-rose { background: rgba(40,10,18,.4); border-color: rgba(244,63,94,.3); }
+  .card-amber { background: rgba(40,28,8,.35); border-color: rgba(245,158,11,.3); }
+  .card-violet { border-color: rgba(139,92,246,.3); }
+  .card-emerald { border-color: rgba(16,185,129,.3); }
+  .card-cyan { border-color: rgba(6,182,212,.3); }
+
+  .hero-grad { background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,92,246,.2), transparent 50%), radial-gradient(ellipse 60% 60% at 78% 35%, rgba(6,182,212,.13), transparent 55%), radial-gradient(ellipse 50% 50% at 22% 50%, rgba(16,185,129,.1), transparent 60%); }
+  .hero-title { background: linear-gradient(180deg, #fafafa 0%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* Tabs */
+  .tab-btn { padding: 10px 18px; font-size: 13px; font-weight: 500; color: #a1a1aa; border-radius: 10px; cursor: pointer; transition: all .15s; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
+  .tab-btn:hover { color: #fff; background: rgba(255,255,255,.04); }
+  .tab-btn.active { color: #fff; background: rgba(139,92,246,.14); border-color: rgba(139,92,246,.35); }
+  .tab-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: #71717a; }
+  .tab-btn.active .tab-num { color: #c4b5fd; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+
+  .stat-num { font-family: 'Geist Mono', monospace; font-weight: 500; letter-spacing: -.02em; }
+  .divline { height:1px; background: rgba(255,255,255,.06); }
+  table.tbl { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.tbl th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#71717a; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.08); }
+  table.tbl td { padding:12px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
+  table.tbl tr:last-child td { border-bottom:none; }
+  .sticky-tabs { position: sticky; top: 0; z-index: 30; background: rgba(10,10,10,.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+</style>
+</head>
+<body class="grain">
+
+<main class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8">
+
+<!-- HERO -->
+<section class="hero-grad -mx-5 lg:-mx-8 px-5 lg:px-8 pt-16 pb-12 border-b border-white/5">
+  <div class="flex items-center gap-2.5 mb-5 flex-wrap">
+    <span class="pill pill-violet">Escala Consultora</span>
+    <span class="pill pill-cyan">Quito · Ecuador</span>
+    <span class="pill pill-emerald">Broker de seguros</span>
+    <span class="pill pill-amber">Brief 100% procesado</span>
+  </div>
+  <h1 class="hero-title text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-4">
+    Dávalos & Asociados
+  </h1>
+  <p class="text-lg text-zinc-400 max-w-3xl leading-relaxed serif-italic">
+    Broker de seguros con 40 años de experiencia sectorial. No venden papel — venden respaldo verificado: solo aseguradoras que pagan cuando ocurre el siniestro, y acompañamiento hasta que el reembolso está depositado.
+  </p>
+  <div class="mt-6 text-[11px] font-mono text-zinc-500">R1 · 27 may 2026 (Mauricio) &nbsp;·&nbsp; R2 · 29 may 2026 (Daniel + Viviana) &nbsp;·&nbsp; Contratista: Montserrat Morcillo</div>
+</section>
+
+<!-- TABS -->
+<nav class="sticky-tabs -mx-5 lg:-mx-8 px-5 lg:px-8 py-3 flex gap-1.5 overflow-x-auto">
+  <button class="tab-btn active" data-tab="resumen"><span class="tab-num">01</span>Resumen</button>
+  <button class="tab-btn" data-tab="negocio"><span class="tab-num">02</span>Negocio &amp; Ramos</button>
+  <button class="tab-btn" data-tab="segmentos"><span class="tab-num">03</span>Segmentos &amp; Funnel</button>
+  <button class="tab-btn" data-tab="bot"><span class="tab-num">04</span>Bot IA</button>
+  <button class="tab-btn" data-tab="pendientes"><span class="tab-num">05</span>Pendientes</button>
+</nav>
+
+<!-- ============ TAB 01 · RESUMEN ============ -->
+<section class="tab-panel active py-10" id="tab-resumen">
+
+  <!-- Quiénes son -->
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">Quiénes son</div>
+  <p class="text-zinc-300 leading-relaxed max-w-4xl mb-8">
+    Agencia asesora de seguros (broker) en <strong class="text-white">Cumbayá, Quito</strong> — operación <strong class="text-white">100% virtual</strong>, sin sede física. <strong class="text-white">12 años</strong> como agencia; el fundador Mauricio Dávalos suma <strong class="text-white">40 años</strong> en el sector. Habilitados ante la Superintendencia para los <strong class="text-white">30 ramos</strong>: desde un auto individual hasta una represa o asistencia médica internacional.
+  </p>
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+    <div class="card"><div class="stat-num text-3xl text-white mb-1">40</div><div class="text-xs text-zinc-500">años del fundador en el sector</div></div>
+    <div class="card"><div class="stat-num text-3xl text-white mb-1">12</div><div class="text-xs text-zinc-500">años de la agencia</div></div>
+    <div class="card"><div class="stat-num text-3xl text-white mb-1">30</div><div class="text-xs text-zinc-500">ramos habilitados</div></div>
+    <div class="card"><div class="stat-num text-3xl text-white mb-1">~10</div><div class="text-xs text-zinc-500">aseguradoras activas (no las 35 del mercado)</div></div>
+  </div>
+
+  <!-- La frase + diferencial -->
+  <div class="card card-violet mb-10">
+    <div class="serif-italic text-xl lg:text-2xl text-zinc-100 leading-snug">“No venden papel, venden respaldo verificado.”</div>
+    <p class="text-sm text-zinc-400 mt-3 leading-relaxed">Su diferencial real: trabajan solo con aseguradoras de <strong class="text-zinc-200">historial probado de pago de siniestros</strong> (calificación interna propia, no comisión más alta) y acompañan al cliente <strong class="text-zinc-200">de principio a fin — hasta que el dinero del reembolso está en su cuenta</strong>. No cierran la venta y desaparecen.</p>
+  </div>
+
+  <!-- El proyecto: 4 frentes -->
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-4">El proyecto · 4 frentes con Escala</div>
+  <div class="grid md:grid-cols-2 gap-3 mb-10">
+    <div class="card card-violet"><div class="flex items-center gap-2 mb-2"><span class="pill pill-violet">01</span><span class="text-white font-medium">Naming &amp; Posicionamiento</span></div><p class="text-sm text-zinc-400 leading-relaxed">Submarca / nombre comercial que refresque la imagen sin perder el legado del apellido Dávalos. Minimalista, ejecutivo, sólido.</p></div>
+    <div class="card card-cyan"><div class="flex items-center gap-2 mb-2"><span class="pill pill-cyan">02</span><span class="text-white font-medium">Google Ads</span></div><p class="text-sm text-zinc-400 leading-relaxed">Flujo de leads calificados en Quito / Pichincha. Anuncio → WhatsApp → bot califica → asesor.</p></div>
+    <div class="card card-emerald"><div class="flex items-center gap-2 mb-2"><span class="pill pill-emerald">03</span><span class="text-white font-medium">ChatBot IA comercial</span></div><p class="text-sm text-zinc-400 leading-relaxed">Califica + agenda 24/7, seguimiento a 2h. Que el asesor reciba el lead ya calificado y solo cierre. <span class="text-emerald-300/80">(nuestro terreno: GHL)</span></p></div>
+    <div class="card card-amber"><div class="flex items-center gap-2 mb-2"><span class="pill pill-amber">04</span><span class="text-white font-medium">Proceso comercial / CRM</span></div><p class="text-sm text-zinc-400 leading-relaxed">Sistema en Go High Level. Decisión pendiente: retomar <em>Solution</em> o usar la plataforma de Escala (ambas son GHL).</p></div>
+  </div>
+
+  <!-- Lo más importante para el sistema -->
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-4">Puntos clave para el bot &amp; el sistema</div>
+  <div class="grid md:grid-cols-3 gap-3 mb-10">
+    <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">Mensaje rector B2B</div><p class="text-sm text-zinc-400 leading-relaxed">“Transferencia de riesgo, <strong class="text-zinc-200">NO prevención / miedo</strong>.” El cliente corporativo ya entiende el riesgo patrimonial.</p></div>
+    <div class="card"><div class="text-emerald-300 text-sm font-medium mb-2">Lead más fácil B2C</div><p class="text-sm text-zinc-400 leading-relaxed">El que <strong class="text-zinc-200">ya tuvo un siniestro y no le pagaron</strong> — dolor fresco. Reencuadrar precio vs. costo del evento sin cobertura.</p></div>
+    <div class="card"><div class="text-rose-300 text-sm font-medium mb-2">Fuga #1 del funnel</div><p class="text-sm text-zinc-400 leading-relaxed"><strong class="text-zinc-200">Seguimiento post-propuesta.</strong> El cliente dice “está caro” y se enfría. Acá es donde la automatización mete el mayor valor.</p></div>
+  </div>
+
+  <!-- Equipo -->
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-4">El equipo</div>
+  <div class="card mb-4">
+    <table class="tbl">
+      <thead><tr><th>Persona</th><th>Rol</th></tr></thead>
+      <tbody>
+        <tr><td class="text-white font-medium">Mauricio Dávalos</td><td>Fundador / Gerente General — visión, relación con aseguradoras, <strong class="text-amber-200/90">aprobaciones finales</strong>. No opera el comercial diario.</td></tr>
+        <tr><td class="text-white font-medium">Daniel Dávalos</td><td>Ejecutivo <strong class="text-cyan-200/90">B2B corporativo</strong> + líder de tecnología/automatización. Interlocutor técnico del proyecto.</td></tr>
+        <tr><td class="text-white font-medium">Viviana Novoa</td><td>Ejecutiva <strong class="text-emerald-200/90">B2C individual</strong> — vida, asistencia médica, vehículos. Atención domiciliaria a adultos mayores.</td></tr>
+        <tr><td class="text-white font-medium">Tercer asesor</td><td>Gestión de siniestros + apoyo a Vivi en seguros individuales y asistencia médica.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="text-xs text-zinc-500">Interlocutor válido para aprobaciones finales: <strong class="text-zinc-300">Mauricio Dávalos</strong> · mdavalos@davalosyasociados.com</p>
+</section>
+
+<!-- ============ TAB 02 · NEGOCIO & RAMOS ============ -->
+<section class="tab-panel py-10" id="tab-negocio">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">Top 6 ramos por ingreso de comisiones</div>
+  <div class="card mb-8">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Ramo</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td class="font-mono text-violet-300">1</td><td class="text-white font-medium">Transporte</td><td>Importadores/exportadores: almacenamiento, importación, exportación, transporte interno. <span class="pill pill-violet">mayor prima/contrato</span></td></tr>
+        <tr><td class="font-mono text-violet-300">2</td><td class="text-white font-medium">Incendio / Propiedad</td><td>Edificaciones, maquinaria, mercadería. Cubre terremoto, inundación, explosión, motín, terrorismo, colapso.</td></tr>
+        <tr><td class="font-mono text-violet-300">3</td><td class="text-white font-medium">Vehículos</td><td>Corporativos e individuales. <span class="pill pill-cyan">mayor volumen de cotizaciones</span></td></tr>
+        <tr><td class="font-mono text-violet-300">4</td><td class="text-white font-medium">Vida &amp; Asistencia Médica</td><td>Planes nacionales e internacionales (hasta EE.UU.). Vida colectiva e individual.</td></tr>
+        <tr><td class="font-mono text-violet-300">5</td><td class="text-white font-medium">Fianzas</td><td>Buen uso de anticipo, cumplimiento de contrato, seriedad de oferta.</td></tr>
+        <tr><td class="font-mono text-violet-300">6</td><td class="text-white font-medium">Responsabilidad Civil</td><td>RC general y profesional.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-3 mb-8">
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Aseguradoras activas (por volumen)</div><p class="text-sm text-zinc-400 leading-relaxed">QBE Seguros Colonial · Chubb · AIG Ecuador · Zurich · Confianza · BMI · Atlántida · Latina · Sweaden · Seguros Unidos.</p><p class="text-xs text-zinc-500 mt-2">Equinoccial y Sucre ya no operan. Calificación interna: priorizan historial de pago sobre comisión.</p></div>
+    <div class="card card-amber"><div class="text-amber-300 text-sm font-medium mb-2">Restricción de facturación</div><p class="text-sm text-zinc-400 leading-relaxed">Por normativa de Superintendencia solo facturan <strong class="text-zinc-200">asesoría de seguros</strong>. Mauricio tiene una empresa separada de Seguridad y Salud Ocupacional, pero es entidad distinta.</p></div>
+  </div>
+
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">Nichos B2B confirmados</div>
+  <div class="flex flex-wrap gap-2 mb-8">
+    <span class="pill pill-zinc">Importadores / exportadores</span>
+    <span class="pill pill-zinc">Constructores de carretera e infraestructura</span>
+    <span class="pill pill-zinc">Sector petrolero (servicios)</span>
+    <span class="pill pill-zinc">Sector minero (emergente 2025)</span>
+    <span class="pill pill-zinc">Agroindustrial (planta/maquinaria, NO cultivo)</span>
+    <span class="pill pill-zinc">Cooperativas financieras grandes</span>
+    <span class="pill pill-zinc">PYME desde USD 2.000/año en primas</span>
+  </div>
+
+  <div class="card card-rose">
+    <div class="text-rose-300 text-sm font-medium mb-2">Sectores que NO quieren atender</div>
+    <p class="text-sm text-zinc-400 leading-relaxed">Transporte público masivo (taxis, buses, alquiler) · Seguro agrícola de cultivos (riesgos naturales, costo alto) · Volumen masivo de clientes individuales pequeños (sin capacidad operativa para escalar ese modelo).</p>
+  </div>
+</section>
+
+<!-- ============ TAB 03 · SEGMENTOS & FUNNEL ============ -->
+<section class="tab-panel py-10" id="tab-segmentos">
+  <div class="grid md:grid-cols-2 gap-3 mb-8">
+    <!-- B2B -->
+    <div class="card card-cyan">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">B2B · Corporativo</span><span class="text-xs text-zinc-500">Daniel</span></div>
+      <p class="text-sm text-zinc-400 leading-relaxed mb-3">Decisor: empresas &lt;USD 10M el dueño/GG decide; &gt;USD 10M el área financiera (CFO). Edad 40-60, tercer nivel. Quito/Pichincha.</p>
+      <div class="divline my-3"></div>
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div><div class="stat-num text-xl text-white">1-5</div><div class="text-[10px] text-zinc-500">cotiz./período</div></div>
+        <div><div class="stat-num text-xl text-white">2-3</div><div class="text-[10px] text-zinc-500">cierres</div></div>
+        <div><div class="stat-num text-xl text-emerald-300">40-60%</div><div class="text-[10px] text-zinc-500">conversión</div></div>
+      </div>
+      <p class="text-xs text-zinc-500 mt-3">Mejor conversión: Daniel filtra antes de cotizar. Respuesta hasta 5 días hábiles (15 con reaseguro).</p>
+    </div>
+    <!-- B2C -->
+    <div class="card card-emerald">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">B2C · Individual</span><span class="text-xs text-zinc-500">Viviana</span></div>
+      <p class="text-sm text-zinc-400 leading-relaxed mb-3">Asistencia médica (25-65+) y vehículos (23-65+). Nivel medio-alto, capacidad de pago regular (desde ~USD 100/mes médica). Quito + todo Ecuador.</p>
+      <div class="divline my-3"></div>
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div><div class="stat-num text-xl text-white">~8</div><div class="text-[10px] text-zinc-500">cotiz./mes</div></div>
+        <div><div class="stat-num text-xl text-white">1-2</div><div class="text-[10px] text-zinc-500">cierres/mes</div></div>
+        <div><div class="stat-num text-xl text-emerald-300">12-25%</div><div class="text-[10px] text-zinc-500">conversión</div></div>
+      </div>
+      <p class="text-xs text-zinc-500 mt-3">Respuesta hasta 48h (estándar 24h). Vehículos: muchas veces cierra en una llamada.</p>
+    </div>
+  </div>
+
+  <!-- Por qué un broker -->
+  <div class="card mb-8">
+    <div class="text-sm font-medium text-white mb-2">¿Por qué un broker y no ir directo a la aseguradora?</div>
+    <div class="flex flex-wrap gap-2">
+      <span class="pill pill-violet">TIEMPO — el broker hace todo el proceso administrativo</span>
+      <span class="pill pill-cyan">CONOCIMIENTO — saben qué documentos, a quién, cómo agilizar</span>
+      <span class="pill pill-emerald">EXPERIENCIA — contacto directo en cada aseguradora para escalar</span>
+    </div>
+    <p class="text-sm text-zinc-400 mt-3 leading-relaxed">Acompañan desde la compra hasta que el reembolso está depositado. Muchos llegan de seguros masivos (tarjeta/banco) donde no había una cara responsable ante ellos.</p>
+  </div>
+
+  <!-- Fuga -->
+  <div class="card card-rose mb-8">
+    <div class="text-rose-300 text-sm font-medium mb-2">⚠ Dónde se pierden oportunidades hoy</div>
+    <p class="text-sm text-zinc-400 leading-relaxed"><strong class="text-zinc-200">Seguimiento post-propuesta</strong> (ambos): el cliente no decide en el momento y la venta se enfría.<br>
+    <span class="text-zinc-300">B2B:</span> “está muy caro” → posterga indefinidamente.<br>
+    <span class="text-zinc-300">B2C:</span> precio vs. capacidad de pago; vehículos financiados (el banco obliga a tomar su seguro como condición del crédito).</p>
+  </div>
+
+  <!-- Funnel visual -->
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-4">Flujo objetivo con el sistema</div>
+  <div class="flex flex-wrap items-stretch gap-2 text-center">
+    <div class="card flex-1 min-w-[130px] !p-4"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Anuncio Ads</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="card flex-1 min-w-[130px] !p-4"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="card flex-1 min-w-[130px] !p-4"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot califica</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="card flex-1 min-w-[130px] !p-4"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Agenda / asesor</div></div>
+  </div>
+</section>
+
+<!-- ============ TAB 04 · BOT IA ============ -->
+<section class="tab-panel py-10" id="tab-bot">
+  <div class="grid md:grid-cols-2 gap-3 mb-8">
+    <div class="card card-violet"><div class="text-violet-300 text-sm font-medium mb-2">Identidad del bot</div><p class="text-sm text-zinc-400 leading-relaxed">Se presenta como <strong class="text-zinc-200">“asistente de Dávalos &amp; Asociados”</strong> — voz de la agencia, sin nombre propio aún (a definir Mauricio). Funciona <strong class="text-zinc-200">24/7</strong>; las transferencias a humano se resuelven en horario laboral (8:00-17:00).</p></div>
+    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Seguimiento inteligente</div><p class="text-sm text-zinc-400 leading-relaxed">Si no hay respuesta en <strong class="text-zinc-200">2 horas</strong>, el bot envía un mensaje contextual basado en la conversación (no recordatorio genérico). Ataca directo la fuga #1 del funnel.</p></div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-3 mb-8">
+    <div class="card card-emerald">
+      <div class="text-emerald-300 text-sm font-medium mb-3">Funciones autónomas (sin humano)</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Presentar la agencia y servicios</li>
+        <li>Calificar por ramo (edad/género/preexistencias médica; matrícula vehículos; RUC/actividad B2B)</li>
+        <li>Responder FAQs genéricas · enviar brochure</li>
+        <li>Capturar nombre, teléfono, correo</li>
+        <li>Agendar reunión (Google Calendar a integrar)</li>
+        <li>Seguimiento automático a las 2h</li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <div class="text-amber-300 text-sm font-medium mb-3">Transfiere a asesor humano si…</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Pide cotización concreta con datos completos</li>
+        <li>Siniestro vigente en proceso</li>
+        <li>Cuenta grande / empresa estratégica</li>
+        <li>Ramos complejos (D&amp;O, cyber, reaseguro)</li>
+        <li>Duda sobre póliza vigente / estado de reembolso</li>
+        <li>Pide hablar con un asesor o certificado de pagos al día</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tono -->
+  <div class="card mb-8">
+    <div class="text-sm font-medium text-white mb-3">Tono &amp; voz — adaptable</div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div><span class="pill pill-cyan">B2B corporativo</span><p class="text-xs text-zinc-400 mt-2">Formal, técnico, datos y coberturas. Directo al grano.</p></div>
+      <div><span class="pill pill-emerald">B2C individual</span><p class="text-xs text-zinc-400 mt-2">Cercano, empático, lenguaje sencillo. Sin jerga.</p></div>
+      <div><span class="pill pill-amber">Adultos mayores</span><p class="text-xs text-zinc-400 mt-2">De “usted”, paciente, presencial si es posible.</p></div>
+    </div>
+    <p class="text-xs text-zinc-500 mt-3">Default digital: tuteo con jóvenes/mediana edad; usted con mayores. El bot detecta señales del perfil y ajusta.</p>
+  </div>
+
+  <!-- Objeciones + Nunca -->
+  <div class="grid md:grid-cols-2 gap-3">
+    <div class="card">
+      <div class="text-sm font-medium text-white mb-3">Objeciones que debe manejar</div>
+      <ul class="text-sm text-zinc-400 space-y-2 leading-relaxed">
+        <li><strong class="text-zinc-200">“Está muy caro”</strong> → valor del acompañamiento; seguro que paga vs. que no.</li>
+        <li><strong class="text-zinc-200">“Ya tengo seguro con el banco/tarjeta”</strong> → limitaciones de cobertura, sin asesor; revisión gratuita.</li>
+        <li><strong class="text-zinc-200">“No entiendo para qué sirve”</strong> → transferencia de riesgo con ejemplos (24% de autos tiene siniestro/año).</li>
+        <li><strong class="text-zinc-200">“No tengo tiempo”</strong> → ese ES el core de la propuesta de valor.</li>
+      </ul>
+    </div>
+    <div class="card card-rose">
+      <div class="text-rose-300 text-sm font-medium mb-3">El bot NUNCA debe…</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Dar prima exacta sin todos los datos</li>
+        <li>Comprometer coberturas sin revisión del asesor</li>
+        <li>Comparar negativamente aseguradoras por nombre</li>
+        <li>Hablar de siniestros de otros clientes</li>
+        <li>Decir que todo siniestro está cubierto (hay exclusiones)</li>
+        <li>Confirmar que una preexistencia será cubierta</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-amber mt-3">
+    <div class="text-amber-300 text-sm font-medium mb-1">Referencia visual NEGATIVA</div>
+    <p class="text-sm text-zinc-400 leading-relaxed"><strong class="text-zinc-200">Sweden Seguros</strong> — avatares caricaturescos, personajes animados, estilo juvenil. Es el ejemplo exacto de lo que NO quieren. Sí quieren: minimalista, profesional, ejecutivo, sólido.</p>
+  </div>
+</section>
+
+<!-- ============ TAB 05 · PENDIENTES ============ -->
+<section class="tab-panel py-10" id="tab-pendientes">
+  <div class="card card-rose mb-6">
+    <div class="text-rose-300 text-sm font-medium mb-4">🚫 Bloquean producción — Urgente</div>
+    <table class="tbl">
+      <tbody>
+        <tr><td class="text-white">Confirmar nº de WhatsApp comercial definitivo (corporativo, no personal) + si es API oficial</td><td class="whitespace-nowrap text-zinc-500">Mauricio / Daniel</td></tr>
+        <tr><td class="text-white">Decidir CRM: retomar <em>Solution</em> o usar plataforma de Escala (ambas Go High Level)</td><td class="whitespace-nowrap text-zinc-500">Mauricio</td></tr>
+        <tr><td class="text-white">Integración de agenda: migrar Thunderbird → Google Calendar para el bot</td><td class="whitespace-nowrap text-zinc-500">Equipo Escala / Daniel</td></tr>
+        <tr><td class="text-white">Presupuesto de pauta final: USD 150 vs USD 300/mes (recomendado 300 mín.)</td><td class="whitespace-nowrap text-zinc-500">Mauricio</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-amber mb-6">
+    <div class="text-amber-300 text-sm font-medium mb-4">📋 Para completar el brief — esta semana</div>
+    <table class="tbl">
+      <tbody>
+        <tr><td class="text-white">Ficha por ramo (resultado, beneficio, emoción, entrega) — mín. 4 ramos prioritarios</td><td class="whitespace-nowrap text-zinc-500">Daniel</td></tr>
+        <tr><td class="text-white">Crear correo corporativo comercial (ej: broker@davalosyasociados.com)</td><td class="whitespace-nowrap text-zinc-500">Mauricio / Daniel</td></tr>
+        <tr><td class="text-white">Confirmar URL del sitio web actual</td><td class="whitespace-nowrap text-zinc-500">Daniel</td></tr>
+        <tr><td class="text-white">¿Bot con nombre propio o “asistente de la empresa”?</td><td class="whitespace-nowrap text-zinc-500">Mauricio</td></tr>
+        <tr><td class="text-white">Frases propias de Mauricio para incorporar al bot</td><td class="whitespace-nowrap text-zinc-500">Mauricio</td></tr>
+        <tr><td class="text-white">Horario de agendamiento: ¿solo L-V 8-17h o también sábados?</td><td class="whitespace-nowrap text-zinc-500">Equipo</td></tr>
+        <tr><td class="text-white">Acceso/credenciales de la cuenta de Google Ads para Escala</td><td class="whitespace-nowrap text-zinc-500">Daniel</td></tr>
+        <tr><td class="text-white">Registrar las preguntas frecuentes de clientes (para KB del bot)</td><td class="whitespace-nowrap text-zinc-500">Daniel</td></tr>
+        <tr><td class="text-white">Definir los KPI del proyecto (éxito a 3 meses, en números)</td><td class="whitespace-nowrap text-zinc-500">Mauricio + Daniel</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-emerald">
+    <div class="text-emerald-300 text-sm font-medium mb-4">✅ Ya resuelto</div>
+    <div class="flex flex-wrap gap-2">
+      <span class="pill pill-emerald">Cuenta Google Ads activa (davalosyasociados14@gmail.com)</span>
+      <span class="pill pill-emerald">Vivi en el chat + R2 realizada</span>
+      <span class="pill pill-emerald">Interlocutor de aprobaciones: Mauricio</span>
+      <span class="pill pill-emerald">Equipo, ramos, aseguradoras y proceso documentados</span>
+      <span class="pill pill-emerald">Personalidad de marca + territorio semántico confirmados</span>
+    </div>
+  </div>
+
+  <p class="text-xs text-zinc-500 mt-6">Responsable de aprobación final de todos los pendientes: <strong class="text-zinc-300">Mauricio Dávalos</strong>.</p>
+</section>
+
+<footer class="border-t border-white/5 py-8 text-center text-xs text-zinc-600 -mx-5 lg:-mx-8 mt-6">
+  Dávalos &amp; Asociados · Resumen del proyecto · Escala Consultora — Montserrat Morcillo · Brief R1+R2 procesado
+</footer>
+
+</main>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + id));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

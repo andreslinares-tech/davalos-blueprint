@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueprint Bot · Dávalos & Asociados · Escala Consultora</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Geist', system-ui, sans-serif; background: #0a0a0a; color: #e4e4e7; -webkit-font-smoothing: antialiased; }
+  .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+  .grain::before { content:''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', monospace; line-height: 1.5; }
+  .pill-violet { background: rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
+  .pill-cyan { background: rgba(6,182,212,.15); border:1px solid rgba(6,182,212,.3); color:#a5f3fc; }
+  .pill-emerald { background: rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.3); color:#a7f3d0; }
+  .pill-amber { background: rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3); color:#fcd34d; }
+  .pill-rose { background: rgba(244,63,94,.18); border:1px solid rgba(244,63,94,.4); color:#fda4af; }
+  .pill-zinc { background: rgba(161,161,170,.12); border:1px solid rgba(161,161,170,.25); color:#d4d4d8; }
+  .card { background: rgba(9,9,11,.55); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 22px; transition: border-color .2s; }
+  .card:hover { border-color: rgba(255,255,255,.14); }
+  .card-violet { border-color: rgba(139,92,246,.3); } .card-cyan { border-color: rgba(6,182,212,.3); }
+  .card-emerald { border-color: rgba(16,185,129,.3); } .card-amber { background: rgba(40,28,8,.35); border-color: rgba(245,158,11,.3); }
+  .card-rose { background: rgba(40,10,18,.4); border-color: rgba(244,63,94,.3); }
+  .hero-grad { background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,92,246,.2), transparent 50%), radial-gradient(ellipse 60% 60% at 78% 35%, rgba(6,182,212,.13), transparent 55%); }
+  .hero-title { background: linear-gradient(180deg, #fafafa 0%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .toc-link { padding: 6px 14px; display: block; font-size: 13px; color: #a1a1aa; border-left: 2px solid transparent; transition: all .15s; }
+  .toc-link:hover, .toc-link.active { color: #fff; border-left-color: #8b5cf6; }
+  .toc-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: #71717a; margin-right: 10px; }
+  table.tbl { width:100%; border-collapse: collapse; font-size: 13px; }
+  table.tbl th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#71717a; padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.08); }
+  table.tbl td { padding:10px 11px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
+  table.tbl tr:last-child td { border-bottom:none; }
+  .flow-step { flex:1; min-width:120px; background: rgba(9,9,11,.55); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px; text-align:center; }
+  @media (max-width: 1024px) {
+    .sidebar { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); transition: transform .25s; z-index: 50; width: 250px; background: #0a0a0a; }
+    .sidebar.open { transform: translateX(0); } .menu-btn { display: inline-flex !important; } .main { margin-left: 0 !important; }
+  }
+  .menu-btn { display: none; }
+</style>
+</head>
+<body class="grain">
+
+<button class="menu-btn fixed top-4 left-4 z-[60] bg-zinc-900/80 border border-white/10 rounded-lg p-2" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<aside class="sidebar fixed top-0 left-0 h-screen w-[230px] border-r border-white/5 overflow-y-auto py-8 z-40">
+  <div class="px-6 mb-8">
+    <div class="font-mono text-[10px] tracking-widest text-zinc-500 mb-1">DÁVALOS &amp; ASOCIADOS</div>
+    <div class="text-sm font-medium text-white leading-tight">Blueprint del Bot</div>
+    <div class="text-[11px] text-zinc-500 mt-1">v0 · jun 2026</div>
+  </div>
+  <nav>
+    <a class="toc-link" href="#resumen"><span class="toc-num">01</span>Resumen</a>
+    <a class="toc-link" href="#bot"><span class="toc-num">02</span>Qué hace el bot</a>
+    <a class="toc-link" href="#pipelines"><span class="toc-num">03</span>Pipelines</a>
+    <a class="toc-link" href="#campos"><span class="toc-num">04</span>Datos que captura</a>
+    <a class="toc-link" href="#workflows"><span class="toc-num">05</span>Workflows</a>
+    <a class="toc-link" href="#kb"><span class="toc-num">06</span>Conocimiento</a>
+    <a class="toc-link" href="#canal"><span class="toc-num">07</span>Canal &amp; pricing</a>
+    <a class="toc-link" href="#pendientes"><span class="toc-num">08</span>Pendientes</a>
+  </nav>
+</aside>
+
+<main class="main relative z-10" style="margin-left: 230px;">
+
+<!-- HERO -->
+<section class="hero-grad px-8 lg:px-16 pt-20 pb-14 border-b border-white/5">
+  <div class="max-w-4xl">
+    <div class="flex items-center gap-2.5 mb-5 flex-wrap">
+      <span class="pill pill-violet">Bot calificador</span>
+      <span class="pill pill-cyan">Go High Level</span>
+      <span class="pill pill-emerald">SMS no oficial</span>
+      <span class="pill pill-amber">24/7</span>
+    </div>
+    <h1 class="hero-title text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-4">Blueprint del Bot Comercial</h1>
+    <p class="text-lg text-zinc-400 max-w-3xl leading-relaxed serif-italic">Un asistente que califica cada lead por ramo, captura los datos para cotizar y se lo entrega ya listo al asesor correcto — para que el equipo solo cierre. Ataca la fuga #1: el seguimiento.</p>
+  </div>
+</section>
+
+<!-- 01 RESUMEN -->
+<section id="resumen" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">01 / Resumen</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">El sistema en una imagen.</h2>
+  <div class="flex flex-wrap items-stretch gap-2 mb-8">
+    <div class="flow-step"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Anuncio / nº directo</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="flow-step"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp / SMS</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="flow-step"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot califica 24/7</div></div>
+    <div class="flex items-center text-zinc-600 text-xl">→</div>
+    <div class="flow-step"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Asesor cierra</div></div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-3">
+    <div class="card card-violet"><div class="text-violet-300 text-sm font-medium mb-2">Un bot, dos segmentos</div><p class="text-sm text-zinc-400 leading-relaxed">Detecta si el lead es corporativo (Daniel) o individual — médica / vehículos (Vivi) — y califica según el ramo.</p></div>
+    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Respuesta en minutos</div><p class="text-sm text-zinc-400 leading-relaxed">Atiende 24/7, sin perder leads fuera de horario. El asesor recibe el lead ya calificado.</p></div>
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">+30% agendamientos</div><p class="text-sm text-zinc-400 leading-relaxed">Meta contractual. El seguimiento automático ataca la fuga principal del funnel.</p></div>
+  </div>
+</section>
+
+<!-- 02 BOT -->
+<section id="bot" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">02 / Qué hace el bot</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Asistente de Dávalos &amp; Asociados.</h2>
+  <div class="grid md:grid-cols-2 gap-3 mb-3">
+    <div class="card card-emerald">
+      <div class="text-emerald-300 text-sm font-medium mb-3">✓ Hace solo</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Presenta la agencia y detecta el segmento</li>
+        <li>Califica por ramo (recopila datos para cotizar)</li>
+        <li>Responde preguntas frecuentes</li>
+        <li>Captura nombre, teléfono y correo</li>
+        <li>Agenda / transfiere al asesor correcto</li>
+        <li>Sigue al lead a las 2h si no responde</li>
+      </ul>
+    </div>
+    <div class="card card-amber">
+      <div class="text-amber-300 text-sm font-medium mb-3">→ Transfiere a humano si…</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Pide cotización concreta → asesor del segmento</li>
+        <li>Siniestro / reembolso en curso → siniestros</li>
+        <li>Duda sobre su póliza vigente</li>
+        <li>Pide asesor / cuenta grande / ramo complejo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card card-rose">
+    <div class="text-rose-300 text-sm font-medium mb-2">✕ El bot NUNCA</div>
+    <p class="text-sm text-zinc-400 leading-relaxed">Da primas exactas sin datos · compromete coberturas · compara aseguradoras por nombre · habla de siniestros de otros clientes · dice que todo está cubierto · confirma cobertura de preexistencias. <span class="text-zinc-300">Tono adaptable: B2B formal · B2C cercano · adultos mayores de "usted".</span></p>
+  </div>
+</section>
+
+<!-- 03 PIPELINES -->
+<section id="pipelines" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">03 / Pipelines</div>
+  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">Dos embudos, dos ritmos.</h2>
+  <p class="text-sm text-zinc-500 mb-8">Zonas: <span class="pill pill-violet">bot</span> <span class="pill pill-cyan">humano</span> <span class="pill pill-emerald">ganado</span> <span class="pill pill-zinc">perdido</span></p>
+  <div class="grid md:grid-cols-2 gap-3">
+    <div class="card card-cyan">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">B2B Corporativo</span><span class="text-xs text-zinc-500">Daniel · SLA 5 días</span></div>
+      <ol class="text-sm text-zinc-400 space-y-1 leading-relaxed list-decimal pl-5">
+        <li><span class="text-violet-300">Lead nuevo</span></li>
+        <li><span class="text-violet-300">Calificando</span></li>
+        <li>Calificado / Asignado</li>
+        <li>Información recibida</li>
+        <li>Cotizando</li>
+        <li>Propuesta enviada</li>
+        <li><span class="text-amber-300">En seguimiento ⚠</span></li>
+        <li>Negociación / ajuste</li>
+        <li><span class="text-emerald-300">Ganado</span> · Perdido</li>
+      </ol>
+    </div>
+    <div class="card card-emerald">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">B2C Individual</span><span class="text-xs text-zinc-500">Vivi · SLA 24-48h</span></div>
+      <ol class="text-sm text-zinc-400 space-y-1 leading-relaxed list-decimal pl-5">
+        <li><span class="text-violet-300">Lead nuevo</span></li>
+        <li><span class="text-violet-300">Calificando</span> (médica / vehículos)</li>
+        <li>Calificado / Asignado</li>
+        <li>Cotizando</li>
+        <li>Propuesta enviada</li>
+        <li><span class="text-amber-300">En seguimiento ⚠</span></li>
+        <li>Ajuste de alcance</li>
+        <li><span class="text-emerald-300">Ganado</span> · Perdido</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CAMPOS -->
+<section id="campos" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">04 / Datos que captura</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">19 campos, según el ramo.</h2>
+  <div class="grid md:grid-cols-3 gap-3">
+    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">Corporativo</div><p class="text-sm text-zinc-400 leading-relaxed">RUC · Actividad · Ramos requeridos · Valores asegurados · Siniestralidad · Pólizas vigentes</p></div>
+    <div class="card"><div class="text-emerald-300 text-sm font-medium mb-2">Médica</div><p class="text-sm text-zinc-400 leading-relaxed">Seguro actual · Presupuesto · Tipo de plan · Fecha nac. · Género · Preexistencias</p></div>
+    <div class="card"><div class="text-amber-300 text-sm font-medium mb-2">Vehículos</div><p class="text-sm text-zinc-400 leading-relaxed">Placa / matrícula · Cédula · Seguro vigente</p></div>
+  </div>
+  <p class="text-xs text-zinc-500 mt-4">El bot solo pregunta los campos del segmento detectado — no pide datos de vehículo a un lead médico.</p>
+</section>
+
+<!-- 05 WORKFLOWS -->
+<section id="workflows" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">05 / Workflows</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">11 automatizaciones.</h2>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Workflow</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td class="font-mono text-violet-300">01</td><td class="text-white">Lead nuevo entrante</td><td>Saluda y activa el bot</td></tr>
+        <tr><td class="font-mono text-violet-300">02</td><td class="text-white">Routing + asignación B2B</td><td>Asigna a Daniel apenas entra</td></tr>
+        <tr><td class="font-mono text-violet-300">03</td><td class="text-white">Routing + asignación B2C</td><td>Asigna a Vivi apenas entra</td></tr>
+        <tr><td class="font-mono text-violet-300">04</td><td class="text-white">Handoff cotización</td><td>Entrega el lead calificado al asesor</td></tr>
+        <tr><td class="font-mono text-violet-300">05</td><td class="text-white">Handoff siniestro</td><td>Deriva a gestión de siniestros</td></tr>
+        <tr><td class="font-mono text-violet-300">06</td><td class="text-white">Handoff póliza vigente</td><td>Duda de cliente activo</td></tr>
+        <tr><td class="font-mono text-violet-300">07</td><td class="text-white">Handoff asesor / cuenta grande</td><td>Pedido explícito o ramo complejo</td></tr>
+        <tr><td class="font-mono text-violet-300">08</td><td class="text-white">Follow-up 2h</td><td>Recontacto contextual</td></tr>
+        <tr><td class="font-mono text-amber-300">09</td><td class="text-white">Follow-up post-propuesta ⚠</td><td>Secuencia 24h/72h — <b>fuga #1</b></td></tr>
+        <tr><td class="font-mono text-violet-300">10</td><td class="text-white">Agendamiento confirmado</td><td>Confirma y recuerda la reunión</td></tr>
+        <tr><td class="font-mono text-violet-300">11</td><td class="text-white">Seguimiento programado</td><td>"Llámeme a fin de mes"</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 06 KB -->
+<section id="kb" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">06 / Base de conocimiento</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Lo que el bot sabe responder.</h2>
+  <div class="grid md:grid-cols-3 gap-3">
+    <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">Ramos &amp; aseguradoras</div><p class="text-sm text-zinc-400 leading-relaxed">Top 6 ramos, las 30 coberturas, y con qué aseguradoras trabajan (selección por historial de pago).</p></div>
+    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">FAQs</div><p class="text-sm text-zinc-400 leading-relaxed">Preguntas frecuentes inferidas del brief. ⏳ Daniel suma las reales del día a día.</p></div>
+    <div class="card card-rose"><div class="text-rose-300 text-sm font-medium mb-2">Guardrails (críticos)</div><p class="text-sm text-zinc-400 leading-relaxed">Respuestas fijas para precio, preexistencias, comparaciones y siniestros — el bot no improvisa en lo sensible.</p></div>
+  </div>
+</section>
+
+<!-- 07 CANAL -->
+<section id="canal" class="px-8 lg:px-16 py-16 border-b border-white/5">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">07 / Canal &amp; pricing</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">WhatsApp no oficial.</h2>
+  <div class="grid md:grid-cols-2 gap-3">
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">$39 / mes flat</div><p class="text-sm text-zinc-400 leading-relaxed">Proveedor externo (tipo Uplevel / WhatsApp.mx). Sin cobro por mensaje, sin aprobación de plantillas Meta. Mensajes con personalización directa.</p></div>
+    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">+ ~$20 / mes bot IA</div><p class="text-sm text-zinc-400 leading-relaxed">Consumo de tokens con 5-8 conversaciones/día. Aparte: pauta de Google Ads ($150 mín · $300 recomendado).</p></div>
+  </div>
+</section>
+
+<!-- 08 PENDIENTES -->
+<section id="pendientes" class="px-8 lg:px-16 py-16">
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">08 / Pendientes</div>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Para encender el sistema.</h2>
+  <div class="card card-amber">
+    <ul class="text-sm text-zinc-300 space-y-2 leading-relaxed">
+      <li>⏳ Decidir el CRM: retomar <em>Solution</em> o plataforma Escala (ambas Go High Level) — <b>Mauricio</b></li>
+      <li>⏳ Confirmar el número de WhatsApp/SMS comercial definitivo</li>
+      <li>⏳ Migrar la agenda a Google Calendar (hoy Thunderbird) para el agendamiento automático</li>
+      <li>⏳ Definir el presupuesto de pauta ($150 vs $300/mes)</li>
+      <li>⏳ Fichas por ramo + FAQs reales — <b>Daniel</b></li>
+      <li>⏳ Nombre propio del bot + frases de la casa — <b>Mauricio</b></li>
+      <li>⏳ KPIs a 3 meses</li>
+    </ul>
+  </div>
+  <p class="text-xs text-zinc-500 mt-6">Aprobación final: Mauricio Dávalos · Implementa: Escala Consultora (Montserrat Morcillo).</p>
+</section>
+
+<footer class="border-t border-white/5 py-8 text-center text-xs text-zinc-600">
+  Dávalos &amp; Asociados · Blueprint del Bot v0 · Escala Consultora · jun 2026
+</footer>
+
+</main>
+
+<script>
+  const links = document.querySelectorAll('.toc-link');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) {
+      const id = '#' + e.target.id;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+    }});
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => s && obs.observe(s));
+</script>
+</body>
+</html>
