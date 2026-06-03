@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blueprint Bot · Dávalos & Asociados · Escala Consultora</title>
+<title>Blueprint · Dávalos & Asociados · 2 bots + 2 pipelines · Escala Consultora</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +38,19 @@
   table.tbl td { padding:10px 11px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
   table.tbl tr:last-child td { border-bottom:none; }
   .flow-step { flex:1; min-width:120px; background: rgba(9,9,11,.55); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px; text-align:center; }
+  .kanban { display:flex; gap:8px; overflow-x:auto; padding-bottom:10px; align-items:stretch; }
+  .kanban::-webkit-scrollbar { height:6px; } .kanban::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:3px; }
+  .kstage { flex:0 0 196px; background: rgba(9,9,11,.6); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:13px; display:flex; flex-direction:column; }
+  .kstage.kbot { border-color: rgba(139,92,246,.35); } .kstage.khuman { border-color: rgba(59,130,246,.35); }
+  .kstage.kwin { border-color: rgba(16,185,129,.3); flex:0 0 150px; }
+  .kstep { font-family:'Geist Mono',monospace; font-size:10px; color:#71717a; }
+  .ktitle { font-size:14px; color:#fafafa; font-weight:500; margin:1px 0 8px; line-height:1.2; }
+  .kpills { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:7px; }
+  .kfields { font-size:11px; color:#a5f3fc; margin-top:auto; padding-top:8px; line-height:1.4; }
+  .kdesc { font-size:11.5px; color:#a1a1aa; line-height:1.45; }
+  .karrow { display:flex; align-items:center; color:#3f3f46; font-size:16px; flex:0 0 auto; padding:0 1px; }
+  .pill-sm { padding:1px 6px; font-size:10px; }
+  .wf-group { border-left:2px solid; padding-left:14px; margin-bottom:6px; }
   @media (max-width: 1024px) {
     .sidebar { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); transition: transform .25s; z-index: 50; width: 250px; background: #0a0a0a; }
     .sidebar.open { transform: translateX(0); } .menu-btn { display: inline-flex !important; } .main { margin-left: 0 !important; }
@@ -54,12 +67,12 @@
 <aside class="sidebar fixed top-0 left-0 h-screen w-[230px] border-r border-white/5 overflow-y-auto py-8 z-40">
   <div class="px-6 mb-8">
     <div class="font-mono text-[10px] tracking-widest text-zinc-500 mb-1">DÁVALOS &amp; ASOCIADOS</div>
-    <div class="text-sm font-medium text-white leading-tight">Blueprint del Bot</div>
-    <div class="text-[11px] text-zinc-500 mt-1">v0 · jun 2026</div>
+    <div class="text-sm font-medium text-white leading-tight">Blueprint del Sistema</div>
+    <div class="text-[11px] text-zinc-500 mt-1">v1 · SHARP CRM · jun 2026</div>
   </div>
   <nav>
     <a class="toc-link" href="#resumen"><span class="toc-num">01</span>Resumen</a>
-    <a class="toc-link" href="#bot"><span class="toc-num">02</span>Qué hace el bot</a>
+    <a class="toc-link" href="#bot"><span class="toc-num">02</span>Los 2 bots</a>
     <a class="toc-link" href="#pipelines"><span class="toc-num">03</span>Pipelines</a>
     <a class="toc-link" href="#campos"><span class="toc-num">04</span>Datos que captura</a>
     <a class="toc-link" href="#workflows"><span class="toc-num">05</span>Workflows</a>
@@ -75,13 +88,13 @@
 <section class="hero-grad px-8 lg:px-16 pt-20 pb-14 border-b border-white/5">
   <div class="max-w-4xl">
     <div class="flex items-center gap-2.5 mb-5 flex-wrap">
-      <span class="pill pill-violet">Bot calificador</span>
-      <span class="pill pill-cyan">Go High Level</span>
+      <span class="pill pill-violet">2 bots calificadores</span>
+      <span class="pill pill-cyan">SHARP CRM</span>
       <span class="pill pill-emerald">SMS no oficial</span>
       <span class="pill pill-amber">24/7</span>
     </div>
-    <h1 class="hero-title text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-4">Blueprint del Bot Comercial</h1>
-    <p class="text-lg text-zinc-400 max-w-3xl leading-relaxed serif-italic">Un asistente que califica cada lead por ramo, captura los datos para cotizar y se lo entrega ya listo al asesor correcto — para que el equipo solo cierre. Ataca la fuga #1: el seguimiento.</p>
+    <h1 class="hero-title text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-4">Blueprint del Sistema Comercial</h1>
+    <p class="text-lg text-zinc-400 max-w-3xl leading-relaxed serif-italic">Dos bots y dos embudos: la pauta separa corporativo de personal, cada lead cae en el bot que lo califica, captura los datos para cotizar y se lo entrega ya listo al asesor correcto — para que el equipo solo cierre.</p>
   </div>
 </section>
 
@@ -90,50 +103,64 @@
   <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">01 / Resumen</div>
   <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">El sistema en una imagen.</h2>
   <div class="flex flex-wrap items-stretch gap-2 mb-8">
-    <div class="flow-step"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Anuncio / nº directo</div></div>
+    <div class="flow-step"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Pauta Ads<br><span class="text-[11px] text-zinc-500">B2B / personal</span></div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp / SMS</div></div>
+    <div class="flow-step"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp / SMS<br><span class="text-[11px] text-zinc-500">frase de campaña</span></div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot califica 24/7</div></div>
+    <div class="flow-step"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot correcto califica<br><span class="text-[11px] text-zinc-500">corp / individual</span></div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Asesor cierra</div></div>
+    <div class="flow-step"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Asesor cierra<br><span class="text-[11px] text-zinc-500">Daniel / Vivi</span></div></div>
   </div>
   <div class="grid md:grid-cols-3 gap-3">
-    <div class="card card-violet"><div class="text-violet-300 text-sm font-medium mb-2">Un bot, dos segmentos</div><p class="text-sm text-zinc-400 leading-relaxed">Detecta si el lead es corporativo (Daniel) o individual — médica / vehículos (Vivi) — y califica según el ramo.</p></div>
-    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Respuesta en minutos</div><p class="text-sm text-zinc-400 leading-relaxed">Atiende 24/7, sin perder leads fuera de horario. El asesor recibe el lead ya calificado.</p></div>
-    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">+30% agendamientos</div><p class="text-sm text-zinc-400 leading-relaxed">Meta contractual. El seguimiento automático ataca la fuga principal del funnel.</p></div>
+    <div class="card card-violet"><div class="text-violet-300 text-sm font-medium mb-2">Dos bots, dos pipelines</div><p class="text-sm text-zinc-400 leading-relaxed">Bot Corporativo → Daniel · Bot Individual (médica / vehículos) → Vivi. Cada uno alimenta su propio embudo.</p></div>
+    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">La pauta hace el filtro</div><p class="text-sm text-zinc-400 leading-relaxed">La frase de cada campaña enruta el lead al bot correcto — sin que el cliente tenga que elegir nada.</p></div>
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Respuesta en minutos</div><p class="text-sm text-zinc-400 leading-relaxed">Atiende 24/7 y el asesor recibe el lead ya calificado. El seguimiento automático evita que se enfríe.</p></div>
   </div>
 </section>
 
 <!-- 02 BOT -->
 <section id="bot" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">02 / Qué hace el bot</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Asistente de Dávalos &amp; Asociados.</h2>
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">02 / Los 2 bots</div>
+  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">Dos bots, un solo número.</h2>
+  <p class="text-sm text-zinc-500 mb-8">El enrutamiento lo hace un <span class="pill pill-violet pill-sm">workflow If/Else</span> según la frase de la campaña — no un bot orquestador.</p>
+
+  <!-- Diagrama de enrutamiento -->
+  <div class="card mb-3">
+    <div class="text-xs font-mono text-zinc-500 mb-4">ENRUTAMIENTO POR FRASE DE CAMPAÑA</div>
+    <div class="flex flex-wrap items-stretch gap-2">
+      <div class="flow-step" style="text-align:left"><div class="text-emerald-300 text-xs font-mono mb-1">Trigger</div><div class="text-sm text-white">Customer Replied</div><div class="text-[11px] text-zinc-500 mt-1">Reply Channel = SMS</div></div>
+      <div class="flex items-center text-zinc-600 text-xl">→</div>
+      <div class="flow-step" style="text-align:left"><div class="text-violet-300 text-xs font-mono mb-1">If / Else</div><div class="text-sm text-white">¿qué frase trae?</div><div class="text-[11px] text-zinc-500 mt-1">message contains…</div></div>
+      <div class="flex items-center text-zinc-600 text-xl">→</div>
+      <div class="flex flex-col gap-2 flex-1 min-w-[220px]">
+        <div class="flow-step" style="text-align:left;border-color:rgba(6,182,212,.35)"><span class="pill pill-cyan pill-sm">frase B2B</span><div class="text-sm text-white mt-1">→ Bot Corporativo · Daniel</div></div>
+        <div class="flow-step" style="text-align:left;border-color:rgba(16,185,129,.35)"><span class="pill pill-emerald pill-sm">frase personal</span><div class="text-sm text-white mt-1">→ Bot Individual · Vivi</div></div>
+      </div>
+    </div>
+  </div>
+
   <div class="grid md:grid-cols-2 gap-3 mb-3">
-    <div class="card card-emerald">
-      <div class="text-emerald-300 text-sm font-medium mb-3">✓ Hace solo</div>
+    <div class="card card-cyan">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">Bot Corporativo</span><span class="text-xs text-zinc-500">→ Daniel</span></div>
       <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
-        <li>Presenta la agencia y detecta el segmento</li>
-        <li>Califica por ramo (recopila datos para cotizar)</li>
-        <li>Responde preguntas frecuentes</li>
-        <li>Captura nombre, teléfono y correo</li>
-        <li>Agenda / transfiere al asesor correcto</li>
-        <li>Sigue al lead a las 2h si no responde</li>
+        <li>Pregunta pólizas vigentes → valores asegurados</li>
+        <li>Una pregunta combinada: actividad + RUC + ramos + siniestralidad</li>
+        <li>Califica y agenda con Daniel</li>
       </ul>
     </div>
-    <div class="card card-amber">
-      <div class="text-amber-300 text-sm font-medium mb-3">→ Transfiere a humano si…</div>
+    <div class="card card-emerald">
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">Bot Individual</span><span class="text-xs text-zinc-500">→ Vivi</span></div>
       <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
-        <li>Pide cotización concreta → asesor del segmento</li>
-        <li>Siniestro / reembolso en curso → siniestros</li>
-        <li>Duda sobre su póliza vigente</li>
-        <li>Pide asesor / cuenta grande / ramo complejo</li>
+        <li>Detecta médica vs vehículos</li>
+        <li>Médica: seguro actual · presupuesto · tipo de plan</li>
+        <li>Vehículos: placa · cédula · seguro vigente</li>
+        <li>Califica y agenda con Vivi</li>
       </ul>
     </div>
   </div>
   <div class="card card-rose">
-    <div class="text-rose-300 text-sm font-medium mb-2">✕ El bot NUNCA</div>
-    <p class="text-sm text-zinc-400 leading-relaxed">Da primas exactas sin datos · compromete coberturas · compara aseguradoras por nombre · habla de siniestros de otros clientes · dice que todo está cubierto · confirma cobertura de preexistencias. <span class="text-zinc-300">Tono adaptable: B2B formal · B2C cercano · adultos mayores de "usted".</span></p>
+    <div class="text-rose-300 text-sm font-medium mb-2">✕ Los bots NUNCA</div>
+    <p class="text-sm text-zinc-400 leading-relaxed">Dan primas exactas sin datos · comprometen coberturas · comparan aseguradoras por nombre · hablan de siniestros de otros clientes · dicen que todo está cubierto · confirman cobertura de preexistencias. <span class="text-zinc-300">Tono adaptable: B2B formal · personal cercano · adultos mayores de "usted".</span></p>
   </div>
 </section>
 
@@ -141,78 +168,108 @@
 <section id="pipelines" class="px-8 lg:px-16 py-16 border-b border-white/5">
   <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">03 / Pipelines</div>
   <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">Dos embudos, dos ritmos.</h2>
-  <p class="text-sm text-zinc-500 mb-8">Zonas: <span class="pill pill-violet">bot</span> <span class="pill pill-cyan">humano</span> <span class="pill pill-emerald">ganado</span> <span class="pill pill-zinc">perdido</span></p>
-  <div class="grid md:grid-cols-2 gap-3">
-    <div class="card card-cyan">
-      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">B2B Corporativo</span><span class="text-xs text-zinc-500">Daniel · SLA 5 días</span></div>
-      <ol class="text-sm text-zinc-400 space-y-1 leading-relaxed list-decimal pl-5">
-        <li><span class="text-violet-300">Lead nuevo</span></li>
-        <li><span class="text-violet-300">Calificando</span></li>
-        <li>Calificado / Asignado</li>
-        <li>Información recibida</li>
-        <li>Cotizando</li>
-        <li>Propuesta enviada</li>
-        <li><span class="text-amber-300">En seguimiento ⚠</span></li>
-        <li>Negociación / ajuste</li>
-        <li><span class="text-emerald-300">Ganado</span> · Perdido</li>
-      </ol>
-    </div>
-    <div class="card card-emerald">
-      <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">B2C Individual</span><span class="text-xs text-zinc-500">Vivi · SLA 24-48h</span></div>
-      <ol class="text-sm text-zinc-400 space-y-1 leading-relaxed list-decimal pl-5">
-        <li><span class="text-violet-300">Lead nuevo</span></li>
-        <li><span class="text-violet-300">Calificando</span> (médica / vehículos)</li>
-        <li>Calificado / Asignado</li>
-        <li>Cotizando</li>
-        <li>Propuesta enviada</li>
-        <li><span class="text-amber-300">En seguimiento ⚠</span></li>
-        <li>Ajuste de alcance</li>
-        <li><span class="text-emerald-300">Ganado</span> · Perdido</li>
-      </ol>
-    </div>
+  <p class="text-sm text-zinc-500 mb-7">Zonas: <span class="pill pill-violet pill-sm">bot</span> <span class="pill" style="background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);color:#93c5fd">humano</span> <span class="pill pill-emerald pill-sm">ganado</span> <span class="pill pill-zinc pill-sm">perdido</span> · trigger <span class="pill pill-violet pill-sm">violeta</span> · SLA <span class="pill pill-amber pill-sm">ámbar</span> · campos <span class="pill pill-cyan pill-sm">celeste</span></p>
+
+  <!-- Pipeline Corporativo -->
+  <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">Pipeline Corporativo</span><span class="text-xs text-zinc-500">Daniel · SLA cotización 5 días (15 c/reaseguro)</span></div>
+  <div class="kanban mb-8">
+    <div class="kstage kbot"><div class="kstep">01</div><div class="ktitle">Lead nuevo</div><div class="kpills"><span class="pill pill-violet pill-sm">frase campaña B2B</span></div><p class="kdesc">El WF de entrada lo asigna a Daniel y activa el bot.</p><div class="kfields">Canal · Ramo</div></div>
+    <div class="karrow">→</div>
+    <div class="kstage kbot"><div class="kstep">02</div><div class="ktitle">Calificando</div><div class="kpills"><span class="pill pill-violet pill-sm">bot pregunta</span></div><p class="kdesc">Recopila los datos para cotizar.</p><div class="kfields">⭐ Pólizas vig · Valores · Actividad · RUC · Ramos · Siniestralidad</div></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">03</div><div class="ktitle">Calificado</div><div class="kpills"><span class="pill pill-violet pill-sm">3 ⭐ completos</span><span class="pill pill-amber pill-sm">&lt;30 min</span></div><p class="kdesc">El bot avisa a Daniel y le pasa el lead.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">04</div><div class="ktitle">Cotizando</div><div class="kpills"><span class="pill pill-amber pill-sm">5–15 días</span></div><p class="kdesc">Daniel cotiza multi-aseguradora. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">05</div><div class="ktitle">Propuesta enviada</div><p class="kdesc">Cuadro comparativo al cliente. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">06</div><div class="ktitle">En seguimiento</div><p class="kdesc">El cliente decide. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage kwin"><div class="kstep">—</div><div class="ktitle"><span class="text-emerald-300">Ganado</span> · Perdido</div><p class="kdesc">Cierre automático.</p></div>
+  </div>
+
+  <!-- Pipeline Individual -->
+  <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">Pipeline Individual</span><span class="text-xs text-zinc-500">Vivi · SLA cotización 24–48h</span></div>
+  <div class="kanban">
+    <div class="kstage kbot"><div class="kstep">01</div><div class="ktitle">Lead nuevo</div><div class="kpills"><span class="pill pill-violet pill-sm">frase campaña personal</span></div><p class="kdesc">El WF de entrada lo asigna a Vivi y activa el bot.</p><div class="kfields">Canal · Ramo</div></div>
+    <div class="karrow">→</div>
+    <div class="kstage kbot"><div class="kstep">02</div><div class="ktitle">Calificando</div><div class="kpills"><span class="pill pill-violet pill-sm">bot pregunta</span></div><p class="kdesc">Médica o vehículos, según lo que pida.</p><div class="kfields">⭐ Médica: seguro · presupuesto · plan · ⭐ Vehíc: placa · cédula · seguro vig</div></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">03</div><div class="ktitle">Calificado</div><div class="kpills"><span class="pill pill-violet pill-sm">3 ⭐ completos</span><span class="pill pill-amber pill-sm">&lt;30 min</span></div><p class="kdesc">El bot avisa a Vivi y le pasa el lead.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">04</div><div class="ktitle">Cotizando</div><div class="kpills"><span class="pill pill-amber pill-sm">24–48h</span></div><p class="kdesc">Vivi cotiza multi-aseguradora. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">05</div><div class="ktitle">Propuesta enviada</div><p class="kdesc">Cuadro comparativo al cliente. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage khuman"><div class="kstep">06</div><div class="ktitle">En seguimiento</div><p class="kdesc">El cliente decide. Manual.</p></div>
+    <div class="karrow">→</div>
+    <div class="kstage kwin"><div class="kstep">—</div><div class="ktitle"><span class="text-emerald-300">Ganado</span> · Perdido</div><p class="kdesc">Cierre automático.</p></div>
   </div>
 </section>
 
 <!-- 04 CAMPOS -->
 <section id="campos" class="px-8 lg:px-16 py-16 border-b border-white/5">
   <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">04 / Datos que captura</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">19 campos, según el ramo.</h2>
+  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">18 campos, agrupados por bot.</h2>
+  <p class="text-sm text-zinc-500 mb-8"><span class="text-amber-300">⭐</span> = campo calificador. Cuando los 3 ⭐ de un segmento están llenos, el lead pasa a <b class="text-zinc-300">Calificado</b> y el asesor recibe el aviso.</p>
   <div class="grid md:grid-cols-3 gap-3">
-    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">Corporativo</div><p class="text-sm text-zinc-400 leading-relaxed">RUC · Actividad · Ramos requeridos · Valores asegurados · Siniestralidad · Pólizas vigentes</p></div>
-    <div class="card"><div class="text-emerald-300 text-sm font-medium mb-2">Médica</div><p class="text-sm text-zinc-400 leading-relaxed">Seguro actual · Presupuesto · Tipo de plan · Fecha nac. · Género · Preexistencias</p></div>
-    <div class="card"><div class="text-amber-300 text-sm font-medium mb-2">Vehículos</div><p class="text-sm text-zinc-400 leading-relaxed">Placa / matrícula · Cédula · Seguro vigente</p></div>
+    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Bot Corporativo</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Pólizas vigentes · ⭐ Valores asegurados · ⭐ Actividad principal</span><br>+ RUC · Ramos requeridos · Siniestralidad <span class="text-zinc-500">(pregunta combinada)</span></p></div>
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Individual · Médica</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Seguro actual · ⭐ Presupuesto · ⭐ Tipo de plan</span><br>+ Fecha nac. · Género · Preexistencias <span class="text-zinc-500">(para cotizar)</span></p></div>
+    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Individual · Vehículos</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Placa / matrícula · ⭐ Cédula · ⭐ Seguro vigente</span></p></div>
   </div>
-  <p class="text-xs text-zinc-500 mt-4">El bot solo pregunta los campos del segmento detectado — no pide datos de vehículo a un lead médico.</p>
+  <p class="text-xs text-zinc-500 mt-4">Cada bot solo pregunta los campos de su carpeta. Todos son texto libre — los asesores los ven en la ficha del contacto.</p>
 </section>
 
 <!-- 05 WORKFLOWS -->
 <section id="workflows" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">05 / Workflows</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">11 automatizaciones.</h2>
-  <div class="card">
-    <table class="tbl">
-      <thead><tr><th>#</th><th>Workflow</th><th>Qué hace</th></tr></thead>
-      <tbody>
-        <tr><td class="font-mono text-violet-300">01</td><td class="text-white">Lead nuevo entrante</td><td>Saluda y activa el bot</td></tr>
-        <tr><td class="font-mono text-violet-300">02</td><td class="text-white">Routing + asignación B2B</td><td>Asigna a Daniel apenas entra</td></tr>
-        <tr><td class="font-mono text-violet-300">03</td><td class="text-white">Routing + asignación B2C</td><td>Asigna a Vivi apenas entra</td></tr>
-        <tr><td class="font-mono text-violet-300">04</td><td class="text-white">Handoff cotización</td><td>Entrega el lead calificado al asesor</td></tr>
-        <tr><td class="font-mono text-violet-300">05</td><td class="text-white">Handoff siniestro</td><td>Deriva a gestión de siniestros</td></tr>
-        <tr><td class="font-mono text-violet-300">06</td><td class="text-white">Handoff póliza vigente</td><td>Duda de cliente activo</td></tr>
-        <tr><td class="font-mono text-violet-300">07</td><td class="text-white">Handoff asesor / cuenta grande</td><td>Pedido explícito o ramo complejo</td></tr>
-        <tr><td class="font-mono text-violet-300">08</td><td class="text-white">Follow-up 2h</td><td>Recontacto contextual</td></tr>
-        <tr><td class="font-mono text-amber-300">09</td><td class="text-white">Follow-up post-propuesta ⚠</td><td>Secuencia 24h/72h — <b>fuga #1</b></td></tr>
-        <tr><td class="font-mono text-violet-300">10</td><td class="text-white">Agendamiento confirmado</td><td>Confirma y recuerda la reunión</td></tr>
-        <tr><td class="font-mono text-violet-300">11</td><td class="text-white">Seguimiento programado</td><td>"Llámeme a fin de mes"</td></tr>
-      </tbody>
-    </table>
+  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">05 / Automatizaciones</div>
+  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">6 automatizaciones, 3 grupos.</h2>
+  <p class="text-sm text-zinc-500 mb-8">Orden de carga: <b class="text-zinc-300">primero se crean todas las automatizaciones, después se linkean al bot</b> (el bot referencia los workflows que ya deben existir). El resto de etapas se gestiona manual.</p>
+
+  <div class="grid md:grid-cols-3 gap-3">
+    <!-- Grupo 1 -->
+    <div class="card card-cyan">
+      <div class="text-cyan-300 text-sm font-medium mb-3">① Nuevo Lead</div>
+      <div class="wf-group" style="border-color:rgba(6,182,212,.4)">
+        <div class="text-sm text-white">Entrada B2B</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">Frase campaña B2B → Pipeline Corporativo + asigna Daniel + <b>avisa nuevo lead</b> + activa Bot Corporativo.</p>
+      </div>
+      <div class="wf-group" style="border-color:rgba(6,182,212,.4)">
+        <div class="text-sm text-white">Entrada Personal</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">Frase campaña personal → Pipeline Individual + asigna Vivi + <b>avisa nuevo lead</b> + activa Bot Individual.</p>
+      </div>
+    </div>
+    <!-- Grupo 2 -->
+    <div class="card card-violet">
+      <div class="text-violet-300 text-sm font-medium mb-3">② Bot</div>
+      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
+        <div class="text-sm text-white">Lead Calificado (corp / indiv)</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">Bot completó los 3 ⭐ → mueve a Calificado + notifica al asesor + detiene el bot.</p>
+      </div>
+      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
+        <div class="text-sm text-white">Seguimiento si no responde</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">La "rama": recontacta a 2h / 24h / 72h; cualquier respuesta lo corta; silencio total → Perdido.</p>
+      </div>
+      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
+        <div class="text-sm text-white">Seguimiento con bot IA</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">Auto Follow-Up: mensaje contextual del bot a las 2h si el lead se queda callado.</p>
+      </div>
+    </div>
+    <!-- Grupo 3 -->
+    <div class="card card-amber">
+      <div class="text-amber-300 text-sm font-medium mb-3">③ Agendamiento</div>
+      <div class="wf-group" style="border-color:rgba(245,158,11,.4)">
+        <div class="text-sm text-white">Recordatorios de cita</div>
+        <p class="text-xs text-zinc-400 leading-relaxed">Cuando el bot agenda: confirmación + recordatorios a 24h / 2h / 15min. Sirve para ambos segmentos.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- 06 KB -->
 <section id="kb" class="px-8 lg:px-16 py-16 border-b border-white/5">
   <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">06 / Base de conocimiento</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Lo que el bot sabe responder.</h2>
+  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Lo que los bots saben responder.</h2>
   <div class="grid md:grid-cols-3 gap-3">
     <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">Ramos &amp; aseguradoras</div><p class="text-sm text-zinc-400 leading-relaxed">Top 6 ramos, las 30 coberturas, y con qué aseguradoras trabajan (selección por historial de pago).</p></div>
     <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">FAQs</div><p class="text-sm text-zinc-400 leading-relaxed">Preguntas frecuentes inferidas del brief. ⏳ Daniel suma las reales del día a día.</p></div>
@@ -236,12 +293,14 @@
   <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Para encender el sistema.</h2>
   <div class="card card-amber">
     <ul class="text-sm text-zinc-300 space-y-2 leading-relaxed">
-      <li>⏳ Decidir el CRM: retomar <em>Solution</em> o plataforma Escala (ambas Go High Level) — <b>Mauricio</b></li>
+      <li>✅ CRM definido: <b>SHARP CRM</b> (marca blanca de Go High Level)</li>
+      <li>⏳ Definir las <b>frases exactas de cada campaña</b> (B2B / personal) para el filtro de entrada — <b>Daniel / Escala</b></li>
+      <li>⏳ Confirmar con el cliente la pregunta combinada de corporativo (actividad + RUC + ramos + siniestralidad)</li>
       <li>⏳ Confirmar el número de WhatsApp/SMS comercial definitivo</li>
-      <li>⏳ Migrar la agenda a Google Calendar (hoy Thunderbird) para el agendamiento automático</li>
+      <li>⏳ Migrar la agenda a Google Calendar (hoy Thunderbird) para los recordatorios automáticos</li>
       <li>⏳ Definir el presupuesto de pauta ($150 vs $300/mes)</li>
       <li>⏳ Fichas por ramo + FAQs reales — <b>Daniel</b></li>
-      <li>⏳ Nombre propio del bot + frases de la casa — <b>Mauricio</b></li>
+      <li>⏳ Nombre propio de los bots + frases de la casa — <b>Mauricio</b></li>
       <li>⏳ KPIs a 3 meses</li>
     </ul>
   </div>
@@ -249,7 +308,7 @@
 </section>
 
 <footer class="border-t border-white/5 py-8 text-center text-xs text-zinc-600">
-  Dávalos &amp; Asociados · Blueprint del Bot v0 · Escala Consultora · jun 2026
+  Dávalos &amp; Asociados · Blueprint del Sistema v1 · SHARP CRM · Escala Consultora · jun 2026
 </footer>
 
 </main>
