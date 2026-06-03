@@ -141,12 +141,14 @@
 
   <div class="grid md:grid-cols-2 gap-3 mb-3">
     <div class="card card-cyan">
-      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">Bot Corporativo</span><span class="text-xs text-zinc-500">→ Daniel</span></div>
-      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
-        <li>Pregunta pólizas vigentes → valores asegurados</li>
-        <li>Una pregunta combinada: actividad + RUC + ramos + siniestralidad</li>
-        <li>Califica y agenda con Daniel</li>
-      </ul>
+      <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">Bot Corporativo</span><span class="text-xs text-zinc-500">→ Daniel · 🥇 primero</span></div>
+      <p class="text-xs text-zinc-500 mb-2">4 preguntas exactas. Responderlas = calificado. No pide RUC.</p>
+      <ol class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-decimal pl-4">
+        <li>Finalización de la vigencia</li>
+        <li>Actividad de la empresa</li>
+        <li>Ramos requeridos y valores asegurados (o listado de bienes)</li>
+        <li>Siniestros en los últimos 5 años (cuáles y monto)</li>
+      </ol>
     </div>
     <div class="card card-emerald">
       <div class="flex items-center gap-2 mb-3"><span class="pill pill-emerald">Bot Individual</span><span class="text-xs text-zinc-500">→ Vivi</span></div>
@@ -175,9 +177,9 @@
   <div class="kanban mb-8">
     <div class="kstage kbot"><div class="kstep">01</div><div class="ktitle">Lead nuevo</div><div class="kpills"><span class="pill pill-violet pill-sm">frase campaña B2B</span></div><p class="kdesc">El WF de entrada lo asigna a Daniel y activa el bot.</p><div class="kfields">Canal · Ramo</div></div>
     <div class="karrow">→</div>
-    <div class="kstage kbot"><div class="kstep">02</div><div class="ktitle">Calificando</div><div class="kpills"><span class="pill pill-violet pill-sm">bot pregunta</span></div><p class="kdesc">Recopila los datos para cotizar.</p><div class="kfields">⭐ Pólizas vig · Valores · Actividad · RUC · Ramos · Siniestralidad</div></div>
+    <div class="kstage kbot"><div class="kstep">02</div><div class="ktitle">Calificando</div><div class="kpills"><span class="pill pill-violet pill-sm">4 preguntas</span></div><p class="kdesc">Vigencia · actividad · ramos+valores · siniestros 5 años.</p><div class="kfields">⭐ Las 4 respondidas → calificado</div></div>
     <div class="karrow">→</div>
-    <div class="kstage khuman"><div class="kstep">03</div><div class="ktitle">Calificado</div><div class="kpills"><span class="pill pill-violet pill-sm">3 ⭐ completos</span><span class="pill pill-amber pill-sm">&lt;30 min</span></div><p class="kdesc">El bot avisa a Daniel y le pasa el lead.</p></div>
+    <div class="kstage khuman"><div class="kstep">03</div><div class="ktitle">Calificado</div><div class="kpills"><span class="pill pill-violet pill-sm">4 preguntas OK</span><span class="pill pill-amber pill-sm">&lt;30 min</span></div><p class="kdesc">El bot avisa a Daniel y le pasa el lead.</p></div>
     <div class="karrow">→</div>
     <div class="kstage khuman"><div class="kstep">04</div><div class="ktitle">Cotizando</div><div class="kpills"><span class="pill pill-amber pill-sm">5–15 días</span></div><p class="kdesc">Daniel cotiza multi-aseguradora. Manual.</p></div>
     <div class="karrow">→</div>
@@ -211,9 +213,9 @@
 <section id="campos" class="px-8 lg:px-16 py-16 border-b border-white/5">
   <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">04 / Datos que captura</div>
   <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">18 campos, agrupados por bot.</h2>
-  <p class="text-sm text-zinc-500 mb-8"><span class="text-amber-300">⭐</span> = campo calificador. Cuando los 3 ⭐ de un segmento están llenos, el lead pasa a <b class="text-zinc-300">Calificado</b> y el asesor recibe el aviso.</p>
+  <p class="text-sm text-zinc-500 mb-8"><span class="text-amber-300">⭐</span> = campo calificador. Cuando el lead responde las preguntas calificadoras de su segmento (4 en corporativo · 3 en individual), pasa a <b class="text-zinc-300">Calificado</b> y el asesor recibe el aviso.</p>
   <div class="grid md:grid-cols-3 gap-3">
-    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Bot Corporativo</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Pólizas vigentes · ⭐ Valores asegurados · ⭐ Actividad principal</span><br>+ RUC · Ramos requeridos · Siniestralidad <span class="text-zinc-500">(pregunta combinada)</span></p></div>
+    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Bot Corporativo <span class="text-zinc-500">· 4 preguntas</span></div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Finalización de vigencia · ⭐ Actividad · ⭐ Ramos + valores asegurados · ⭐ Siniestros 5 años</span><br><span class="text-zinc-500">RUC lo toma el asesor, no el bot.</span></p></div>
     <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Individual · Médica</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Seguro actual · ⭐ Presupuesto · ⭐ Tipo de plan</span><br>+ Fecha nac. · Género · Preexistencias <span class="text-zinc-500">(para cotizar)</span></p></div>
     <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Individual · Vehículos</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Placa / matrícula · ⭐ Cédula · ⭐ Seguro vigente</span></p></div>
   </div>
@@ -244,7 +246,7 @@
       <div class="text-violet-300 text-sm font-medium mb-3">② Bot</div>
       <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
         <div class="text-sm text-white">Lead Calificado (corp / indiv)</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">Bot completó los 3 ⭐ → mueve a Calificado + notifica al asesor + detiene el bot.</p>
+        <p class="text-xs text-zinc-400 leading-relaxed">El bot completó las preguntas calificadoras (4 corp · 3 indiv) → mueve a Calificado + notifica al asesor + detiene el bot.</p>
       </div>
       <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
         <div class="text-sm text-white">Seguimiento si no responde</div>
@@ -294,8 +296,8 @@
   <div class="card card-amber">
     <ul class="text-sm text-zinc-300 space-y-2 leading-relaxed">
       <li>✅ CRM definido: <b>SHARP CRM</b> (marca blanca de Go High Level)</li>
+      <li>✅ Filtro del Bot Corporativo definido: <b>4 preguntas</b> (vigencia · actividad · ramos+valores · siniestros 5 años) — se implementa primero</li>
       <li>⏳ Definir las <b>frases exactas de cada campaña</b> (B2B / personal) para el filtro de entrada — <b>Daniel / Escala</b></li>
-      <li>⏳ Confirmar con el cliente la pregunta combinada de corporativo (actividad + RUC + ramos + siniestralidad)</li>
       <li>⏳ Confirmar el número de WhatsApp/SMS comercial definitivo</li>
       <li>⏳ Migrar la agenda a Google Calendar (hoy Thunderbird) para los recordatorios automáticos</li>
       <li>⏳ Definir el presupuesto de pauta ($150 vs $300/mes)</li>
