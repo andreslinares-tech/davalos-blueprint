@@ -1,92 +1,120 @@
 <!DOCTYPE html>
 <html lang="es" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blueprint · Dávalos & Asociados · Bot B2B + Pipeline Corporativo · Escala Consultora</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
-<style>
-  :root { color-scheme: dark; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Geist', system-ui, sans-serif; background: #0a0a0a; color: #e4e4e7; -webkit-font-smoothing: antialiased; }
-  .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
-  .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
-  .grain::before { content:''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; z-index: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  .pill { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11px; font-family: 'Geist Mono', monospace; line-height: 1.5; }
-  .pill-violet { background: rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
-  .pill-cyan { background: rgba(6,182,212,.15); border:1px solid rgba(6,182,212,.3); color:#a5f3fc; }
-  .pill-emerald { background: rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.3); color:#a7f3d0; }
-  .pill-amber { background: rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3); color:#fcd34d; }
-  .pill-rose { background: rgba(244,63,94,.18); border:1px solid rgba(244,63,94,.4); color:#fda4af; }
-  .pill-zinc { background: rgba(161,161,170,.12); border:1px solid rgba(161,161,170,.25); color:#d4d4d8; }
-  .card { background: rgba(9,9,11,.55); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 22px; transition: border-color .2s; }
-  .card:hover { border-color: rgba(255,255,255,.14); }
-  .card-violet { border-color: rgba(139,92,246,.3); } .card-cyan { border-color: rgba(6,182,212,.3); }
-  .card-emerald { border-color: rgba(16,185,129,.3); } .card-amber { background: rgba(40,28,8,.35); border-color: rgba(245,158,11,.3); }
-  .card-rose { background: rgba(40,10,18,.4); border-color: rgba(244,63,94,.3); }
-  .hero-grad { background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,92,246,.2), transparent 50%), radial-gradient(ellipse 60% 60% at 78% 35%, rgba(6,182,212,.13), transparent 55%); }
-  .hero-title { background: linear-gradient(180deg, #fafafa 0%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .toc-link { padding: 6px 14px; display: block; font-size: 13px; color: #a1a1aa; border-left: 2px solid transparent; transition: all .15s; }
-  .toc-link:hover, .toc-link.active { color: #fff; border-left-color: #8b5cf6; }
-  .toc-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: #71717a; margin-right: 10px; }
-  table.tbl { width:100%; border-collapse: collapse; font-size: 13px; }
-  table.tbl th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#71717a; padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.08); }
-  table.tbl td { padding:10px 11px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
-  table.tbl tr:last-child td { border-bottom:none; }
-  .flow-step { flex:1; min-width:120px; background: rgba(9,9,11,.55); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px; text-align:center; }
-  .kanban { display:flex; gap:8px; overflow-x:auto; padding-bottom:10px; align-items:stretch; }
-  .kanban::-webkit-scrollbar { height:6px; } .kanban::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:3px; }
-  .kstage { flex:0 0 196px; background: rgba(9,9,11,.6); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:13px; display:flex; flex-direction:column; }
-  .kstage.kbot { border-color: rgba(139,92,246,.35); } .kstage.khuman { border-color: rgba(59,130,246,.35); }
-  .kstage.kwin { border-color: rgba(16,185,129,.3); flex:0 0 150px; }
-  .kstep { font-family:'Geist Mono',monospace; font-size:10px; color:#71717a; }
-  .ktitle { font-size:14px; color:#fafafa; font-weight:500; margin:1px 0 8px; line-height:1.2; }
-  .kpills { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:7px; }
-  .kfields { font-size:11px; color:#a5f3fc; margin-top:auto; padding-top:8px; line-height:1.4; }
-  .kdesc { font-size:11.5px; color:#a1a1aa; line-height:1.45; }
-  .karrow { display:flex; align-items:center; color:#3f3f46; font-size:16px; flex:0 0 auto; padding:0 1px; }
-  .pill-sm { padding:1px 6px; font-size:10px; }
-  .wf-group { border-left:2px solid; padding-left:14px; margin-bottom:6px; }
-  @media (max-width: 1024px) {
-    .sidebar { position: fixed; inset: 0 auto 0 0; transform: translateX(-100%); transition: transform .25s; z-index: 50; width: 250px; background: #0a0a0a; }
-    .sidebar.open { transform: translateX(0); } .menu-btn { display: inline-flex !important; } .main { margin-left: 0 !important; }
-  }
-  .menu-btn { display: none; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blueprint del Sistema · Bot Corporativo · Dávalos & Asociados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: 'Geist', system-ui, sans-serif; background:#0a0a0a; color:#e4e4e7; }
+    .font-mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+    .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+    html { scroll-behavior: smooth; }
+    .grain::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:0.015; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .hero-grad { background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,92,246,.18), transparent 50%), radial-gradient(ellipse 60% 60% at 80% 30%, rgba(6,182,212,.12), transparent 55%); }
+    .hero-title { background: linear-gradient(180deg,#fafafa,#a1a1aa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    aside.toc { position:fixed; top:0; left:0; height:100vh; width:248px; overflow-y:auto; border-right:1px solid rgba(255,255,255,.05); padding:28px 14px; z-index:40; }
+    aside.toc::-webkit-scrollbar { width:5px; } aside.toc::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:3px; }
+    .toc-link { display:block; padding:5px 12px; font-size:13px; color:#a1a1aa; border-left:2px solid transparent; transition:all .15s; }
+    .toc-link:hover, .toc-link.active { color:#fff; border-left-color:#8b5cf6; }
+    .toc-link.sub { padding-left:24px; font-size:12px; }
+    .toc-group { font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#52525b; padding:14px 12px 4px; }
+    main.main { margin-left:248px; }
+    section.sec { padding:60px 40px; border-bottom:1px solid rgba(255,255,255,.05); max-width:1080px; }
+    .sec-num { font-family:'Geist Mono',monospace; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:#71717a; margin-bottom:10px; }
+    .sec h2 { font-size:26px; font-weight:600; letter-spacing:-.02em; color:#fafafa; }
+    .card { background:rgba(9,9,11,.5); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:22px; }
+    .action-card { background: rgba(9,9,11,.5); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:20px; position:relative; }
+    .action-grid { display:grid; grid-template-columns:220px 1fr; gap:12px 18px; align-items:start; }
+    @media (max-width:768px){ .action-grid{ grid-template-columns:1fr; gap:4px; } main.main{ margin-left:0; } aside.toc{ display:none; } }
+    .pill { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-family:'Geist Mono',ui-monospace,monospace; }
+    .pill-violet { background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
+    .pill-amber { background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3); color:#fcd34d; }
+    .pill-cyan { background:rgba(6,182,212,.15); border:1px solid rgba(6,182,212,.3); color:#a5f3fc; }
+    .pill-emerald { background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.3); color:#a7f3d0; }
+    .pill-rose { background:rgba(244,63,94,.15); border:1px solid rgba(244,63,94,.3); color:#fda4af; }
+    .pill-blue { background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.3); color:#93c5fd; }
+    .pill-zinc { background:rgba(113,113,122,.15); border:1px solid rgba(113,113,122,.3); color:#d4d4d8; }
+    /* Prompt / código copiable */
+    .prompt-wrap { position:relative; }
+    .prompt-block { background:rgba(15,12,28,.6); border:1px solid rgba(139,92,246,.18); border-left:3px solid rgba(139,92,246,.5); border-radius:12px; padding:42px 20px 18px; font-family:'Geist Mono',monospace; font-size:12px; line-height:1.65; color:#fff; white-space:pre-wrap; overflow-x:auto; }
+    .prompt-block.amber { border:1px solid rgba(245,158,11,.2); border-left:3px solid rgba(245,158,11,.5); background:rgba(28,22,12,.6); }
+    .copy-btn { position:absolute; top:10px; right:12px; background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.35); color:#c4b5fd; padding:5px 10px; border-radius:8px; font-family:'Geist Mono',monospace; font-size:11px; display:inline-flex; align-items:center; gap:5px; cursor:pointer; transition:all .15s; opacity:.85; z-index:2; }
+    .copy-btn:hover { opacity:1; background:rgba(139,92,246,.28); }
+    .copy-btn.copied { background:rgba(16,185,129,.18); border-color:rgba(16,185,129,.5); color:#a7f3d0; opacity:1; }
+    @media print { .copy-btn { display:none; } }
+    /* Workflow expandible */
+    details.wf-card { background:rgba(9,9,11,.5); border:1px solid rgba(255,255,255,.08); border-radius:16px; margin-bottom:14px; overflow:hidden; transition:border-color .15s; }
+    details.wf-card[open] { border-color:rgba(139,92,246,.25); }
+    details.wf-card > summary { padding:18px 22px; cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    details.wf-card > summary::-webkit-details-marker { display:none; }
+    details.wf-card > summary::after { content:'＋'; font-family:'Geist Mono',monospace; color:#8b5cf6; font-size:18px; flex-shrink:0; }
+    details.wf-card[open] > summary::after { content:'−'; }
+    details.wf-card > .wf-body { padding:0 22px 22px; border-top:1px solid rgba(255,255,255,.04); padding-top:18px; }
+    /* step table */
+    .step-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .step-table th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#a1a1aa; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06); font-weight:500; }
+    .step-table td { padding:11px 14px; vertical-align:top; border-bottom:1px solid rgba(255,255,255,.04); color:#d4d4d8; line-height:1.6; }
+    .step-table td:first-child { font-weight:500; color:#fff; width:200px; }
+    .step-table tr:last-child td { border-bottom:none; }
+    .step-table code, .ic { font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd; }
+    /* kanban */
+    .kanban { display:flex; gap:10px; overflow-x:auto; padding-bottom:12px; }
+    .kanban::-webkit-scrollbar { height:7px; } .kanban::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:4px; }
+    .stage-card { flex-shrink:0; width:240px; border-radius:14px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); overflow:hidden; display:flex; flex-direction:column; }
+    .stage-card .accent { height:6px; }
+    .stage-card .body { padding:15px; display:flex; flex-direction:column; gap:9px; flex:1; }
+    .stage-card .t { font-size:15px; font-weight:500; color:#fafafa; }
+    .stage-card .desc { font-size:11.5px; color:#a1a1aa; line-height:1.55; margin-top:auto; padding-top:8px; border-top:1px solid rgba(255,255,255,.04); }
+    .step-num { font-family:'Geist Mono',monospace; font-size:10px; color:#71717a; }
+    table.tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    table.tbl th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#71717a; padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.08); }
+    table.tbl td { padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
+    table.tbl tr:last-child td { border-bottom:none; }
+    .check { display:flex; gap:10px; align-items:flex-start; padding:7px 0; color:#d4d4d8; font-size:13.5px; line-height:1.5; }
+    .check .bx { color:#52525b; flex-shrink:0; }
+  </style>
 </head>
 <body class="grain">
 
-<button class="menu-btn fixed top-4 left-4 z-[60] bg-zinc-900/80 border border-white/10 rounded-lg p-2" onclick="document.querySelector('.sidebar').classList.toggle('open')">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-</button>
-
-<aside class="sidebar fixed top-0 left-0 h-screen w-[230px] border-r border-white/5 overflow-y-auto py-8 z-40">
-  <div class="px-6 mb-8">
-    <div class="font-mono text-[10px] tracking-widest text-zinc-500 mb-1">DÁVALOS &amp; ASOCIADOS</div>
-    <div class="text-sm font-medium text-white leading-tight">Blueprint del Sistema</div>
-    <div class="text-[11px] text-zinc-500 mt-1">v1 · SHARP CRM · jun 2026</div>
+<aside class="toc">
+  <div class="px-3 mb-4">
+    <div class="font-mono text-[10px] tracking-widest text-zinc-500">DÁVALOS &amp; ASOCIADOS</div>
+    <div class="text-sm font-medium text-white leading-tight mt-1">Blueprint del Sistema</div>
+    <div class="text-[11px] text-zinc-500 mt-1">v2 · SHARP CRM · B2B</div>
   </div>
   <nav>
-    <a class="toc-link" href="#resumen"><span class="toc-num">01</span>Resumen</a>
-    <a class="toc-link" href="#bot"><span class="toc-num">02</span>El bot</a>
-    <a class="toc-link" href="#pipelines"><span class="toc-num">03</span>Pipelines</a>
-    <a class="toc-link" href="#campos"><span class="toc-num">04</span>Datos que captura</a>
-    <a class="toc-link" href="#workflows"><span class="toc-num">05</span>Workflows</a>
-    <a class="toc-link" href="#kb"><span class="toc-num">06</span>Conocimiento</a>
-    <a class="toc-link" href="#canal"><span class="toc-num">07</span>Canal &amp; pricing</a>
-    <a class="toc-link" href="#pendientes"><span class="toc-num">08</span>Pendientes</a>
+    <a class="toc-link" href="#resumen">01 · Resumen</a>
+    <a class="toc-link" href="#pipeline">02 · Pipeline</a>
+    <a class="toc-link" href="#datos">03 · Campos · Values · Tags</a>
+    <div class="toc-group">Automatizaciones</div>
+    <a class="toc-link sub" href="#auto-mapa">04 · Mapa por etapa</a>
+    <a class="toc-link sub" href="#auto-wf">05 · Workflows (doble entrega)</a>
+    <div class="toc-group">Bot Corporativo</div>
+    <a class="toc-link sub" href="#bot-que">06 · Qué hace</a>
+    <a class="toc-link sub" href="#bot-prompts">07 · Prompts (3 campos)</a>
+    <a class="toc-link sub" href="#bot-actions">08 · Bot Actions</a>
+    <a class="toc-link sub" href="#bot-cf">09 · Add Contact Info</a>
+    <div class="toc-group">Soporte</div>
+    <a class="toc-link sub" href="#kb">10 · Knowledge Base</a>
+    <a class="toc-link sub" href="#sms">11 · Mensajes SMS</a>
+    <a class="toc-link sub" href="#pricing">12 · Pricing</a>
+    <a class="toc-link sub" href="#roadmap">13 · Roadmap</a>
+    <a class="toc-link sub" href="#riesgos">14 · Riesgos</a>
+    <a class="toc-link sub" href="#checklist">15 · Checklist go-live</a>
   </nav>
 </aside>
 
-<main class="main relative z-10" style="margin-left: 230px;">
+<main class="main relative z-10">
 
 <!-- HERO -->
-<section class="hero-grad px-8 lg:px-16 pt-20 pb-14 border-b border-white/5">
-  <div class="max-w-4xl">
+<section class="hero-grad px-10 lg:px-14 pt-20 pb-14 border-b border-white/5">
+  <div class="max-w-3xl">
     <div class="flex items-center gap-2.5 mb-5 flex-wrap">
       <span class="pill pill-violet">Bot calificador B2B</span>
       <span class="pill pill-cyan">SHARP CRM</span>
@@ -94,189 +122,543 @@
       <span class="pill pill-amber">24/7</span>
     </div>
     <h1 class="hero-title text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] mb-4">Blueprint del Sistema Comercial</h1>
-    <p class="text-lg text-zinc-400 max-w-3xl leading-relaxed serif-italic">Un bot corporativo que califica cada lead con 4 preguntas, captura los datos para cotizar y se lo entrega ya listo a Daniel — para que el equipo solo cierre. (Empezamos con B2B; el segmento personal queda para una fase posterior.)</p>
+    <p class="text-lg text-zinc-400 leading-relaxed serif-italic">Un bot corporativo que califica cada lead con 4 preguntas, captura los datos para cotizar y se lo entrega ya listo a Daniel — para que el equipo solo cierre. Todo el sistema, en un solo documento.</p>
+    <p class="text-xs text-zinc-600 mt-4 font-mono">Fase 1 · solo B2B (empresas) · el segmento personal queda para una fase posterior.</p>
   </div>
 </section>
 
 <!-- 01 RESUMEN -->
-<section id="resumen" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">01 / Resumen</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">El sistema en una imagen.</h2>
+<section id="resumen" class="sec">
+  <div class="sec-num">01 / Resumen</div>
+  <h2 class="mb-2">El sistema en una imagen.</h2>
+  <p class="text-sm text-zinc-500 mb-7 max-w-2xl">La pauta B2B trae al lead por WhatsApp/SMS. El bot lo califica con 4 preguntas y, al responderlas, queda Calificado y pasa a Daniel. El seguimiento automático evita que se enfríe.</p>
   <div class="flex flex-wrap items-stretch gap-2 mb-8">
-    <div class="flow-step"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Pauta Ads<br><span class="text-[11px] text-zinc-500">B2B / empresas</span></div></div>
+    <div class="card !p-4 flex-1 min-w-[140px]"><div class="text-cyan-300 text-xs font-mono mb-1">01</div><div class="text-sm text-white">Pauta Ads B2B</div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp / SMS<br><span class="text-[11px] text-zinc-500">entra el lead</span></div></div>
+    <div class="card !p-4 flex-1 min-w-[140px]"><div class="text-emerald-300 text-xs font-mono mb-1">02</div><div class="text-sm text-white">WhatsApp / SMS</div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot califica<br><span class="text-[11px] text-zinc-500">4 preguntas</span></div></div>
+    <div class="card !p-4 flex-1 min-w-[140px]"><div class="text-violet-300 text-xs font-mono mb-1">03</div><div class="text-sm text-white">Bot · 4 preguntas</div></div>
     <div class="flex items-center text-zinc-600 text-xl">→</div>
-    <div class="flow-step"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Daniel cierra<br><span class="text-[11px] text-zinc-500">lead calificado</span></div></div>
+    <div class="card !p-4 flex-1 min-w-[140px]"><div class="text-amber-300 text-xs font-mono mb-1">04</div><div class="text-sm text-white">Daniel cierra</div></div>
   </div>
   <div class="grid md:grid-cols-3 gap-3">
-    <div class="card card-violet"><div class="text-violet-300 text-sm font-medium mb-2">Un bot, un pipeline (B2B)</div><p class="text-sm text-zinc-400 leading-relaxed">Bot Corporativo → Pipeline Corporativo → Daniel. Arrancamos con empresas; el segmento personal queda para una fase posterior.</p></div>
-    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Filtro de 4 preguntas</div><p class="text-sm text-zinc-400 leading-relaxed">El bot pregunta solo 4 cosas; si el lead las responde, ya está calificado y listo para cotizar.</p></div>
-    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">Respuesta en minutos</div><p class="text-sm text-zinc-400 leading-relaxed">Atiende 24/7 y Daniel recibe el lead ya calificado. El seguimiento automático evita que se enfríe.</p></div>
+    <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">1 bot · 1 pipeline</div><p class="text-sm text-zinc-400 leading-relaxed">Bot Corporativo → Pipeline Corporativo → Daniel Dávalos.</p></div>
+    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">Filtro de 4 preguntas</div><p class="text-sm text-zinc-400 leading-relaxed">Vigencia · actividad · ramos+valores · siniestros 5 años. Responde las 4 → Calificado.</p></div>
+    <div class="card"><div class="text-emerald-300 text-sm font-medium mb-2">5 automatizaciones</div><p class="text-sm text-zinc-400 leading-relaxed">Nuevo lead · lead calificado · seguimiento si no responde · follow-up IA · recordatorios.</p></div>
   </div>
 </section>
 
-<!-- 02 BOT -->
-<section id="bot" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">02 / El bot</div>
-  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">Bot Corporativo · 4 preguntas.</h2>
-  <p class="text-sm text-zinc-500 mb-8">El lead entra por WhatsApp/SMS, el bot se activa y hace <b class="text-zinc-300">solo estas 4 preguntas</b>. Si las responde, queda calificado y pasa a Daniel. No pide RUC (lo toma el asesor al cotizar).</p>
-
-  <div class="card card-cyan mb-3">
-    <div class="flex items-center gap-2 mb-4"><span class="pill pill-cyan">Bot Corporativo</span><span class="text-xs text-zinc-500">→ Daniel · 24/7</span></div>
-    <div class="grid sm:grid-cols-2 gap-2.5">
-      <div class="flow-step" style="text-align:left"><div class="text-violet-300 text-xs font-mono mb-1">Pregunta 1</div><div class="text-sm text-white">Finalización de la vigencia</div></div>
-      <div class="flow-step" style="text-align:left"><div class="text-violet-300 text-xs font-mono mb-1">Pregunta 2</div><div class="text-sm text-white">Actividad de la empresa</div></div>
-      <div class="flow-step" style="text-align:left"><div class="text-violet-300 text-xs font-mono mb-1">Pregunta 3</div><div class="text-sm text-white">Ramos requeridos y valores asegurados <span class="text-zinc-500">(o listado de bienes)</span></div></div>
-      <div class="flow-step" style="text-align:left"><div class="text-violet-300 text-xs font-mono mb-1">Pregunta 4</div><div class="text-sm text-white">Siniestros en los últimos 5 años <span class="text-zinc-500">(cuáles y monto)</span></div></div>
-    </div>
-    <p class="text-sm text-emerald-300/90 mt-4">✓ Responde las 4 → <b>Calificado</b> → notifica a Daniel + puede agendar reunión.</p>
-  </div>
-  <div class="card card-rose">
-    <div class="text-rose-300 text-sm font-medium mb-2">✕ El bot NUNCA</div>
-    <p class="text-sm text-zinc-400 leading-relaxed">Da primas exactas sin datos · compromete coberturas · compara aseguradoras por nombre · habla de siniestros de otros clientes · dice que todo está cubierto. <span class="text-zinc-300">Tono ejecutivo, técnico y al grano (B2B).</span></p>
-  </div>
-</section>
-
-<!-- 03 PIPELINES -->
-<section id="pipelines" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">03 / Pipeline</div>
-  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">El embudo comercial.</h2>
-  <p class="text-sm text-zinc-500 mb-7">Zonas: <span class="pill pill-violet pill-sm">bot</span> <span class="pill" style="background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);color:#93c5fd">humano</span> <span class="pill pill-emerald pill-sm">ganado</span> <span class="pill pill-zinc pill-sm">perdido</span> · trigger <span class="pill pill-violet pill-sm">violeta</span> · SLA <span class="pill pill-amber pill-sm">ámbar</span> · campos <span class="pill pill-cyan pill-sm">celeste</span></p>
-
-  <!-- Pipeline Corporativo -->
-  <div class="flex items-center gap-2 mb-3"><span class="pill pill-cyan">Pipeline Corporativo</span><span class="text-xs text-zinc-500">Daniel · SLA cotización 5 días (15 c/reaseguro)</span></div>
-  <div class="kanban mb-2">
-    <div class="kstage kbot"><div class="kstep">01</div><div class="ktitle">Lead nuevo</div><div class="kpills"><span class="pill pill-violet pill-sm">lead entrante</span></div><p class="kdesc">El WF de entrada lo asigna a Daniel y activa el bot.</p><div class="kfields">Ramo interés</div></div>
-    <div class="karrow">→</div>
-    <div class="kstage kbot"><div class="kstep">02</div><div class="ktitle">Calificando</div><div class="kpills"><span class="pill pill-violet pill-sm">4 preguntas</span></div><p class="kdesc">Vigencia · actividad · ramos+valores · siniestros 5 años.</p><div class="kfields">⭐ Las 4 respondidas → calificado</div></div>
-    <div class="karrow">→</div>
-    <div class="kstage khuman"><div class="kstep">03</div><div class="ktitle">Calificado</div><div class="kpills"><span class="pill pill-violet pill-sm">4 preguntas OK</span><span class="pill pill-amber pill-sm">&lt;30 min</span></div><p class="kdesc">El bot avisa a Daniel y le pasa el lead.</p></div>
-    <div class="karrow">→</div>
-    <div class="kstage khuman"><div class="kstep">04</div><div class="ktitle">Cotizando</div><div class="kpills"><span class="pill pill-amber pill-sm">5–15 días</span></div><p class="kdesc">Daniel cotiza multi-aseguradora. Manual.</p></div>
-    <div class="karrow">→</div>
-    <div class="kstage khuman"><div class="kstep">05</div><div class="ktitle">Propuesta enviada</div><p class="kdesc">Cuadro comparativo al cliente. Manual.</p></div>
-    <div class="karrow">→</div>
-    <div class="kstage khuman"><div class="kstep">06</div><div class="ktitle">En seguimiento</div><p class="kdesc">El cliente decide. Manual.</p></div>
-    <div class="karrow">→</div>
-    <div class="kstage kwin"><div class="kstep">—</div><div class="ktitle"><span class="text-emerald-300">Ganado</span> · Perdido</div><p class="kdesc">Cierre automático.</p></div>
+<!-- 02 PIPELINE -->
+<section id="pipeline" class="sec">
+  <div class="sec-num">02 / Pipeline</div>
+  <h2 class="mb-2">Pipeline Corporativo.</h2>
+  <p class="text-sm text-zinc-500 mb-2">Daniel Dávalos · SLA cotización hasta 5 días hábiles (15 con reaseguro).</p>
+  <p class="text-sm text-zinc-500 mb-7">Zonas: <span class="pill pill-violet">bot</span> <span class="pill pill-blue">humano</span> <span class="pill pill-emerald">ganado</span> <span class="pill pill-zinc">perdido</span> · trigger <span class="pill pill-violet">violeta</span> · SLA <span class="pill pill-amber">ámbar</span> · campos <span class="pill pill-cyan">celeste</span></p>
+  <div class="kanban">
+    <div class="stage-card"><div class="accent" style="background:#7c3aed"></div><div class="body"><div class="step-num">01</div><div class="t">Lead nuevo</div><div><span class="pill pill-violet">lead entrante</span> <span class="pill pill-amber">inmediato</span></div><div class="text-[11px] text-cyan-300">Ramo interés</div><div class="desc">El WF de entrada lo asigna a Daniel y activa el bot.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:#7c3aed"></div><div class="body"><div class="step-num">02</div><div class="t">Calificando</div><div><span class="pill pill-violet">4 preguntas</span></div><div class="text-[11px] text-cyan-300">⭐ Vigencia · Actividad · Ramos+Valores · Siniestralidad</div><div class="desc">El bot hace las 4 preguntas. Responderlas todas → Calificado.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:#3b82f6"></div><div class="body"><div class="step-num">03</div><div class="t">Calificado</div><div><span class="pill pill-violet">4 preguntas OK</span> <span class="pill pill-amber">&lt;30 min</span></div><div class="desc">WF Lead Calificado: notifica a Daniel y le pasa el lead.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:#3b82f6"></div><div class="body"><div class="step-num">04</div><div class="t">Cotizando</div><div><span class="pill pill-amber">5–15 días</span></div><div class="desc">Daniel cotiza multi-aseguradora. Gestión manual.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:#3b82f6"></div><div class="body"><div class="step-num">05</div><div class="t">Propuesta enviada</div><div class="desc">Cuadro comparativo al cliente. Manual.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:#3b82f6"></div><div class="body"><div class="step-num">06</div><div class="t">En seguimiento</div><div class="desc">El cliente decide. Manual.</div></div></div>
+    <div class="stage-card"><div class="accent" style="background:linear-gradient(90deg,#16a34a,#6b7280)"></div><div class="body"><div class="step-num">—</div><div class="t">Ganado · Perdido</div><div class="desc">Cierre automático del CRM. Perdido también por silencio total (rama de seguimiento).</div></div></div>
   </div>
   <p class="text-xs text-zinc-500 mt-3">De la zona humana, lo único automatizado es el seguimiento si no responde; cotizar, proponer y negociar es gestión manual de Daniel.</p>
 </section>
 
-<!-- 04 CAMPOS -->
-<section id="campos" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">04 / Datos que captura</div>
-  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">8 campos en la carpeta del bot.</h2>
-  <p class="text-sm text-zinc-500 mb-8"><span class="text-amber-300">⭐</span> = campo calificador. Cuando el lead responde las <b class="text-zinc-300">4 preguntas</b>, pasa a Calificado y Daniel recibe el aviso.</p>
+<!-- 03 CAMPOS / VALUES / TAGS -->
+<section id="datos" class="sec">
+  <div class="sec-num">03 / Datos</div>
+  <h2 class="mb-2">Campos, Custom Values y Tags.</h2>
+  <p class="text-sm text-zinc-500 mb-6"><span class="text-amber-300">⭐</span> = campo calificador. Las 4 preguntas del bot llenan 5 campos; con los 4 ⭐ respondidos, el lead pasa a Calificado.</p>
+
+  <div class="card mb-4">
+    <div class="text-cyan-300 text-sm font-medium mb-3">Custom Fields · carpeta "Bot Corporativo" (todos TEXT)</div>
+    <table class="tbl">
+      <thead><tr><th>Campo (UI)</th><th>Field key</th><th>Lo llena</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="text-amber-300">⭐ Finalización de vigencia</td><td><span class="ic">finalizacion_vigencia</span></td><td>Bot · P1</td><td>03/2026 · No tiene</td></tr>
+        <tr><td class="text-amber-300">⭐ Actividad principal</td><td><span class="ic">actividad_principal</span></td><td>Bot · P2</td><td>Importación de maquinaria</td></tr>
+        <tr><td class="text-amber-300">⭐ Ramos requeridos</td><td><span class="ic">ramos_requeridos</span></td><td>Bot · P3</td><td>Transporte + Incendio</td></tr>
+        <tr><td class="text-amber-300">⭐ Valores asegurados estimados</td><td><span class="ic">valores_asegurados</span></td><td>Bot · P3</td><td>USD 850.000 · listado adjunto</td></tr>
+        <tr><td class="text-amber-300">⭐ Siniestralidad histórica</td><td><span class="ic">siniestralidad_historica</span></td><td>Bot · P4</td><td>1 siniestro / USD 12.000 · Sin siniestros</td></tr>
+        <tr><td>Ramo interés</td><td><span class="ic">ramo_interes</span></td><td>Bot (infiere)</td><td>Transporte · Fianzas · RC</td></tr>
+        <tr><td>RUC empresa</td><td><span class="ic">ruc_empresa</span></td><td>Daniel</td><td>1792498554001</td></tr>
+        <tr><td>Contrato licitación monto</td><td><span class="ic">contrato_monto</span></td><td>Daniel</td><td>USD 1.2M — fianza</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="grid md:grid-cols-2 gap-3">
-    <div class="card card-cyan"><div class="text-cyan-300 text-sm font-medium mb-2">Calificadores ⭐ (las 4 preguntas)</div><p class="text-sm text-zinc-400 leading-relaxed"><span class="text-amber-300">⭐ Finalización de vigencia · ⭐ Actividad principal · ⭐ Ramos requeridos + Valores asegurados · ⭐ Siniestralidad histórica (5 años)</span></p></div>
-    <div class="card"><div class="text-zinc-300 text-sm font-medium mb-2">Complementarios</div><p class="text-sm text-zinc-400 leading-relaxed">Ramo interés (lo infiere el bot) · RUC empresa y Monto de contrato/licitación <span class="text-zinc-500">los toma Daniel al cotizar, no el bot.</span></p></div>
-  </div>
-  <p class="text-xs text-zinc-500 mt-4">Todos son texto libre — los asesores los ven en la ficha del contacto.</p>
-</section>
-
-<!-- 05 WORKFLOWS -->
-<section id="workflows" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">05 / Automatizaciones</div>
-  <h2 class="text-2xl font-semibold text-white mb-2 tracking-tight">5 automatizaciones, 3 grupos.</h2>
-  <p class="text-sm text-zinc-500 mb-8">Orden de carga: <b class="text-zinc-300">primero se crean todas las automatizaciones, después se linkean al bot</b> (el bot referencia los workflows que ya deben existir). El resto de etapas se gestiona manual.</p>
-
-  <div class="grid md:grid-cols-3 gap-3">
-    <!-- Grupo 1 -->
-    <div class="card card-cyan">
-      <div class="text-cyan-300 text-sm font-medium mb-3">① Nuevo Lead</div>
-      <div class="wf-group" style="border-color:rgba(6,182,212,.4)">
-        <div class="text-sm text-white">Entrada</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">Lead entrante → Pipeline Corporativo + asigna Daniel + <b>avisa nuevo lead</b> + activa Bot Corporativo.</p>
-      </div>
+    <div class="card">
+      <div class="text-emerald-300 text-sm font-medium mb-3">Custom Values (subaccount)</div>
+      <table class="tbl">
+        <thead><tr><th>Key</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">correo_de_salida</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+          <tr><td><span class="ic">correo_daniel</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+          <tr><td><span class="ic">nombre_remitente</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
+          <tr><td><span class="ic">nombre_negocio</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
+          <tr><td><span class="ic">telefono_contacto</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+          <tr><td><span class="ic">horario_atencion</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+          <tr><td><span class="ic">sla_cotizacion</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
+          <tr><td><span class="ic">link_web</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+          <tr><td><span class="ic">link_calendario</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
+        </tbody>
+      </table>
     </div>
-    <!-- Grupo 2 -->
-    <div class="card card-violet">
-      <div class="text-violet-300 text-sm font-medium mb-3">② Bot</div>
-      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
-        <div class="text-sm text-white">Lead Calificado</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">El bot completó las 4 preguntas → mueve a Calificado + notifica a Daniel + detiene el bot.</p>
-      </div>
-      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
-        <div class="text-sm text-white">Seguimiento si no responde</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">La "rama": recontacta a 2h / 24h / 72h; cualquier respuesta lo corta; silencio total → Perdido.</p>
-      </div>
-      <div class="wf-group" style="border-color:rgba(139,92,246,.4)">
-        <div class="text-sm text-white">Seguimiento con bot IA</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">Auto Follow-Up: mensaje contextual del bot a las 2h si el lead se queda callado.</p>
-      </div>
-    </div>
-    <!-- Grupo 3 -->
-    <div class="card card-amber">
-      <div class="text-amber-300 text-sm font-medium mb-3">③ Agendamiento</div>
-      <div class="wf-group" style="border-color:rgba(245,158,11,.4)">
-        <div class="text-sm text-white">Recordatorios de cita</div>
-        <p class="text-xs text-zinc-400 leading-relaxed">Cuando el bot agenda con Daniel: confirmación + recordatorios a 24h / 2h / 15min.</p>
-      </div>
+    <div class="card">
+      <div class="text-violet-300 text-sm font-medium mb-3">Tags</div>
+      <table class="tbl">
+        <thead><tr><th>Tag</th><th>Cuándo</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">lead_calificado</span></td><td>respondió las 4 preguntas</td></tr>
+          <tr><td><span class="ic">pide_asesor</span></td><td>siniestro / póliza / pide humano</td></tr>
+          <tr><td><span class="ic">siniestro_previo</span></td><td>lead caliente (no le pagaron)</td></tr>
+          <tr><td><span class="ic">auto_followup_1</span></td><td>recontacto 2h</td></tr>
+          <tr><td><span class="ic">auto_followup_2</span></td><td>recontacto 24h</td></tr>
+          <tr><td><span class="ic">auto_followup_3</span></td><td>recontacto 72h</td></tr>
+          <tr><td><span class="ic">lead_descartado</span></td><td>silencio total 96h → Perdido</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- 06 KB -->
-<section id="kb" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">06 / Base de conocimiento</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Lo que el bot sabe responder.</h2>
-  <div class="grid md:grid-cols-3 gap-3">
-    <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">Ramos &amp; aseguradoras</div><p class="text-sm text-zinc-400 leading-relaxed">Top 6 ramos, las 30 coberturas, y con qué aseguradoras trabajan (selección por historial de pago).</p></div>
-    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">FAQs</div><p class="text-sm text-zinc-400 leading-relaxed">Preguntas frecuentes inferidas del brief. ⏳ Daniel suma las reales del día a día.</p></div>
-    <div class="card card-rose"><div class="text-rose-300 text-sm font-medium mb-2">Guardrails (críticos)</div><p class="text-sm text-zinc-400 leading-relaxed">Respuestas fijas para precio, preexistencias, comparaciones y siniestros — el bot no improvisa en lo sensible.</p></div>
+<!-- 04 MAPA AUTOMATIZACIONES -->
+<section id="auto-mapa" class="sec">
+  <div class="sec-num">04 / Automatizaciones</div>
+  <h2 class="mb-2">Qué se activa en cada etapa.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Orden de carga: <b class="text-zinc-300">primero se crean las automatizaciones, después se linkean al bot</b> (el bot referencia workflows que ya deben existir).</p>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>Etapa / evento</th><th>Automatización</th><th>Grupo</th></tr></thead>
+      <tbody>
+        <tr><td>Entra el lead (1er mensaje)</td><td>WF Entrada → asigna Daniel + aviso + activa bot</td><td><span class="pill pill-cyan">Nuevo Lead</span></td></tr>
+        <tr><td>Calificando · sin respuesta</td><td>WF Seguimiento si no responde (la "rama")</td><td><span class="pill pill-violet">Bot</span></td></tr>
+        <tr><td>Calificando · mid-chat callado</td><td>Auto Follow-Up del bot (mensaje IA a 2h)</td><td><span class="pill pill-violet">Bot</span></td></tr>
+        <tr><td>Respondió las 4 preguntas</td><td>WF Lead Calificado → Calificado + notifica Daniel</td><td><span class="pill pill-violet">Bot</span></td></tr>
+        <tr><td>Agenda una reunión</td><td>WF Recordatorios de cita (24h/2h/15min)</td><td><span class="pill pill-amber">Agendamiento</span></td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- 07 CANAL -->
-<section id="canal" class="px-8 lg:px-16 py-16 border-b border-white/5">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">07 / Canal &amp; pricing</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">WhatsApp no oficial.</h2>
-  <div class="grid md:grid-cols-2 gap-3">
-    <div class="card card-emerald"><div class="text-emerald-300 text-sm font-medium mb-2">$39 / mes flat</div><p class="text-sm text-zinc-400 leading-relaxed">Proveedor externo (tipo Uplevel / WhatsApp.mx). Sin cobro por mensaje, sin aprobación de plantillas Meta. Mensajes con personalización directa.</p></div>
-    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">+ ~$20 / mes bot IA</div><p class="text-sm text-zinc-400 leading-relaxed">Consumo de tokens con 5-8 conversaciones/día. Aparte: pauta de Google Ads ($150 mín · $300 recomendado).</p></div>
+<!-- 05 WORKFLOWS DOBLE ENTREGA -->
+<section id="auto-wf" class="sec">
+  <div class="sec-num">05 / Workflows · doble entrega</div>
+  <h2 class="mb-2">Los 5 workflows.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Cada workflow trae las <b class="text-zinc-300">instrucciones manuales</b> (para cargar a mano en SHARP) y el <b class="text-zinc-300">prompt para el Workflow AI Builder</b> (pegable, con botón copiar). Canal SMS no oficial → merge tags directos.</p>
+
+  <!-- WF Entrada -->
+  <details class="wf-card" open>
+    <summary><span class="flex items-center gap-3"><span class="pill pill-cyan">Nuevo Lead</span><span class="text-white font-medium">WF Entrada</span></span><span class="text-xs text-zinc-500">Customer Replied · SMS · 1er mensaje</span></summary>
+    <div class="wf-body">
+      <table class="step-table">
+        <thead><tr><th>Paso</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger</td><td>Customer Replied · Reply Channel = SMS · filtro: primer mensaje (Total messages = 1)</td></tr>
+          <tr><td>1 · Create Opportunity</td><td>Pipeline Corporativo · stage <code>Lead nuevo</code> · name <code>{{contact.first_name}} — nuevo lead</code></td></tr>
+          <tr><td>2 · Assign User</td><td>Daniel Dávalos (asignación inmediata)</td></tr>
+          <tr><td>3 · Notificación interna</td><td>WhatsApp interno + Email (To <code>{{custom_values.correo_daniel}}</code>, From <code>{{custom_values.correo_de_salida}}</code>): "Nuevo lead corporativo…"</td></tr>
+          <tr><td>4 · Trigger Bot</td><td>Conversation AI · Bot Corporativo</td></tr>
+        </tbody>
+      </table>
+      <div class="prompt-wrap mt-4"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Crea un workflow de entrada de lead para Dávalos & Asociados (bróker de seguros corporativos, Ecuador) en SHARP CRM (marca blanca de GHL). Canal WhatsApp/SMS no oficial: usa merge tags directos como contact.first_name, NO variables posicionales.
+
+Trigger: Customer Replied con Reply Channel SMS, filtrando que sea el primer mensaje del contacto (Total messages = 1).
+
+Paso 1: Create/Update Opportunity en el Pipeline Corporativo, stage Lead nuevo, Opportunity Name = contact.first_name guion "nuevo lead".
+Paso 2: Assign User a Daniel Dávalos.
+Paso 3: Notificación interna a Daniel por WhatsApp interno y Email (To custom_values.correo_daniel, From custom_values.correo_de_salida) avisando que entró un nuevo lead corporativo con su nombre y teléfono.
+Paso 4: Trigger Bot del Conversation AI Bot Corporativo.
+
+Cierre: el lead queda asignado a Daniel y conversando con el Bot Corporativo.</div></div>
+    </div>
+  </details>
+
+  <!-- WF Lead Calificado -->
+  <details class="wf-card">
+    <summary><span class="flex items-center gap-3"><span class="pill pill-violet">Bot</span><span class="text-white font-medium">WF Lead Calificado Corp</span></span><span class="text-xs text-zinc-500">lo dispara el bot</span></summary>
+    <div class="wf-body">
+      <table class="step-table">
+        <thead><tr><th>Paso</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger</td><td>Bot Corporativo · acción Trigger Workflow "Lead Calificado Corp" (al responder las 4 preguntas)</td></tr>
+          <tr><td>1 · Add Tag</td><td><code>lead_calificado</code></td></tr>
+          <tr><td>2 · Update Opportunity</td><td>Pipeline Corporativo · stage <code>Calificado</code></td></tr>
+          <tr><td>3 · Send SMS al lead</td><td>"…Daniel prepara la cotización y te contacta…"</td></tr>
+          <tr><td>4 · Notificación a Daniel</td><td>tri-canal (WhatsApp + Email a <code>{{custom_values.correo_daniel}}</code> + interna): resumen con actividad, valores, vigencia, siniestralidad + "contactá en &lt;30 min"</td></tr>
+          <tr><td>5 · Stop Bot</td><td>libera la conversación para Daniel</td></tr>
+        </tbody>
+      </table>
+      <div class="prompt-wrap mt-4"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Crea un workflow para Dávalos & Asociados (SHARP CRM) que se dispara cuando el Bot Corporativo termina de calificar un lead (respondió las 4 preguntas). Usa merge tags directos.
+
+Trigger: el workflow lo dispara el bot mediante la acción Trigger Workflow (Lead Calificado Corp).
+
+Paso 1: Add Tag lead_calificado.
+Paso 2: Update Opportunity al Pipeline Corporativo, stage Calificado.
+Paso 3: Send SMS al lead avisando que Daniel, el asesor corporativo, prepara la cotización y lo contacta dentro del horario.
+Paso 4: Notificación interna a Daniel por tres canales (WhatsApp interno, Email To custom_values.correo_daniel From custom_values.correo_de_salida, y notificación de la plataforma) con nombre, teléfono, actividad principal, valores asegurados, finalización de vigencia y siniestralidad, indicando contactar en menos de 30 minutos e incluyendo el link a la conversación.
+Paso 5: Stop Bot para liberar la conversación al asesor.
+
+Cierre: lead en etapa Calificado, Daniel notificado, bot detenido.</div></div>
+    </div>
+  </details>
+
+  <!-- WF Seguimiento -->
+  <details class="wf-card">
+    <summary><span class="flex items-center gap-3"><span class="pill pill-violet">Bot</span><span class="text-white font-medium">WF Seguimiento si no responde (la "rama")</span></span><span class="text-xs text-zinc-500">2h · 24h · 72h · 96h</span></summary>
+    <div class="wf-body">
+      <table class="step-table">
+        <thead><tr><th>Paso</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger</td><td>Customer No-Reply · stage <code>Calificando</code> · sin tag <code>lead_calificado</code></td></tr>
+          <tr><td>1 · Wait 2h</td><td>si no responde → SMS msg 1 + tag <code>auto_followup_1</code></td></tr>
+          <tr><td>2 · Wait 22h (24h)</td><td>si no responde → SMS msg 2 + tag <code>auto_followup_2</code></td></tr>
+          <tr><td>3 · Wait 48h (72h)</td><td>si no responde → SMS msg 3 + tag <code>auto_followup_3</code></td></tr>
+          <tr><td>4 · Wait 24h (96h)</td><td>si no responde → tag <code>lead_descartado</code> + Update Opportunity <code>Perdido</code> + notif interna</td></tr>
+          <tr><td>★ En cualquier paso</td><td>si el contacto responde → End (el bot/Daniel retoma)</td></tr>
+        </tbody>
+      </table>
+      <div class="prompt-wrap mt-4"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Crea un workflow de seguimiento automático para Dávalos & Asociados (SHARP CRM). Canal WhatsApp/SMS no oficial, merge tags directos.
+
+Trigger: Customer No-Reply, filtrando contactos en la etapa Calificando del Pipeline Corporativo que NO tengan el tag lead_calificado.
+
+Esperar 2 horas. Si no respondió, enviar SMS: "Hola {{contact.first_name}}, quedamos en ayudarte con el seguro de tu empresa. ¿Seguimos con la consulta?" y aplicar tag auto_followup_1. Esperar 22 horas adicionales. Si no respondió, enviar SMS: "{{contact.first_name}}, te escribo de nuevo por las dudas. Si querés retomar, acá estamos para armar tu cotización." y aplicar tag auto_followup_2. Esperar 48 horas adicionales. Si no respondió, enviar SMS: "Último mensaje, {{contact.first_name}}: si más adelante necesitás revisar los seguros de tu empresa, escribinos cuando quieras." y aplicar tag auto_followup_3. Esperar 24 horas adicionales. Si sigue sin responder, aplicar tag lead_descartado, mover la oportunidad a la etapa Perdido y enviar notificación interna al usuario asignado.
+
+En cualquier momento, si el contacto responde, terminar el workflow inmediatamente para que el bot o Daniel retomen sin interferencia.
+
+Cierre: lead retomó la conversación, o lead descartado tras 4 días de silencio.</div></div>
+    </div>
+  </details>
+
+  <!-- WF Recordatorios -->
+  <details class="wf-card">
+    <summary><span class="flex items-center gap-3"><span class="pill pill-amber">Agendamiento</span><span class="text-white font-medium">WF Recordatorios de cita</span></span><span class="text-xs text-zinc-500">confirmación + 24h/2h/15min</span></summary>
+    <div class="wf-body">
+      <table class="step-table">
+        <thead><tr><th>Paso</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger</td><td>Appointment Status = Confirmed (calendario de Daniel)</td></tr>
+          <tr><td>1 · Inmediato</td><td>SMS confirmación de la reunión</td></tr>
+          <tr><td>2 · 24h antes</td><td>SMS recordatorio + "¿confirmamos?"</td></tr>
+          <tr><td>3 · 2h antes</td><td>SMS recordatorio corto</td></tr>
+          <tr><td>4 · 15 min antes</td><td>SMS con <code>{{appointment.meeting_url}}</code> o dirección</td></tr>
+        </tbody>
+      </table>
+      <div class="prompt-wrap mt-4"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Crea un workflow de recordatorios de cita para Dávalos & Asociados (SHARP CRM). Canal SMS no oficial, merge tags directos.
+
+Trigger: Appointment Status igual a Confirmed, para el calendario de Daniel.
+
+Paso 1 (inmediato): Send SMS "{{contact.first_name}}, tu reunión con {{custom_values.nombre_negocio}} quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha."
+Paso 2 (hasta 24 horas antes): Send SMS "Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la reunión. ¿Confirmamos?"
+Paso 3 (hasta 2 horas antes): Send SMS "{{contact.first_name}}, en un par de horas nos vemos. Cualquier cambio avisame por aquí."
+Paso 4 (hasta 15 minutos antes): Send SMS "{{contact.first_name}}, en 15 minutos arrancamos. {{appointment.meeting_url}} (o la dirección si es presencial)."
+
+Cierre: el lead recibió confirmación y los tres recordatorios.</div></div>
+    </div>
+  </details>
+
+  <!-- Auto Follow-Up -->
+  <details class="wf-card">
+    <summary><span class="flex items-center gap-3"><span class="pill pill-violet">Bot</span><span class="text-white font-medium">Auto Follow-Up del bot</span></span><span class="text-xs text-zinc-500">config nativa</span></summary>
+    <div class="wf-body">
+      <p class="text-sm text-zinc-400 leading-relaxed">No es un workflow: es una acción nativa del bot (Bot Goals → Auto Follow-Up). Si el lead se queda callado <b class="text-zinc-300">mid-conversación</b>, el bot manda un mensaje IA contextual a las 2h para retomar. Complementa al WF Seguimiento (que actúa a nivel pipeline a 2h/24h/72h/96h).</p>
+    </div>
+  </details>
+</section>
+
+<!-- 06 BOT QUE HACE -->
+<section id="bot-que" class="sec">
+  <div class="sec-num">06 / Bot Corporativo</div>
+  <h2 class="mb-2">Qué hace el bot.</h2>
+  <div class="grid md:grid-cols-2 gap-3 mb-3">
+    <div class="card">
+      <div class="text-emerald-300 text-sm font-medium mb-3">✓ Hace solo</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Saluda como bróker corporativo</li>
+        <li>Hace las 4 preguntas de calificación (y solo esas)</li>
+        <li>Responde FAQs desde la Knowledge Base</li>
+        <li>Agenda una reunión con Daniel</li>
+        <li>Al responder las 4 → transfiere a Daniel</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="text-amber-300 text-sm font-medium mb-3">→ Levanta la mano (Human Handover)</div>
+      <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+        <li>Siniestro / reembolso en curso</li>
+        <li>Duda sobre una póliza vigente</li>
+        <li>Pide hablar con una persona</li>
+        <li>Cuenta grande / ramo complejo (D&O, cyber, reaseguro)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(244,63,94,.3); background:rgba(40,10,18,.4)">
+    <div class="text-rose-300 text-sm font-medium mb-2">✕ El bot NUNCA</div>
+    <p class="text-sm text-zinc-400 leading-relaxed">Pide RUC (lo toma Daniel) · da primas exactas sin datos · compromete coberturas · compara aseguradoras por nombre · promete tiempos exactos · interpreta archivos/imágenes adjuntas. <span class="text-zinc-300">Tono ejecutivo, técnico y al grano (B2B).</span></p>
+  </div>
+  <div class="action-card mt-3">
+    <div class="text-white text-sm font-medium mb-3">Bot Settings</div>
+    <div class="action-grid text-sm">
+      <div class="font-mono text-[11px] text-zinc-400">Nombre</div><div class="text-zinc-200">Asistente Dávalos & Asociados — Corporativo <span class="pill pill-amber">⏳ nombre propio</span></div>
+      <div class="font-mono text-[11px] text-zinc-400">Idioma</div><div class="text-zinc-200">Español</div>
+      <div class="font-mono text-[11px] text-zinc-400">Canal</div><div class="text-zinc-200">SMS / WhatsApp no oficial</div>
+      <div class="font-mono text-[11px] text-zinc-400">Modo inicial</div><div class="text-zinc-200">Suggestive (Daniel revisa antes de Auto Pilot)</div>
+      <div class="font-mono text-[11px] text-zinc-400">Modelo</div><div class="text-zinc-200">GPT-4.1 (default Bot Goals V2)</div>
+      <div class="font-mono text-[11px] text-zinc-400">Operación</div><div class="text-zinc-200">24/7 · handoff humano 8–17h</div>
+    </div>
   </div>
 </section>
 
-<!-- 08 PENDIENTES -->
-<section id="pendientes" class="px-8 lg:px-16 py-16">
-  <div class="font-mono text-[11px] tracking-widest text-zinc-500 uppercase mb-3">08 / Pendientes</div>
-  <h2 class="text-2xl font-semibold text-white mb-8 tracking-tight">Para encender el sistema.</h2>
-  <div class="card card-amber">
-    <ul class="text-sm text-zinc-300 space-y-2 leading-relaxed">
-      <li>✅ CRM definido: <b>SHARP CRM</b> (marca blanca de Go High Level)</li>
-      <li>✅ Alcance fase 1: <b>solo B2B</b> (Bot Corporativo + Pipeline Corporativo). El segmento personal queda para una fase posterior.</li>
-      <li>✅ Filtro del Bot Corporativo definido: <b>4 preguntas</b> (vigencia · actividad · ramos+valores · siniestros 5 años)</li>
-      <li>⏳ Confirmar el número de WhatsApp/SMS comercial definitivo</li>
-      <li>⏳ Migrar la agenda a Google Calendar (hoy Thunderbird) para los recordatorios automáticos</li>
-      <li>⏳ Definir el presupuesto de pauta ($150 vs $300/mes)</li>
-      <li>⏳ Fichas por ramo + FAQs reales — <b>Daniel</b></li>
-      <li>⏳ Nombre propio del bot + frases de la casa — <b>Mauricio</b></li>
-      <li>⏳ KPIs a 3 meses</li>
+<!-- 07 BOT PROMPTS -->
+<section id="bot-prompts" class="sec">
+  <div class="sec-num">07 / Bot · Prompts</div>
+  <h2 class="mb-2">Los 3 campos de Bot Goals.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Pegables directo en SHARP → Conversation AI → Bot Goals. Botón copiar en cada uno.</p>
+
+  <div class="text-violet-300 text-sm font-medium mb-2">Campo 1 · Personalidad</div>
+  <div class="prompt-wrap mb-5"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Sos el asistente virtual de Dávalos & Asociados, un bróker de seguros con 40 años de experiencia en Ecuador, atendiendo a empresas. Hablás en nombre de la agencia (voz del equipo), no sos un asesor con nombre propio.
+
+Tu estilo con empresas es ejecutivo, técnico y al grano, orientado a datos y coberturas, pero cálido. Transmitís respaldo y tranquilidad, nunca presión.
+
+Hablás como un broker real: claro, sin jerga innecesaria. Ejemplos del tono de la casa:
+- "Nos encargamos de todo el proceso por ustedes."
+- "Estamos atrás del reclamo hasta que el dinero esté depositado."
+- "Trabajamos solo con aseguradoras que pagan cuando ocurre el siniestro."
+
+Si te preguntan si sos un bot: respondés con naturalidad que sos el asistente virtual de Dávalos & Asociados y que estás para empezar a ayudar; Daniel, el asesor corporativo, continúa el proceso.
+
+Mantené las respuestas breves: máximo 2-3 frases por mensaje. Hacé UNA pregunta a la vez.</div></div>
+
+  <div class="text-violet-300 text-sm font-medium mb-2">Campo 2 · Objetivo</div>
+  <div class="prompt-wrap mb-5"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">Tu tarea es calificar al lead corporativo haciendo EXACTAMENTE estas 4 preguntas (y ninguna otra de calificación) y transferirlo a Daniel.
+
+FLUJO (preguntá de a una, esperá la respuesta antes de seguir):
+
+1. Saludá breve y confirmá que es un seguro para su empresa.
+2. Pregunta 1 — Vigencia: "¿Cuál es la fecha de finalización de la vigencia de su póliza actual?" Guardá en "Finalización de vigencia". (Si no tiene póliza, registrá "No tiene".)
+3. Pregunta 2 — Actividad: "¿Cuál es la actividad de su empresa?" Guardá en "Actividad principal".
+4. Pregunta 3 — Ramos y valores: "¿Cuáles son los ramos requeridos y los valores asegurados? Si te resulta más fácil, podés enviarme un listado de los activos o bienes a asegurar." Guardá ramos en "Ramos requeridos" y valores (o listado) en "Valores asegurados estimados". Si responde solo una de las dos, repreguntá por la que falta ANTES de la pregunta 4.
+5. Pregunta 4 — Siniestros: "¿Ha tenido siniestros en los últimos 5 años? Si es así, ¿cuáles y por qué monto?" Guardá en "Siniestralidad histórica".
+6. Cuando respondió las 4 preguntas, está CALIFICADO: ejecutá Trigger Workflow "Lead Calificado Corp" y avisá que Daniel continúa con la cotización.
+
+REGLAS:
+- Hacé SOLO estas 4 preguntas. No pidas RUC ni otros datos: eso lo toma Daniel al cotizar.
+- Nunca des una prima/precio exacto: explicá que depende de los datos y por eso calificás antes.
+- Trabajamos solo con aseguradoras que pagan cuando ocurre el siniestro. Podés mencionarlo como diferencial.
+- Fuera de horario (8-17h), igual calificás y capturás todo; Daniel responde al abrir.
+- Si quieren agendar, usá la acción de agendamiento.</div></div>
+
+  <div class="text-violet-300 text-sm font-medium mb-2">Campo 3 · Información adicional</div>
+  <div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">TRANSFERENCIAS / LEVANTAR LA MANO:
+- Respondió las 4 preguntas → Trigger Workflow "Lead Calificado Corp".
+- Siniestro vigente, reembolso o liquidación → Human Handover (tag pide_asesor) y avisá que un asesor lo retoma.
+- Duda de póliza vigente, pide asesor explícitamente, o cuenta grande / ramo complejo (D&O, cyber, reaseguro) → Human Handover (tag pide_asesor) → Daniel.
+
+NUNCA:
+- No des primas exactas sin todos los datos.
+- No comprometas coberturas sin revisión técnica del asesor.
+- No compares negativamente a aseguradoras por nombre.
+- No prometas tiempos exactos: usá "hasta X días hábiles".
+- No interpretes fotos, PDFs ni listados adjuntos: registrá "listado adjunto" y que Daniel lo revise.
+
+MANEJO DE OBJECIONES:
+- "Está muy caro": valor del acompañamiento y diferencia entre un seguro que paga y uno que no.
+- "Ya tenemos seguro": ofrecé una revisión gratuita de la cobertura actual (los masivos tienen exclusiones).
+
+TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro hasta 15 días.</div></div>
+</section>
+
+<!-- 08 BOT ACTIONS -->
+<section id="bot-actions" class="sec">
+  <div class="sec-num">08 / Bot · Actions</div>
+  <h2 class="mb-2">Acciones del bot.</h2>
+  <div class="action-card mb-3">
+    <div class="action-grid text-sm">
+      <div class="font-mono text-[11px] text-violet-300">Trigger Workflow</div><div class="text-zinc-300"><b class="text-white">Lead Calificado Corp</b> — condición: el lead respondió las 4 preguntas (vigencia, actividad, ramos+valores, siniestralidad). <span class="text-zinc-500">Máx. 5 trigger workflows/bot; usamos 1.</span></div>
+      <div class="font-mono text-[11px] text-amber-300">Human Handover</div><div class="text-zinc-300">Prebuilt. Siniestro · póliza vigente · pide humano · cuenta grande/ramo complejo → tag <code>pide_asesor</code> + notifica a Daniel + pausa el bot.</div>
+      <div class="font-mono text-[11px] text-cyan-300">Appointment Booking</div><div class="text-zinc-300">Calendario de Daniel. <span class="pill pill-amber">⏳ requiere Google Calendar</span> (hoy Thunderbird).</div>
+      <div class="font-mono text-[11px] text-emerald-300">Auto Follow-Up</div><div class="text-zinc-300">Mensaje IA contextual a las 2h si el lead se queda callado mid-chat.</div>
+      <div class="font-mono text-[11px] text-rose-300">Stop Bot</div><div class="text-zinc-300">Tras Human Handover a Daniel y tras despedida del lead.</div>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(245,158,11,.3); background:rgba(40,28,8,.35)">
+    <div class="text-amber-300 text-sm font-medium mb-2">Blind spots (a vigilar en testing)</div>
+    <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
+      <li>"Finalización de vigencia" es texto libre → el ejemplo de salida guía el formato; Daniel valida la fecha al cotizar.</li>
+      <li>Pregunta 3 combina ramos + valores → verificar que el bot no marque Calificado con uno solo de los dos.</li>
+      <li>Listado de bienes como archivo → el bot guarda "listado adjunto" y sigue; Daniel abre el adjunto.</li>
+      <li>KB vacía → el bot cae en Human Handover seguido. Cargar la KB antes de Auto Pilot.</li>
+      <li>"No me sirve, gracias" puede disparar Stop Bot en vez de Human Handover → verificar prioridad.</li>
     </ul>
   </div>
-  <p class="text-xs text-zinc-500 mt-6">Aprobación final: Mauricio Dávalos · Implementa: Escala Consultora (Montserrat Morcillo).</p>
 </section>
 
-<footer class="border-t border-white/5 py-8 text-center text-xs text-zinc-600">
-  Dávalos &amp; Asociados · Blueprint del Sistema v1 · SHARP CRM · Escala Consultora · jun 2026
-</footer>
+<!-- 09 ADD CONTACT INFO -->
+<section id="bot-cf" class="sec">
+  <div class="sec-num">09 / Bot · Add Contact Info</div>
+  <h2 class="mb-2">Captura de datos (5 acciones).</h2>
+  <p class="text-sm text-zinc-500 mb-6">Cada Add Contact Info tiene 4 campos en la UI de GHL. Nombre/teléfono/correo se capturan en campos nativos.</p>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>Action Name</th><th>Campo</th><th>Qué actualizar</th><th>Ejemplo de salida</th></tr></thead>
+      <tbody>
+        <tr><td>Actualizar Finalización de vigencia</td><td>Finalización de vigencia</td><td>Fecha en que vence la póliza vigente. Si no tiene, "No tiene".</td><td>03/2026 · No tiene</td></tr>
+        <tr><td>Actualizar Actividad principal</td><td>Actividad principal</td><td>Giro o actividad económica principal (frase corta).</td><td>Importación de maquinaria</td></tr>
+        <tr><td>Actualizar Ramos requeridos</td><td>Ramos requeridos</td><td>Ramos/coberturas que necesita la empresa.</td><td>Transporte + Incendio · Fianza</td></tr>
+        <tr><td>Actualizar Valores asegurados</td><td>Valores asegurados estimados</td><td>Valor aproximado a asegurar; si envió listado, "listado adjunto".</td><td>USD 850.000 · Listado adjunto</td></tr>
+        <tr><td>Actualizar Siniestralidad histórica</td><td>Siniestralidad histórica</td><td>Siniestros últimos 5 años + monto. Si no, "Sin siniestros".</td><td>1 incendio 2023 / USD 40.000</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 10 KB -->
+<section id="kb" class="sec">
+  <div class="sec-num">10 / Knowledge Base</div>
+  <h2 class="mb-2">Lo que el bot sabe responder.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Carga manual UI (la API V2 no expone CRUD para KB). Sources asignados al Bot Corporativo.</p>
+  <div class="grid md:grid-cols-2 gap-3">
+    <div class="card"><div class="text-violet-300 text-sm font-medium mb-2">Ramos & aseguradoras <span class="pill pill-emerald">Rich Text</span></div><p class="text-sm text-zinc-400 leading-relaxed">Top 6 ramos (transporte, incendio/propiedad, vehículos, vida/médica, fianzas, RC) + 30 ramos habilitados. Aseguradoras: QBE Colonial, Chubb, AIG, Zurich, Confianza, BMI… (selección por historial de pago).</p></div>
+    <div class="card"><div class="text-cyan-300 text-sm font-medium mb-2">Catálogo de ramos <span class="pill pill-cyan">Tables · CSV</span></div><p class="text-sm text-zinc-400 leading-relaxed">Tabla ramo × cobertura × segmento × acción del bot. 7 filas, lista para Smart Tables (UTF-8, sin nulos).</p></div>
+    <div class="card"><div class="text-emerald-300 text-sm font-medium mb-2">FAQs <span class="pill pill-emerald">FAQs</span></div><p class="text-sm text-zinc-400 leading-relaxed">5 categorías (agencia · precio · coberturas B2B · siniestros · proceso) con Custom Values embebidos. <span class="pill pill-amber">⏳ FAQs reales de Daniel</span></p></div>
+    <div class="card" style="border-color:rgba(244,63,94,.3)"><div class="text-rose-300 text-sm font-medium mb-2">Guardrails <span class="pill pill-rose">Custom Bot Responses</span></div><p class="text-sm text-zinc-400 leading-relaxed">Respuestas fijas para precio, cobertura, comparaciones y tiempos — el bot no improvisa en lo sensible.</p></div>
+  </div>
+  <p class="text-xs text-zinc-500 mt-4"><span class="pill pill-amber">⏳</span> Fichas por ramo (Documents H1-H4, Daniel) · Web Crawler del sitio cuando se confirme la URL.</p>
+</section>
+
+<!-- 11 SMS -->
+<section id="sms" class="sec">
+  <div class="sec-num">11 / Mensajes</div>
+  <h2 class="mb-2">Textos SMS por workflow.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Merge tags directos (no plantillas Meta, canal no oficial). <span class="pill pill-amber">⏳ validar wording con Mauricio.</span></p>
+  <div class="space-y-3">
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Saludo inicial</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Hola {{contact.first_name}}, soy el asistente de {{custom_values.nombre_negocio}} 👋
+Ayudamos a empresas a asegurar bien su operación. Para empezar, ¿cuál es la fecha de finalización de la vigencia de su póliza actual?</div></div></div>
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Lead calificado — aviso al lead</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Perfecto, {{contact.first_name}}. Con estos datos, Daniel —nuestro asesor corporativo— prepara la cotización con varias aseguradoras y te contacta dentro del horario de atención. Gracias por confiar en {{custom_values.nombre_negocio}}.</div></div></div>
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Seguimiento · 2h / 24h / 72h</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Hola {{contact.first_name}}, quedamos en ayudarte con el seguro de tu empresa. ¿Seguimos con la consulta?
+
+{{contact.first_name}}, te escribo de nuevo por las dudas. Si querés retomar, acá estamos para armar tu cotización.
+
+Último mensaje, {{contact.first_name}}: si más adelante necesitás revisar los seguros de tu empresa, escribinos cuando quieras. Quedamos a la orden.</div></div></div>
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Recordatorios de cita</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">{{contact.first_name}}, tu reunión con {{custom_values.nombre_negocio}} quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha.
+
+Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la reunión. ¿Confirmamos?
+
+{{contact.first_name}}, en un par de horas nos vemos. Cualquier cambio avisame por aquí.
+
+{{contact.first_name}}, en 15 minutos arrancamos. {{appointment.meeting_url}} (o la dirección si es presencial).</div></div></div>
+  </div>
+</section>
+
+<!-- 12 PRICING -->
+<section id="pricing" class="sec">
+  <div class="sec-num">12 / Pricing</div>
+  <h2 class="mb-2">Costos al cliente.</h2>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>Concepto</th><th>USD / mes</th></tr></thead>
+      <tbody>
+        <tr><td>SHARP CRM (plan)</td><td>según plan contratado</td></tr>
+        <tr><td>WhatsApp no oficial (SMS, proveedor externo)</td><td><b class="text-white">$39 flat</b> · sin cobro por mensaje</td></tr>
+        <tr><td>Bot Conversation AI (tokens, ~5-8 conv/día)</td><td>~$20 extra</td></tr>
+        <tr><td>Google Ads (pauta B2B, aparte del fee)</td><td>$150 mín · <b class="text-white">$300 recomendado</b></td></tr>
+        <tr><td>Soporte mensual post-launch</td><td>según propuesta Escala</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 13 ROADMAP -->
+<section id="roadmap" class="sec">
+  <div class="sec-num">13 / Roadmap</div>
+  <h2 class="mb-2">Estado del proyecto.</h2>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>Fase</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Discovery + análisis</td><td><span class="pill pill-emerald">✅ completa</span></td></tr>
+        <tr><td>2 · Conexión API (SHARP definido)</td><td><span class="pill pill-amber">⏳ acceso</span></td></tr>
+        <tr><td>3 · Pipeline Corporativo</td><td><span class="pill pill-emerald">✅ diseñado</span></td></tr>
+        <tr><td>4 · Custom Fields + Values + Tags</td><td><span class="pill pill-emerald">✅ diseñado</span></td></tr>
+        <tr><td>5 · Workflows (5)</td><td><span class="pill pill-emerald">✅ diseñados</span></td></tr>
+        <tr><td>6 · Bot Corporativo</td><td><span class="pill pill-emerald">✅ diseñado</span></td></tr>
+        <tr><td>7 · Knowledge Base</td><td><span class="pill pill-amber">⏳ FAQs/fichas Daniel</span></td></tr>
+        <tr><td>8 · Mensajes SMS</td><td><span class="pill pill-emerald">✅ redactados</span></td></tr>
+        <tr><td>9 · Pruebas pre-launch</td><td><span class="pill pill-zinc">pendiente</span></td></tr>
+        <tr><td>10 · Capacitación + Go-live</td><td><span class="pill pill-zinc">pendiente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 14 RIESGOS -->
+<section id="riesgos" class="sec">
+  <div class="sec-num">14 / Riesgos</div>
+  <h2 class="mb-2">Riesgos + mitigaciones.</h2>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>Riesgo</th><th>Mitigación</th></tr></thead>
+      <tbody>
+        <tr><td>Bot da prima exacta o promete cobertura (legal)</td><td>Guardrails hardcodeados en Custom Bot Responses + testing fase 9.</td></tr>
+        <tr><td>nº WhatsApp/SMS personal en vez de corporativo</td><td>Confirmar nº definitivo con Mauricio antes de conectar el canal.</td></tr>
+        <tr><td>Lead se enfría sin seguimiento</td><td>WF Seguimiento (rama 2h/24h/72h/96h) + Auto Follow-Up del bot.</td></tr>
+        <tr><td>Falta de FAQs reales</td><td>Daniel compromete entrega; FAQs inferibles del brief como base.</td></tr>
+        <tr><td>Sin agenda integrada (Thunderbird)</td><td>Migrar a Google Calendar; mientras tanto el bot captura y Daniel agenda manual.</td></tr>
+        <tr><td>Pauta a $150 en vez de $300</td><td>Recomendación firme $300/mes el primer trimestre.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 15 CHECKLIST -->
+<section id="checklist" class="sec" style="border-bottom:none">
+  <div class="sec-num">15 / Go-live</div>
+  <h2 class="mb-2">Checklist para encender el sistema.</h2>
+  <p class="text-sm text-zinc-500 mb-6">Orden de carga en SHARP: Custom Values → Pipeline → Custom Fields → Workflows → Bot → KBs → SMS.</p>
+  <div class="grid md:grid-cols-2 gap-x-8">
+    <div>
+      <div class="check"><span class="bx">☐</span><span>Crear los 9 Custom Values (3 ⏳: correos, nº, web, calendario)</span></div>
+      <div class="check"><span class="bx">☐</span><span>Crear el Pipeline Corporativo (6 etapas + Ganado/Perdido)</span></div>
+      <div class="check"><span class="bx">☐</span><span>Crear carpeta "Bot Corporativo" + 8 Custom Fields (TEXT)</span></div>
+      <div class="check"><span class="bx">☐</span><span>Crear los 5 workflows (3 grupos) con merge tags directos</span></div>
+      <div class="check"><span class="bx">☐</span><span>Crear el bot: 3 prompts + 5 Add Contact Info + Bot Actions</span></div>
+    </div>
+    <div>
+      <div class="check"><span class="bx">☐</span><span>Linkear Trigger Workflow → Lead Calificado Corp</span></div>
+      <div class="check"><span class="bx">☐</span><span>Cargar KBs (ramos + CSV + FAQs + custom responses) → "Active"</span></div>
+      <div class="check"><span class="bx">☐</span><span>Conectar el proveedor SMS no oficial</span></div>
+      <div class="check"><span class="bx">☐</span><span>Bot en Suggestive → pruebas 1-10 → Auto Pilot</span></div>
+      <div class="check"><span class="bx">☐</span><span>Capacitar a Daniel (handoffs + thumbs up/down)</span></div>
+    </div>
+  </div>
+  <div class="mt-8 text-xs text-zinc-600 font-mono">Aprobación final: Mauricio Dávalos · Implementa: Escala Consultora (Montserrat Morcillo) · jun 2026</div>
+</section>
 
 </main>
 
 <script>
-  const links = document.querySelectorAll('.toc-link');
-  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) {
-      const id = '#' + e.target.id;
-      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
-    }});
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  sections.forEach(s => s && obs.observe(s));
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = btn.closest('.prompt-wrap');
+      const block = wrap ? wrap.querySelector('.prompt-block') : null;
+      const text = block ? block.innerText : '';
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.innerHTML;
+        btn.classList.add('copied'); btn.innerHTML = '✓ Copiado';
+        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = old; }, 1500);
+      });
+    });
+  });
+  // TOC active state
+  const links = [...document.querySelectorAll('.toc-link')];
+  const map = {}; links.forEach(l => { const id = l.getAttribute('href').slice(1); const el = document.getElementById(id); if (el) map[id] = l; });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.classList.remove('active')); if (map[e.target.id]) map[e.target.id].classList.add('active'); } });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
 </script>
 </body>
 </html>
