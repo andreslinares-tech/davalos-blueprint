@@ -537,15 +537,56 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
 <section id="bot-cf" class="sec">
   <div class="sec-num">09 / Bot · Add Contact Info</div>
   <h2 class="mb-2">Captura de datos (4 acciones = 4 preguntas).</h2>
-  <p class="text-sm text-zinc-500 mb-6">Cada Add Contact Info tiene 4 campos en la UI de GHL. Nombre/teléfono/correo se capturan en campos nativos. La P3 guarda ramos + valores en un solo campo.</p>
-  <div class="card">
+  <p class="text-sm text-zinc-500 mb-6">Cada Add Contact Info tiene 4 campos en la UI de GHL. Una tabla por pregunta. Nombre/teléfono/correo se capturan en campos nativos. La P3 guarda ramos + valores en un solo campo.</p>
+
+  <div class="card mb-3">
+    <div class="text-amber-300 text-sm font-medium mb-3">#1 — Finalización de vigencia · (P1)</div>
     <table class="tbl">
-      <thead><tr><th>Action Name</th><th>Campo</th><th>Qué actualizar</th><th>Ejemplo de salida</th></tr></thead>
+      <thead><tr><th style="width:42px">#</th><th>Campo UI</th><th>Valor</th></tr></thead>
       <tbody>
-        <tr><td>Actualizar Finalización de vigencia</td><td>Finalización de vigencia</td><td>Fecha en que vence la póliza vigente. Si no tiene, "No tiene".</td><td>03/2026 · No tiene</td></tr>
-        <tr><td>Actualizar Actividad principal</td><td>Actividad principal</td><td>Giro o actividad económica principal (frase corta).</td><td>Importación de maquinaria</td></tr>
-        <tr><td>Actualizar Valores asegurados</td><td>Valores asegurados estimados</td><td>Ramos requeridos + valores asegurados en un solo texto; si envió listado, "listado adjunto".</td><td>Transporte + Incendio · USD 850.000 · Listado adjunto</td></tr>
-        <tr><td>Actualizar Siniestralidad histórica</td><td>Siniestralidad histórica</td><td>Siniestros últimos 5 años + monto. Si no, "Sin siniestros".</td><td>1 incendio 2023 / USD 40.000</td></tr>
+        <tr><td>1</td><td>Action Name</td><td>Actualizar Finalización de vigencia</td></tr>
+        <tr><td>2</td><td>Which contact field</td><td>Finalización de vigencia</td></tr>
+        <tr><td>3</td><td>What to update</td><td>Fecha en que vence la póliza vigente. Si no tiene, "No tiene".</td></tr>
+        <tr><td>4</td><td>Ejemplo de Salida</td><td><span class="ic">03/2026</span> · <span class="ic">Vence en junio 2026</span> · <span class="ic">No tiene</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card mb-3">
+    <div class="text-amber-300 text-sm font-medium mb-3">#2 — Actividad principal · (P2)</div>
+    <table class="tbl">
+      <thead><tr><th style="width:42px">#</th><th>Campo UI</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Action Name</td><td>Actualizar Actividad principal</td></tr>
+        <tr><td>2</td><td>Which contact field</td><td>Actividad principal</td></tr>
+        <tr><td>3</td><td>What to update</td><td>A qué se dedica la empresa. Frase corta 3-10 palabras.</td></tr>
+        <tr><td>4</td><td>Ejemplo de Salida</td><td><span class="ic">Importación y distribución de maquinaria</span> · <span class="ic">Constructora de obra civil</span> · <span class="ic">Transporte de carga pesada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card mb-3">
+    <div class="text-amber-300 text-sm font-medium mb-3">#3 — Valores asegurados estimados (ramos + valores) · (P3)</div>
+    <table class="tbl">
+      <thead><tr><th style="width:42px">#</th><th>Campo UI</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Action Name</td><td>Actualizar Valores asegurados</td></tr>
+        <tr><td>2</td><td>Which contact field</td><td>Valores asegurados estimados</td></tr>
+        <tr><td>3</td><td>What to update</td><td>Ramos requeridos <b>y</b> valores asegurados, en un solo texto. Si envió listado, resumir o "listado adjunto".</td></tr>
+        <tr><td>4</td><td>Ejemplo de Salida</td><td><span class="ic">Transporte + Incendio · USD 850.000 en mercadería</span> · <span class="ic">Flota vehicular · ~USD 1.2M</span> · <span class="ic">RC + listado adjunto (10 vehículos)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card mb-3">
+    <div class="text-amber-300 text-sm font-medium mb-3">#4 — Siniestralidad histórica · (P4)</div>
+    <table class="tbl">
+      <thead><tr><th style="width:42px">#</th><th>Campo UI</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Action Name</td><td>Actualizar Siniestralidad histórica</td></tr>
+        <tr><td>2</td><td>Which contact field</td><td>Siniestralidad histórica</td></tr>
+        <tr><td>3</td><td>What to update</td><td>Siniestros en los últimos 5 años, cuáles y por qué monto. Si no, "Sin siniestros".</td></tr>
+        <tr><td>4</td><td>Ejemplo de Salida</td><td><span class="ic">1 incendio en 2023 / USD 40.000</span> · <span class="ic">Sin siniestros</span> · <span class="ic">2 robos menores / ~USD 8.000</span></td></tr>
       </tbody>
     </table>
   </div>
