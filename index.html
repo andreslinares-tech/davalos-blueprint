@@ -179,8 +179,7 @@
       <tbody>
         <tr><td class="text-amber-300">⭐ Finalización de vigencia</td><td><span class="ic">finalizacion_vigencia</span></td><td>Bot · P1</td><td>03/2026 · No tiene</td></tr>
         <tr><td class="text-amber-300">⭐ Actividad principal</td><td><span class="ic">actividad_principal</span></td><td>Bot · P2</td><td>Importación de maquinaria</td></tr>
-        <tr><td class="text-amber-300">⭐ Ramos requeridos</td><td><span class="ic">ramos_requeridos</span></td><td>Bot · P3</td><td>Transporte + Incendio</td></tr>
-        <tr><td class="text-amber-300">⭐ Valores asegurados estimados</td><td><span class="ic">valores_asegurados</span></td><td>Bot · P3</td><td>USD 850.000 · listado adjunto</td></tr>
+        <tr><td class="text-amber-300">⭐ Valores asegurados estimados</td><td><span class="ic">valores_asegurados</span></td><td>Bot · P3</td><td>Transporte + Incendio · USD 850.000 · listado adjunto</td></tr>
         <tr><td class="text-amber-300">⭐ Siniestralidad histórica</td><td><span class="ic">siniestralidad_historica</span></td><td>Bot · P4</td><td>1 siniestro / USD 12.000 · Sin siniestros</td></tr>
         <tr><td>Ramo interés</td><td><span class="ic">ramo_interes</span></td><td>Bot (infiere)</td><td>Transporte · Fianzas · RC</td></tr>
         <tr><td>RUC empresa</td><td><span class="ic">ruc_empresa</span></td><td>Daniel</td><td>1792498554001</td></tr>
@@ -205,7 +204,7 @@
         <thead><tr><th>Tag</th><th>Cuándo</th></tr></thead>
         <tbody>
           <tr><td><span class="ic">lead_calificado</span></td><td>respondió las 4 preguntas</td></tr>
-          <tr><td><span class="ic">pide_asesor</span></td><td>siniestro / póliza / pide humano</td></tr>
+          <tr><td><span class="ic">transferencia a humano</span></td><td>siniestro / póliza / cuenta grande / pide humano</td></tr>
           <tr><td><span class="ic">siniestro_previo</span></td><td>lead caliente (no le pagaron)</td></tr>
         </tbody>
       </table>
@@ -377,8 +376,8 @@ Cierre: el lead recibió confirmación y los tres recordatorios.</div></div>
       <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
         <li>Siniestro / reembolso en curso</li>
         <li>Duda sobre una póliza vigente</li>
-        <li>Pide hablar con una persona</li>
         <li>Cuenta grande / ramo complejo (D&O, cyber, reaseguro)</li>
+        <li class="text-zinc-500">Pide hablar con una persona <span class="text-zinc-600">(prebuilt por defecto)</span></li>
       </ul>
     </div>
   </div>
@@ -427,7 +426,7 @@ FLUJO (preguntá de a una, esperá la respuesta antes de seguir):
 1. Saludá breve y confirmá que es un seguro para su empresa.
 2. Pregunta 1 — Vigencia: "¿Cuál es la fecha de finalización de la vigencia de su póliza actual?" Guardá en "Finalización de vigencia". (Si no tiene póliza, registrá "No tiene".)
 3. Pregunta 2 — Actividad: "¿Cuál es la actividad de su empresa?" Guardá en "Actividad principal".
-4. Pregunta 3 — Ramos y valores: "¿Cuáles son los ramos requeridos y los valores asegurados? Si te resulta más fácil, podés enviarme un listado de los activos o bienes a asegurar." Guardá ramos en "Ramos requeridos" y valores (o listado) en "Valores asegurados estimados". Si responde solo una de las dos, repreguntá por la que falta ANTES de la pregunta 4.
+4. Pregunta 3 — Ramos y valores: "¿Cuáles son los ramos requeridos y los valores asegurados? Si te resulta más fácil, podés enviarme un listado de los activos o bienes a asegurar." Guardá ramos + valores (o listado) juntos en "Valores asegurados estimados". Si responde solo una de las dos, repreguntá por la que falta ANTES de la pregunta 4.
 5. Pregunta 4 — Siniestros: "¿Ha tenido siniestros en los últimos 5 años? Si es así, ¿cuáles y por qué monto?" Guardá en "Siniestralidad histórica".
 6. Cuando respondió las 4 preguntas, está CALIFICADO: ejecutá Trigger Workflow "Lead Calificado Corp" y avisá que Daniel continúa con la cotización.
 
@@ -441,8 +440,8 @@ REGLAS:
   <div class="text-violet-300 text-sm font-medium mb-2">Campo 3 · Información adicional</div>
   <div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block">TRANSFERENCIAS / LEVANTAR LA MANO:
 - Respondió las 4 preguntas → Trigger Workflow "Lead Calificado Corp".
-- Siniestro vigente, reembolso o liquidación → Human Handover (tag pide_asesor) y avisá que un asesor lo retoma.
-- Duda de póliza vigente, pide asesor explícitamente, o cuenta grande / ramo complejo (D&O, cyber, reaseguro) → Human Handover (tag pide_asesor) → Daniel.
+- Siniestro vigente, reembolso o liquidación → Human Handover (tag transferencia a humano) y avisá que un asesor lo retoma.
+- Duda de póliza vigente, pide asesor explícitamente, o cuenta grande / ramo complejo (D&O, cyber, reaseguro) → Human Handover (tag transferencia a humano) → Daniel.
 
 NUNCA:
 - No des primas exactas sin todos los datos.
@@ -465,35 +464,68 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
   <div class="action-card mb-3">
     <div class="action-grid text-sm">
       <div class="font-mono text-[11px] text-violet-300">Trigger Workflow</div><div class="text-zinc-300"><b class="text-white">Lead Calificado Corp</b> — condición: el lead respondió las 4 preguntas (vigencia, actividad, ramos+valores, siniestralidad). <span class="text-zinc-500">Máx. 5 trigger workflows/bot; usamos 1.</span></div>
-      <div class="font-mono text-[11px] text-amber-300">Human Handover</div><div class="text-zinc-300">Prebuilt. Siniestro · póliza vigente · pide humano · cuenta grande/ramo complejo → tag <code>pide_asesor</code> + notifica a Daniel + pausa el bot.</div>
+      <div class="font-mono text-[11px] text-amber-300">Human Handover</div><div class="text-zinc-300">3 escenarios custom (siniestro · póliza vigente · cuenta grande/ramo complejo) → tag <code>transferencia a humano</code> + asigna a Daniel + pausa el bot. La prebuilt "Solicitud de humano" (pide hablar con persona) queda activada por defecto.</div>
       <div class="font-mono text-[11px] text-cyan-300">Appointment Booking</div><div class="text-zinc-300">Calendario de Daniel. <span class="pill pill-amber">⏳ requiere Google Calendar</span> (hoy Thunderbird).</div>
       <div class="font-mono text-[11px] text-emerald-300">Auto Follow-Up</div><div class="text-zinc-300">Mensaje IA contextual a las 2h si el lead se queda callado mid-chat.</div>
       <div class="font-mono text-[11px] text-rose-300">Stop Bot</div><div class="text-zinc-300">Tras Human Handover a Daniel y tras despedida del lead.</div>
     </div>
   </div>
-  <div class="card mb-3">
-    <div class="text-amber-300 text-sm font-medium mb-3">Transferencia a humano · campos del modal — escenario "Caso fuera del filtro / pide asesor"</div>
-    <table class="tbl">
-      <thead><tr><th>Campo UI</th><th>Valor</th></tr></thead>
-      <tbody>
-        <tr><td>Habilitar escenario</td><td>ON</td></tr>
-        <tr><td>Nombre del escenario</td><td>Caso fuera del filtro / pide asesor</td></tr>
-        <tr><td>Condición de activación</td><td>Siniestro/reembolso en curso, póliza vigente, cuenta grande / ramo complejo, o pide hablar con un asesor.</td></tr>
-        <tr><td>Frases de Ejemplo</td><td><span class="ic">Tengo un reclamo en curso</span> · <span class="ic">Quiero hablar con un asesor</span> · <span class="ic">Es sobre una póliza que ya tengo</span> · <span class="ic">Necesito a una persona</span> · <span class="ic">Es un tema de reaseguro</span></td></tr>
-        <tr><td>Asignar Conversación a un Usuario</td><td>Daniel Dávalos</td></tr>
-        <tr><td>Omita la asignación si ya tiene usuario</td><td>✅ (el WF Entrada ya asigna a Daniel)</td></tr>
-        <tr><td>Mensaje final</td><td>Te paso con Daniel, nuestro asesor corporativo, que retoma tu caso en breve. Gracias por escribirnos.</td></tr>
-        <tr><td>Reactivar el bot después de</td><td>8 horas</td></tr>
-        <tr><td>Cree una tarea en el contacto</td><td>✅</td></tr>
-        <tr><td>Etiquetas personalizadas</td><td><code>pide_asesor</code></td></tr>
-      </tbody>
-    </table>
+  <p class="text-sm text-zinc-500 mb-3">Transferencia a humano · <b class="text-zinc-300">3 escenarios custom</b> (campos del modal). Todos asignan a Daniel y aplican tag <code>transferencia a humano</code>. La prebuilt "Solicitud de humano" queda activada por defecto.</p>
+  <div class="grid md:grid-cols-3 gap-3 mb-3">
+    <div class="card">
+      <div class="text-amber-300 text-sm font-medium mb-3">1 · Siniestro / reembolso en curso</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Habilitar</td><td>ON</td></tr>
+          <tr><td>Condición</td><td>Siniestro, reclamo, reembolso o liquidación en curso (no cotización nueva).</td></tr>
+          <tr><td>Frases</td><td><span class="ic">Tengo un reclamo en curso</span> · <span class="ic">Cómo va mi reembolso</span> · <span class="ic">Tuve un siniestro</span> · <span class="ic">No me han pagado</span> · <span class="ic">Reportar un accidente</span></td></tr>
+          <tr><td>Asignar</td><td>Daniel Dávalos</td></tr>
+          <tr><td>Omitir si ya asignado</td><td>✅</td></tr>
+          <tr><td>Mensaje final</td><td>Te paso con Daniel, que toma tu caso de siniestro y te responde en breve.</td></tr>
+          <tr><td>Reactivar bot</td><td>8 h</td></tr>
+          <tr><td>Crear tarea</td><td>✅</td></tr>
+          <tr><td>Etiqueta</td><td><code>transferencia a humano</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="text-amber-300 text-sm font-medium mb-3">2 · Duda sobre póliza vigente</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Habilitar</td><td>ON</td></tr>
+          <tr><td>Condición</td><td>Consulta sobre una póliza que ya tiene contratada (coberturas, vigencia, condiciones).</td></tr>
+          <tr><td>Frases</td><td><span class="ic">Es sobre una póliza que ya tengo</span> · <span class="ic">Qué cubre mi seguro actual</span> · <span class="ic">Dudas de mi póliza vigente</span> · <span class="ic">Mi cobertura incluye esto</span> · <span class="ic">Revisar mi póliza</span></td></tr>
+          <tr><td>Asignar</td><td>Daniel Dávalos</td></tr>
+          <tr><td>Omitir si ya asignado</td><td>✅</td></tr>
+          <tr><td>Mensaje final</td><td>Te paso con Daniel para que revise tu póliza vigente y te responda en detalle.</td></tr>
+          <tr><td>Reactivar bot</td><td>8 h</td></tr>
+          <tr><td>Crear tarea</td><td>✅</td></tr>
+          <tr><td>Etiqueta</td><td><code>transferencia a humano</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="text-amber-300 text-sm font-medium mb-3">3 · Cuenta grande / ramo complejo</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Habilitar</td><td>ON</td></tr>
+          <tr><td>Condición</td><td>Ramo complejo o de alto valor (D&O, cyber, reaseguro, fianzas grandes) con revisión técnica del asesor.</td></tr>
+          <tr><td>Frases</td><td><span class="ic">Necesito un seguro D&O</span> · <span class="ic">Es un tema de cyber</span> · <span class="ic">Requiere reaseguro</span> · <span class="ic">Es una cuenta grande</span> · <span class="ic">Fianza de varios millones</span></td></tr>
+          <tr><td>Asignar</td><td>Daniel Dávalos</td></tr>
+          <tr><td>Omitir si ya asignado</td><td>✅</td></tr>
+          <tr><td>Mensaje final</td><td>Te paso con Daniel, que maneja directamente este tipo de coberturas y te arma la propuesta.</td></tr>
+          <tr><td>Reactivar bot</td><td>8 h</td></tr>
+          <tr><td>Crear tarea</td><td>✅</td></tr>
+          <tr><td>Etiqueta</td><td><code>transferencia a humano</code></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="card" style="border-color:rgba(245,158,11,.3); background:rgba(40,28,8,.35)">
     <div class="text-amber-300 text-sm font-medium mb-2">Blind spots (a vigilar en testing)</div>
     <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
       <li>"Finalización de vigencia" es texto libre → el ejemplo de salida guía el formato; Daniel valida la fecha al cotizar.</li>
-      <li>Pregunta 3 combina ramos + valores → verificar que el bot no marque Calificado con uno solo de los dos.</li>
+      <li>Pregunta 3 combina ramos + valores en un solo campo → verificar que el bot no marque Calificado con ramos sin valores (o viceversa).</li>
       <li>Listado de bienes como archivo → el bot guarda "listado adjunto" y sigue; Daniel abre el adjunto.</li>
       <li>KB vacía → el bot cae en Human Handover seguido. Cargar la KB antes de Auto Pilot.</li>
       <li>"No me sirve, gracias" puede disparar Stop Bot en vez de Human Handover → verificar prioridad.</li>
@@ -504,16 +536,15 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
 <!-- 09 ADD CONTACT INFO -->
 <section id="bot-cf" class="sec">
   <div class="sec-num">09 / Bot · Add Contact Info</div>
-  <h2 class="mb-2">Captura de datos (5 acciones).</h2>
-  <p class="text-sm text-zinc-500 mb-6">Cada Add Contact Info tiene 4 campos en la UI de GHL. Nombre/teléfono/correo se capturan en campos nativos.</p>
+  <h2 class="mb-2">Captura de datos (4 acciones = 4 preguntas).</h2>
+  <p class="text-sm text-zinc-500 mb-6">Cada Add Contact Info tiene 4 campos en la UI de GHL. Nombre/teléfono/correo se capturan en campos nativos. La P3 guarda ramos + valores en un solo campo.</p>
   <div class="card">
     <table class="tbl">
       <thead><tr><th>Action Name</th><th>Campo</th><th>Qué actualizar</th><th>Ejemplo de salida</th></tr></thead>
       <tbody>
         <tr><td>Actualizar Finalización de vigencia</td><td>Finalización de vigencia</td><td>Fecha en que vence la póliza vigente. Si no tiene, "No tiene".</td><td>03/2026 · No tiene</td></tr>
         <tr><td>Actualizar Actividad principal</td><td>Actividad principal</td><td>Giro o actividad económica principal (frase corta).</td><td>Importación de maquinaria</td></tr>
-        <tr><td>Actualizar Ramos requeridos</td><td>Ramos requeridos</td><td>Ramos/coberturas que necesita la empresa.</td><td>Transporte + Incendio · Fianza</td></tr>
-        <tr><td>Actualizar Valores asegurados</td><td>Valores asegurados estimados</td><td>Valor aproximado a asegurar; si envió listado, "listado adjunto".</td><td>USD 850.000 · Listado adjunto</td></tr>
+        <tr><td>Actualizar Valores asegurados</td><td>Valores asegurados estimados</td><td>Ramos requeridos + valores asegurados en un solo texto; si envió listado, "listado adjunto".</td><td>Transporte + Incendio · USD 850.000 · Listado adjunto</td></tr>
         <tr><td>Actualizar Siniestralidad histórica</td><td>Siniestralidad histórica</td><td>Siniestros últimos 5 años + monto. Si no, "Sin siniestros".</td><td>1 incendio 2023 / USD 40.000</td></tr>
       </tbody>
     </table>
