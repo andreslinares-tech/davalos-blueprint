@@ -465,7 +465,7 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
     <div class="action-grid text-sm">
       <div class="font-mono text-[11px] text-violet-300">Trigger Workflow</div><div class="text-zinc-300"><b class="text-white">Lead Calificado Corp</b> — condición: el lead respondió las 4 preguntas (vigencia, actividad, ramos+valores, siniestralidad). <span class="text-zinc-500">Máx. 5 trigger workflows/bot; usamos 1.</span></div>
       <div class="font-mono text-[11px] text-amber-300">Human Handover</div><div class="text-zinc-300">3 escenarios custom (siniestro · póliza vigente · cuenta grande/ramo complejo) → tag <code>transferencia a humano</code> + asigna a Daniel + pausa el bot. La prebuilt "Solicitud de humano" (pide hablar con persona) queda activada por defecto.</div>
-      <div class="font-mono text-[11px] text-cyan-300">Appointment Booking</div><div class="text-zinc-300">Calendario de Daniel. <span class="pill pill-amber">⏳ requiere Google Calendar</span> (hoy Thunderbird).</div>
+      <div class="font-mono text-[11px] text-cyan-300">Appointment Booking</div><div class="text-zinc-300">Calendario único <code>Reunión con Daniel</code> · bot puede <b class="text-white">anular y reprogramar</b> (toggles ON). <span class="pill pill-amber">⏳ conectar Google Calendar de Daniel</span> (hoy Thunderbird).</div>
       <div class="font-mono text-[11px] text-emerald-300">Auto Follow-Up</div><div class="text-zinc-300">Mensaje IA contextual a las 2h si el lead se queda callado mid-chat.</div>
       <div class="font-mono text-[11px] text-rose-300">Stop Bot</div><div class="text-zinc-300">Tras Human Handover a Daniel y tras despedida del lead.</div>
     </div>
@@ -517,6 +517,30 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
           <tr><td>Reactivar bot</td><td>8 h</td></tr>
           <tr><td>Crear tarea</td><td>✅</td></tr>
           <tr><td>Etiqueta</td><td><code>transferencia a humano</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 gap-3 mb-3">
+    <div class="card">
+      <div class="text-cyan-300 text-sm font-medium mb-3">Appointment Booking · Paso 1 — Calendario</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Modo</td><td>Calendario único</td></tr>
+          <tr><td>Calendario</td><td><code>Reunión con Daniel</code> <span class="pill pill-amber">⏳ conectar Google Calendar</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="text-cyan-300 text-sm font-medium mb-3">Appointment Booking · Paso 2 — Opciones avanzadas</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>No reservar (solo enlace)</td><td>☐ OFF</td></tr>
+          <tr><td>Pausar bot tras la reserva</td><td>✅ ON</td></tr>
+          <tr><td>Activar flujo de trabajo</td><td>☐ OFF</td></tr>
+          <tr><td>Transferir a empleado</td><td>☐ OFF</td></tr>
+          <tr><td><b class="text-white">Permitir anular la cita</b></td><td><b class="text-white">✅ ON</b></td></tr>
+          <tr><td><b class="text-white">Permitir reprogramar la cita</b></td><td><b class="text-white">✅ ON</b></td></tr>
         </tbody>
       </table>
     </div>
