@@ -196,14 +196,6 @@
         <thead><tr><th>Key</th><th>Estado</th></tr></thead>
         <tbody>
           <tr><td><span class="ic">correo_de_salida</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
-          <tr><td><span class="ic">correo_daniel</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
-          <tr><td><span class="ic">nombre_remitente</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
-          <tr><td><span class="ic">nombre_negocio</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
-          <tr><td><span class="ic">telefono_contacto</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
-          <tr><td><span class="ic">horario_atencion</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
-          <tr><td><span class="ic">sla_cotizacion</span></td><td><span class="pill pill-emerald">✅</span></td></tr>
-          <tr><td><span class="ic">link_web</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
-          <tr><td><span class="ic">link_calendario</span></td><td><span class="pill pill-amber">⏳</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -215,10 +207,6 @@
           <tr><td><span class="ic">lead_calificado</span></td><td>respondió las 4 preguntas</td></tr>
           <tr><td><span class="ic">pide_asesor</span></td><td>siniestro / póliza / pide humano</td></tr>
           <tr><td><span class="ic">siniestro_previo</span></td><td>lead caliente (no le pagaron)</td></tr>
-          <tr><td><span class="ic">auto_followup_1</span></td><td>recontacto 2h</td></tr>
-          <tr><td><span class="ic">auto_followup_2</span></td><td>recontacto 24h</td></tr>
-          <tr><td><span class="ic">auto_followup_3</span></td><td>recontacto 72h</td></tr>
-          <tr><td><span class="ic">lead_descartado</span></td><td>silencio total 96h → Perdido</td></tr>
         </tbody>
       </table>
     </div>
@@ -260,7 +248,7 @@
           <tr><td>Trigger</td><td>Customer Replied · Reply Channel = SMS · filtro: primer mensaje (Total messages = 1)</td></tr>
           <tr><td>1 · Create Opportunity</td><td>Pipeline Corporativo · stage <code>Lead nuevo</code> · name <code>{{contact.first_name}} — nuevo lead</code></td></tr>
           <tr><td>2 · Assign User</td><td>Daniel Dávalos (asignación inmediata)</td></tr>
-          <tr><td>3 · Notificación interna</td><td>WhatsApp interno + Email (To <code>{{custom_values.correo_daniel}}</code>, From <code>{{custom_values.correo_de_salida}}</code>): "Nuevo lead corporativo…"</td></tr>
+          <tr><td>3 · Notificación interna</td><td>WhatsApp interno + Email (To <code>Assigned User</code>, From <code>{{custom_values.correo_de_salida}}</code>): "Nuevo lead corporativo…"</td></tr>
           <tr><td>4 · Trigger Bot</td><td>Conversation AI · Bot Corporativo</td></tr>
         </tbody>
       </table>
@@ -270,7 +258,7 @@ Trigger: Customer Replied con Reply Channel SMS, filtrando que sea el primer men
 
 Paso 1: Create/Update Opportunity en el Pipeline Corporativo, stage Lead nuevo, Opportunity Name = contact.first_name guion "nuevo lead".
 Paso 2: Assign User a Daniel Dávalos.
-Paso 3: Notificación interna a Daniel por WhatsApp interno y Email (To custom_values.correo_daniel, From custom_values.correo_de_salida) avisando que entró un nuevo lead corporativo con su nombre y teléfono.
+Paso 3: Notificación interna al usuario asignado por WhatsApp interno y Email (To Assigned User, From custom_values.correo_de_salida) avisando que entró un nuevo lead corporativo con su nombre y teléfono.
 Paso 4: Trigger Bot del Conversation AI Bot Corporativo.
 
 Cierre: el lead queda asignado a Daniel y conversando con el Bot Corporativo.</div></div>
@@ -288,7 +276,7 @@ Cierre: el lead queda asignado a Daniel y conversando con el Bot Corporativo.</d
           <tr><td>1 · Add Tag</td><td><code>lead_calificado</code></td></tr>
           <tr><td>2 · Update Opportunity</td><td>Pipeline Corporativo · stage <code>Calificado</code></td></tr>
           <tr><td>3 · Send SMS al lead</td><td>"…Daniel prepara la cotización y te contacta…"</td></tr>
-          <tr><td>4 · Notificación a Daniel</td><td>tri-canal (WhatsApp + Email a <code>{{custom_values.correo_daniel}}</code> + interna): resumen con actividad, valores, vigencia, siniestralidad + "contactá en &lt;30 min"</td></tr>
+          <tr><td>4 · Notificación a Daniel</td><td>tri-canal (WhatsApp + Email al <code>Assigned User</code> + interna): resumen con actividad, valores, vigencia, siniestralidad + "contactá en &lt;30 min"</td></tr>
           <tr><td>5 · Stop Bot</td><td>libera la conversación para Daniel</td></tr>
         </tbody>
       </table>
@@ -299,7 +287,7 @@ Trigger: el workflow lo dispara el bot mediante la acción Trigger Workflow (Lea
 Paso 1: Add Tag lead_calificado.
 Paso 2: Update Opportunity al Pipeline Corporativo, stage Calificado.
 Paso 3: Send SMS al lead avisando que Daniel, el asesor corporativo, prepara la cotización y lo contacta dentro del horario.
-Paso 4: Notificación interna a Daniel por tres canales (WhatsApp interno, Email To custom_values.correo_daniel From custom_values.correo_de_salida, y notificación de la plataforma) con nombre, teléfono, actividad principal, valores asegurados, finalización de vigencia y siniestralidad, indicando contactar en menos de 30 minutos e incluyendo el link a la conversación.
+Paso 4: Notificación interna a Daniel por tres canales (WhatsApp interno, Email To Assigned User From custom_values.correo_de_salida, y notificación de la plataforma) con nombre, teléfono, actividad principal, valores asegurados, finalización de vigencia y siniestralidad, indicando contactar en menos de 30 minutos e incluyendo el link a la conversación.
 Paso 5: Stop Bot para liberar la conversación al asesor.
 
 Cierre: lead en etapa Calificado, Daniel notificado, bot detenido.</div></div>
@@ -314,10 +302,10 @@ Cierre: lead en etapa Calificado, Daniel notificado, bot detenido.</div></div>
         <thead><tr><th>Paso</th><th>Acción</th></tr></thead>
         <tbody>
           <tr><td>Trigger</td><td>Customer No-Reply · stage <code>Calificando</code> · sin tag <code>lead_calificado</code></td></tr>
-          <tr><td>1 · Wait 2h</td><td>si no responde → SMS msg 1 + tag <code>auto_followup_1</code></td></tr>
-          <tr><td>2 · Wait 22h (24h)</td><td>si no responde → SMS msg 2 + tag <code>auto_followup_2</code></td></tr>
-          <tr><td>3 · Wait 48h (72h)</td><td>si no responde → SMS msg 3 + tag <code>auto_followup_3</code></td></tr>
-          <tr><td>4 · Wait 24h (96h)</td><td>si no responde → tag <code>lead_descartado</code> + Update Opportunity <code>Perdido</code> + notif interna</td></tr>
+          <tr><td>1 · Wait 2h</td><td>si no responde → SMS msg 1</td></tr>
+          <tr><td>2 · Wait 22h (24h)</td><td>si no responde → SMS msg 2</td></tr>
+          <tr><td>3 · Wait 48h (72h)</td><td>si no responde → SMS msg 3</td></tr>
+          <tr><td>4 · Wait 24h (96h)</td><td>si no responde → Update Opportunity <code>Perdido</code> + notif interna</td></tr>
           <tr><td>★ En cualquier paso</td><td>si el contacto responde → End (el bot/Daniel retoma)</td></tr>
         </tbody>
       </table>
@@ -325,7 +313,7 @@ Cierre: lead en etapa Calificado, Daniel notificado, bot detenido.</div></div>
 
 Trigger: Customer No-Reply, filtrando contactos en la etapa Calificando del Pipeline Corporativo que NO tengan el tag lead_calificado.
 
-Esperar 2 horas. Si no respondió, enviar SMS: "Hola {{contact.first_name}}, quedamos en ayudarte con el seguro de tu empresa. ¿Seguimos con la consulta?" y aplicar tag auto_followup_1. Esperar 22 horas adicionales. Si no respondió, enviar SMS: "{{contact.first_name}}, te escribo de nuevo por las dudas. Si querés retomar, acá estamos para armar tu cotización." y aplicar tag auto_followup_2. Esperar 48 horas adicionales. Si no respondió, enviar SMS: "Último mensaje, {{contact.first_name}}: si más adelante necesitás revisar los seguros de tu empresa, escribinos cuando quieras." y aplicar tag auto_followup_3. Esperar 24 horas adicionales. Si sigue sin responder, aplicar tag lead_descartado, mover la oportunidad a la etapa Perdido y enviar notificación interna al usuario asignado.
+Esperar 2 horas. Si no respondió, enviar SMS: "Hola {{contact.first_name}}, quedamos en ayudarte con el seguro de tu empresa. ¿Seguimos con la consulta?" Esperar 22 horas adicionales. Si no respondió, enviar SMS: "{{contact.first_name}}, te escribo de nuevo por las dudas. Si querés retomar, acá estamos para armar tu cotización." Esperar 48 horas adicionales. Si no respondió, enviar SMS: "Último mensaje, {{contact.first_name}}: si más adelante necesitás revisar los seguros de tu empresa, escribinos cuando quieras." Esperar 24 horas adicionales. Si sigue sin responder, mover la oportunidad a la etapa Perdido y enviar notificación interna al usuario asignado.
 
 En cualquier momento, si el contacto responde, terminar el workflow inmediatamente para que el bot o Daniel retomen sin interferencia.
 
@@ -351,7 +339,7 @@ Cierre: lead retomó la conversación, o lead descartado tras 4 días de silenci
 
 Trigger: Appointment Status igual a Confirmed, para el calendario de Daniel.
 
-Paso 1 (inmediato): Send SMS "{{contact.first_name}}, tu reunión con {{custom_values.nombre_negocio}} quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha."
+Paso 1 (inmediato): Send SMS "{{contact.first_name}}, tu reunión con Dávalos & Asociados quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha."
 Paso 2 (hasta 24 horas antes): Send SMS "Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la reunión. ¿Confirmamos?"
 Paso 3 (hasta 2 horas antes): Send SMS "{{contact.first_name}}, en un par de horas nos vemos. Cualquier cambio avisame por aquí."
 Paso 4 (hasta 15 minutos antes): Send SMS "{{contact.first_name}}, en 15 minutos arrancamos. {{appointment.meeting_url}} (o la dirección si es presencial)."
@@ -483,6 +471,24 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
       <div class="font-mono text-[11px] text-rose-300">Stop Bot</div><div class="text-zinc-300">Tras Human Handover a Daniel y tras despedida del lead.</div>
     </div>
   </div>
+  <div class="card mb-3">
+    <div class="text-amber-300 text-sm font-medium mb-3">Transferencia a humano · campos del modal — escenario "Caso fuera del filtro / pide asesor"</div>
+    <table class="tbl">
+      <thead><tr><th>Campo UI</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Habilitar escenario</td><td>ON</td></tr>
+        <tr><td>Nombre del escenario</td><td>Caso fuera del filtro / pide asesor</td></tr>
+        <tr><td>Condición de activación</td><td>Siniestro/reembolso en curso, póliza vigente, cuenta grande / ramo complejo, o pide hablar con un asesor.</td></tr>
+        <tr><td>Frases de Ejemplo</td><td><span class="ic">Tengo un reclamo en curso</span> · <span class="ic">Quiero hablar con un asesor</span> · <span class="ic">Es sobre una póliza que ya tengo</span> · <span class="ic">Necesito a una persona</span> · <span class="ic">Es un tema de reaseguro</span></td></tr>
+        <tr><td>Asignar Conversación a un Usuario</td><td>Daniel Dávalos</td></tr>
+        <tr><td>Omita la asignación si ya tiene usuario</td><td>✅ (el WF Entrada ya asigna a Daniel)</td></tr>
+        <tr><td>Mensaje final</td><td>Te paso con Daniel, nuestro asesor corporativo, que retoma tu caso en breve. Gracias por escribirnos.</td></tr>
+        <tr><td>Reactivar el bot después de</td><td>8 horas</td></tr>
+        <tr><td>Cree una tarea en el contacto</td><td>✅</td></tr>
+        <tr><td>Etiquetas personalizadas</td><td><code>pide_asesor</code></td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="card" style="border-color:rgba(245,158,11,.3); background:rgba(40,28,8,.35)">
     <div class="text-amber-300 text-sm font-medium mb-2">Blind spots (a vigilar en testing)</div>
     <ul class="text-sm text-zinc-400 space-y-1.5 leading-relaxed list-disc pl-4">
@@ -534,15 +540,15 @@ TIEMPOS DE COTIZACIÓN (si preguntan): hasta 5 días hábiles; con reaseguro has
   <h2 class="mb-2">Textos SMS por workflow.</h2>
   <p class="text-sm text-zinc-500 mb-6">Merge tags directos (no plantillas Meta, canal no oficial). <span class="pill pill-amber">⏳ validar wording con Mauricio.</span></p>
   <div class="space-y-3">
-    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Saludo inicial</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Hola {{contact.first_name}}, soy el asistente de {{custom_values.nombre_negocio}} 👋
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Saludo inicial</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Hola {{contact.first_name}}, soy el asistente de Dávalos & Asociados 👋
 Ayudamos a empresas a asegurar bien su operación. Para empezar, ¿cuál es la fecha de finalización de la vigencia de su póliza actual?</div></div></div>
-    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Lead calificado — aviso al lead</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Perfecto, {{contact.first_name}}. Con estos datos, Daniel —nuestro asesor corporativo— prepara la cotización con varias aseguradoras y te contacta dentro del horario de atención. Gracias por confiar en {{custom_values.nombre_negocio}}.</div></div></div>
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Lead calificado — aviso al lead</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Perfecto, {{contact.first_name}}. Con estos datos, Daniel —nuestro asesor corporativo— prepara la cotización con varias aseguradoras y te contacta dentro del horario de atención. Gracias por confiar en Dávalos & Asociados.</div></div></div>
     <div><div class="text-xs text-zinc-400 mb-1 font-mono">Seguimiento · 2h / 24h / 72h</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">Hola {{contact.first_name}}, quedamos en ayudarte con el seguro de tu empresa. ¿Seguimos con la consulta?
 
 {{contact.first_name}}, te escribo de nuevo por las dudas. Si querés retomar, acá estamos para armar tu cotización.
 
 Último mensaje, {{contact.first_name}}: si más adelante necesitás revisar los seguros de tu empresa, escribinos cuando quieras. Quedamos a la orden.</div></div></div>
-    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Recordatorios de cita</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">{{contact.first_name}}, tu reunión con {{custom_values.nombre_negocio}} quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha.
+    <div><div class="text-xs text-zinc-400 mb-1 font-mono">Recordatorios de cita</div><div class="prompt-wrap"><button class="copy-btn" type="button">📋 Copiar</button><div class="prompt-block amber">{{contact.first_name}}, tu reunión con Dávalos & Asociados quedó confirmada para {{appointment.start_time}}. Te recuerdo más cerca de la fecha.
 
 Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la reunión. ¿Confirmamos?
 
