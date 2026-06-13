@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blueprint del Sistema · Bot Corporativo · Dávalos & Asociados</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
@@ -78,6 +79,75 @@
     table.tbl tr:last-child td { border-bottom:none; }
     .check { display:flex; gap:10px; align-items:flex-start; padding:7px 0; color:#d4d4d8; font-size:13.5px; line-height:1.5; }
     .check .bx { color:#52525b; flex-shrink:0; }
+
+    /* === SECCIÓN 16 · CASOS DE PRUEBA (pattern GAM Odontología / Propiedades Ecuador adaptado) === */
+    .serif-italic { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; }
+    .case-card { background: rgba(9,9,11,0.5); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 28px; transition: border-color 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; margin-bottom: 20px; }
+    .case-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; transition: width 0.25s ease; }
+    .case-card[data-priority="critical"]::before { background: #F87171; }
+    .case-card[data-priority="important"]::before { background: #FBBF24; }
+    .case-card[data-priority="nice"]::before { background: #4ADE80; }
+    .case-card[data-status="passed"] { border-color: rgba(74,222,128,0.3); }
+    .case-card[data-status="passed"]::before { background: #4ADE80 !important; width: 6px; }
+    .case-card[data-status="failed"] { border-color: rgba(248,113,113,0.3); }
+    .case-card[data-status="failed"]::before { background: #F87171 !important; width: 6px; }
+    .case-card[data-hidden="true"] { display: none; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; }
+    .badge-critical { background: rgba(248,113,113,0.15); color: #FCA5A5; border: 1px solid rgba(248,113,113,0.3); }
+    .badge-important { background: rgba(251,191,36,0.15); color: #FDE68A; border: 1px solid rgba(251,191,36,0.35); }
+    .badge-nice { background: rgba(74,222,128,0.15); color: #86EFAC; border: 1px solid rgba(74,222,128,0.3); }
+    .badge-rule { background: rgba(244,63,94,0.18); color: #FCA5A5; border: 1px solid rgba(244,63,94,0.4); }
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-family: 'Geist Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .status-pending { background: rgba(113,113,122,0.2); color: #A1A1AA; }
+    .status-passed { background: rgba(74,222,128,0.18); color: #86EFAC; }
+    .status-failed { background: rgba(248,113,113,0.18); color: #FCA5A5; }
+    .turn-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+    .turn-table th { text-align: left; padding: 10px 14px; font-family: 'Geist Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #71717A; border-bottom: 1px solid rgba(255,255,255,0.06); font-weight: 500; }
+    .turn-table td { padding: 12px 14px; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .turn-table .turn-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: #71717A; width: 36px; }
+    .turn-table .actor-bot { color: #C4B5FD; font-weight: 500; font-size: 12px; }
+    .turn-table .actor-system { color: #94A3B8; font-style: italic; font-size: 12px; }
+    .turn-table .actor-lead { color: #FDE68A; font-weight: 500; font-size: 12px; }
+    .turn-table .msg-system { color: #71717A; font-style: italic; font-size: 12px; }
+    .turn-table .msg-bot { color: #E4E4E7; }
+    .turn-table .msg-lead { color: #FAFAFA; }
+    .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border-radius: 8px; transition: background 0.15s; cursor: pointer; }
+    .check-item:hover { background: rgba(255,255,255,0.02); }
+    .check-item input[type="checkbox"] { appearance: none; width: 18px; height: 18px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 5px; flex-shrink: 0; margin-top: 2px; cursor: pointer; transition: all 0.15s; position: relative; background: rgba(0,0,0,0.2); }
+    .check-item input[type="checkbox"]:checked { background: #4ADE80; border-color: #4ADE80; }
+    .check-item input[type="checkbox"]:checked::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #052E16; font-size: 12px; font-weight: 700; }
+    .check-item input[type="checkbox"]:checked + .check-label { color: #71717A; text-decoration: line-through; text-decoration-color: rgba(74,222,128,0.5); }
+    .check-label { color: #D4D4D8; font-size: 13px; line-height: 1.55; transition: color 0.15s; }
+    .check-label code { font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd; }
+    .case-actions { display: flex; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; }
+    .btn { font-family: 'Geist', sans-serif; font-size: 12px; padding: 8px 14px; border-radius: 8px; border: 1px solid; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+    .btn-pass { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); color: #86EFAC; }
+    .btn-pass:hover { background: rgba(74,222,128,0.2); border-color: rgba(74,222,128,0.5); }
+    .btn-fail { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: #FCA5A5; }
+    .btn-fail:hover { background: rgba(248,113,113,0.2); border-color: rgba(248,113,113,0.5); }
+    .btn-reset { background: transparent; border-color: rgba(255,255,255,0.1); color: #A1A1AA; }
+    .btn-reset:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.2); color: #E4E4E7; }
+    .btn-primary { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.4); color: #C4B5FD; }
+    .btn-primary:hover { background: rgba(139,92,246,0.25); border-color: rgba(139,92,246,0.6); }
+    .filter-pill { padding: 6px 14px; border-radius: 999px; font-family: 'Geist Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; background: rgba(255,255,255,0.04); color: #A1A1AA; }
+    .filter-pill:hover { background: rgba(255,255,255,0.08); color: #E4E4E7; }
+    .filter-pill.active { background: rgba(139,92,246,0.18); border-color: rgba(139,92,246,0.4); color: #C4B5FD; }
+    .tester-note { width: 100%; min-height: 70px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); color: #E4E4E7; padding: 10px 12px; border-radius: 8px; font-family: inherit; font-size: 12px; line-height: 1.5; resize: vertical; transition: border-color 0.15s; }
+    .tester-note:focus { outline: none; border-color: rgba(139,92,246,0.4); }
+    .tester-note::placeholder { color: rgba(255,255,255,0.3); }
+    .progress-ring { transform: rotate(-90deg); }
+    .progress-ring circle { transition: stroke-dashoffset 0.3s ease; }
+    .sync-status { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; transition: all 0.25s ease; }
+    .sync-status.sync-syncing { background: rgba(139,92,246,0.12); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.3); }
+    .sync-status.sync-online  { background: rgba(74,222,128,0.10); color: #86EFAC; border: 1px solid rgba(74,222,128,0.28); }
+    .sync-status.sync-offline { background: rgba(251,191,36,0.10); color: #FDE68A; border: 1px solid rgba(251,191,36,0.30); }
+    .sync-status.sync-error   { background: rgba(248,113,113,0.10); color: #FCA5A5; border: 1px solid rgba(248,113,113,0.30); }
+    .sync-status .sync-dot { width: 7px; height: 7px; border-radius: 999px; display: inline-block; }
+    .sync-syncing .sync-dot { background: #8B5CF6; animation: syncPulse 1.2s ease-in-out infinite; }
+    .sync-online  .sync-dot { background: #4ADE80; }
+    .sync-offline .sync-dot { background: #FBBF24; }
+    .sync-error   .sync-dot { background: #F87171; }
+    @keyframes syncPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
   </style>
 </head>
 <body class="grain">
@@ -107,6 +177,8 @@
     <a class="toc-link sub" href="#roadmap">13 · Roadmap</a>
     <a class="toc-link sub" href="#riesgos">14 · Riesgos</a>
     <a class="toc-link sub" href="#checklist">15 · Checklist go-live</a>
+    <div class="toc-group">Validación</div>
+    <a class="toc-link" href="#tests">16 · Casos de prueba</a>
   </nav>
 </aside>
 
@@ -738,6 +810,433 @@ Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la
   <div class="mt-8 text-xs text-zinc-600 font-mono">Aprobación final: Mauricio Dávalos · Implementa: Escala Consultora (Montserrat Morcillo) · jun 2026</div>
 </section>
 
+<!-- ============================================================ -->
+<!-- 16 · CASOS DE PRUEBA · Test plan interactivo Bot Corporativo  -->
+<!-- ============================================================ -->
+<section id="tests" class="sec" style="border-bottom:none">
+  <div class="sec-num">16 / Casos de prueba</div>
+  <h2 class="mb-2">Test plan · Bot Corporativo.</h2>
+  <p class="serif-italic text-zinc-400 mb-8 max-w-3xl">21 casos para validar el bot antes de pasarlo a Auto Pilot. Progreso sincronizado en vivo entre todos los testers vía Supabase — Andrés, Daniel y quien pruebe ven los mismos checkboxes, pasa/falla y notas al instante. <code class="ic">localStorage</code> queda como cache offline. Patrón replicable adaptado del blueprint de GAM Odontología.</p>
+
+  <!-- Progress + Filters -->
+  <div class="rounded-3xl border border-white/[0.06] bg-zinc-950/40 p-6 mb-10">
+    <div class="flex items-center justify-between gap-6 flex-wrap mb-6">
+      <div class="flex items-center gap-4">
+        <svg width="50" height="50" class="progress-ring">
+          <circle cx="25" cy="25" r="20" stroke="rgba(255,255,255,0.08)" stroke-width="3" fill="none"/>
+          <circle id="progressCircle" cx="25" cy="25" r="20" stroke="#8B5CF6" stroke-width="3" fill="none" stroke-dasharray="125.66" stroke-dashoffset="125.66" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400">Progreso</p>
+          <p class="text-2xl font-semibold text-white"><span id="progressNum">0/21</span></p>
+        </div>
+      </div>
+      <div class="flex gap-2 flex-wrap items-center">
+        <span id="syncStatus" class="sync-status sync-syncing"><span class="sync-dot"></span><span id="syncStatusText">Conectando…</span></span>
+        <button onclick="resetAllTests()" class="btn btn-reset">Reset todo</button>
+        <button onclick="exportTestResults()" class="btn btn-primary">⤓ Export JSON</button>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 flex-wrap">
+      <button onclick="filterTests('all')" class="filter-pill active" data-filter="all">Todos · 21</button>
+      <button onclick="filterTests('pending')" class="filter-pill" data-filter="pending">Pendientes</button>
+      <button onclick="filterTests('passed')" class="filter-pill" data-filter="passed">Pasados</button>
+      <button onclick="filterTests('failed')" class="filter-pill" data-filter="failed">Fallidos</button>
+      <span class="text-white/30 mx-2">·</span>
+      <button onclick="filterTests('critical')" class="filter-pill" data-filter="critical">🔴 Críticos · 12</button>
+      <button onclick="filterTests('important')" class="filter-pill" data-filter="important">🟡 Importantes · 5</button>
+      <button onclick="filterTests('nice')" class="filter-pill" data-filter="nice">🟢 Nice-to-have · 4</button>
+    </div>
+  </div>
+
+  <!-- 🔴 CRÍTICOS -->
+  <h3 class="text-xl font-semibold text-white mb-5 mt-12">🔴 Críticos · must pass antes de Auto Pilot</h3>
+
+  <!-- Caso 1 -->
+  <article id="caso-1" class="case-card" data-case="1" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 01</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-1">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">WF Entrada + saludo (happy path)</h4>
+      <p class="text-sm text-zinc-400 mt-2">Lead nuevo escribe por primera vez. El WF Entrada lo crea, asigna a Daniel, avisa y activa el bot, que saluda y hace la P1 (vigencia).</p>
+    </div></div>
+    <div class="mb-5">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📜 Turn-by-turn</p>
+      <div class="rounded-lg overflow-hidden border border-white/5"><table class="turn-table"><thead><tr><th>#</th><th>Quién</th><th>Mensaje</th></tr></thead><tbody>
+        <tr><td class="turn-num">1</td><td><span class="actor-lead">Lead</span></td><td class="msg-lead">Hola, quiero información de seguros para mi empresa</td></tr>
+        <tr><td class="turn-num">2</td><td><span class="actor-system">WF Entrada</span></td><td class="msg-system">(Total messages = 1 → crea Opportunity en "Lead nuevo" + Assign Daniel + notif interna + Trigger Bot)</td></tr>
+        <tr><td class="turn-num">3</td><td><span class="actor-bot">Bot</span></td><td class="msg-bot">Hola, soy el asistente de Dávalos &amp; Asociados. Ayudamos a empresas a asegurar bien su operación. Para empezar, ¿cuál es la fecha de finalización de la vigencia de su póliza actual?</td></tr>
+      </tbody></table></div>
+    </div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c1-1"><span class="check-label">Se creó la Opportunity en etapa <code>Lead nuevo</code> del Pipeline Corporativo</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c1-2"><span class="check-label">Lead quedó asignado a <strong>Daniel Dávalos</strong> y llegó la notificación interna</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c1-3"><span class="check-label">El bot saludó como agencia (sin nombre propio) y arrancó por la <strong>P1 · vigencia</strong></span></label>
+      <label class="check-item"><input type="checkbox" data-key="c1-4"><span class="check-label">Hizo UNA sola pregunta, en 2-3 frases máximo (tono ejecutivo)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="1" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('1','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('1','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('1','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 2 -->
+  <article id="caso-2" class="case-card" data-case="2" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 02</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-2">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">P1 · Captura de vigencia (incl. "No tiene")</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot guarda la fecha de fin de vigencia en el CF correcto, y maneja el caso de empresa sin póliza.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c2-1"><span class="check-label">Lead responde <em>"vence en marzo 2026"</em> → CF <code>finalizacion_vigencia</code> = "03/2026" o equivalente legible</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c2-2"><span class="check-label">Lead responde <em>"no tengo póliza"</em> → CF <code>finalizacion_vigencia</code> = "No tiene"</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c2-3"><span class="check-label">Tras capturar, avanza a la <strong>P2 · actividad</strong> (no repite la P1)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="2" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('2','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('2','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('2','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 3 -->
+  <article id="caso-3" class="case-card" data-case="3" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 03</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-3">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">P2 · Captura de actividad</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot guarda a qué se dedica la empresa en frase corta.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c3-1"><span class="check-label">Lead responde <em>"importamos maquinaria"</em> → CF <code>actividad_principal</code> = frase corta (3-10 palabras)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c3-2"><span class="check-label">El bot infiere y guarda <code>ramo_interes</code> cuando la actividad lo sugiere (ej. transporte)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c3-3"><span class="check-label">Avanza a la <strong>P3 · ramos + valores</strong></span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="3" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('3','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('3','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('3','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 4 -->
+  <article id="caso-4" class="case-card" data-case="4" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 04</span><span class="badge badge-critical">🔴 Crítico</span><span class="badge badge-rule">⚠️ Blind spot</span><span class="status-pill status-pending" id="status-4">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">P3 · Ramos + valores juntos · repregunta si falta uno</h4>
+      <p class="text-sm text-zinc-400 mt-2">La P3 combina ramos requeridos Y valores en un solo campo. Si el lead da solo una de las dos cosas, el bot debe repreguntar lo que falta ANTES de la P4. No debe calificar con ramos sin valores (ni al revés).</p>
+    </div></div>
+    <div class="mb-5">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📜 Turn-by-turn</p>
+      <div class="rounded-lg overflow-hidden border border-white/5"><table class="turn-table"><thead><tr><th>#</th><th>Quién</th><th>Mensaje</th></tr></thead><tbody>
+        <tr><td class="turn-num">1</td><td><span class="actor-bot">Bot</span></td><td class="msg-bot">¿Cuáles son los ramos requeridos y los valores asegurados? Si te resulta más fácil, podés enviarme un listado de los bienes a asegurar.</td></tr>
+        <tr><td class="turn-num">2</td><td><span class="actor-lead">Lead</span></td><td class="msg-lead">Necesito transporte e incendio</td></tr>
+        <tr><td class="turn-num">3</td><td><span class="actor-bot">Bot</span></td><td class="msg-bot">Perfecto. ¿Qué valores aproximados querés asegurar en transporte e incendio?</td></tr>
+      </tbody></table></div>
+    </div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c4-1"><span class="check-label">Lead da solo ramos → el bot <strong>repregunta por los valores</strong> antes de seguir</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c4-2"><span class="check-label">Lead da solo valores → el bot repregunta por los ramos</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c4-3"><span class="check-label">Con ambos, guarda ramos + valores juntos en <code>valores_asegurados</code></span></label>
+      <label class="check-item"><input type="checkbox" data-key="c4-4"><span class="check-label">NO marcó Calificado con un solo dato de los dos</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="4" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('4','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('4','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('4','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 5 -->
+  <article id="caso-5" class="case-card" data-case="5" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 05</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-5">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">P4 · Captura de siniestralidad (incl. "Sin siniestros")</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot pregunta por siniestros de los últimos 5 años y guarda cuáles y por qué monto.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c5-1"><span class="check-label">Lead responde <em>"un incendio en 2023 por 40 mil"</em> → CF <code>siniestralidad_historica</code> con detalle + monto</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c5-2"><span class="check-label">Lead responde <em>"ninguno"</em> → CF <code>siniestralidad_historica</code> = "Sin siniestros"</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c5-3"><span class="check-label">Si dice que un siniestro NO se lo pagaron → aplica tag <code>siniestro_previo</code> (lead caliente)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="5" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('5','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('5','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('5','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 6 -->
+  <article id="caso-6" class="case-card" data-case="6" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 06</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-6">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Calificación completa → Trigger Workflow "Lead Calificado Corp"</h4>
+      <p class="text-sm text-zinc-400 mt-2">Respondidas las 4 preguntas, el bot dispara el workflow de calificación y libera la conversación a Daniel.</p>
+    </div></div>
+    <div class="mb-5">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📜 Turn-by-turn</p>
+      <div class="rounded-lg overflow-hidden border border-white/5"><table class="turn-table"><thead><tr><th>#</th><th>Quién</th><th>Mensaje</th></tr></thead><tbody>
+        <tr><td class="turn-num">1</td><td><span class="actor-lead">Lead</span></td><td class="msg-lead">(responde la P4 de siniestros)</td></tr>
+        <tr><td class="turn-num">2</td><td><span class="actor-bot">Bot</span></td><td class="msg-bot">Perfecto. Con estos datos, Daniel —nuestro asesor corporativo— prepara la cotización con varias aseguradoras y te contacta dentro del horario de atención.</td></tr>
+        <tr><td class="turn-num">3</td><td><span class="actor-system">Lead Calificado Corp</span></td><td class="msg-system">(Add Tag lead_calificado → stage Calificado → SMS al lead → notif tri-canal a Daniel → Stop Bot)</td></tr>
+      </tbody></table></div>
+    </div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c6-1"><span class="check-label">Tag <code>lead_calificado</code> aplicado tras las 4 preguntas</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c6-2"><span class="check-label">Opportunity movida a etapa <code>Calificado</code></span></label>
+      <label class="check-item"><input type="checkbox" data-key="c6-3"><span class="check-label">Daniel recibió la notificación con actividad, valores, vigencia y siniestralidad</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c6-4"><span class="check-label">El bot quedó detenido (<code>Stop Bot</code>) y NO siguió escribiendo</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="6" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('6','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('6','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('6','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 7 -->
+  <article id="caso-7" class="case-card" data-case="7" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 07</span><span class="badge badge-critical">🔴 Crítico</span><span class="badge badge-rule">⚠️ Regla dura</span><span class="status-pill status-pending" id="status-7">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">NO da prima / precio exacto</h4>
+      <p class="text-sm text-zinc-400 mt-2">Riesgo legal: el bot nunca compromete un precio. Explica que depende de los datos y por eso califica antes.</p>
+    </div></div>
+    <div class="mb-5">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📜 Turn-by-turn</p>
+      <div class="rounded-lg overflow-hidden border border-white/5"><table class="turn-table"><thead><tr><th>#</th><th>Quién</th><th>Mensaje</th></tr></thead><tbody>
+        <tr><td class="turn-num">1</td><td><span class="actor-lead">Lead</span></td><td class="msg-lead">¿Cuánto me sale un seguro de transporte de 500 mil?</td></tr>
+        <tr><td class="turn-num">2</td><td><span class="actor-bot">Bot</span></td><td class="msg-bot">El valor depende de varios datos de tu operación, por eso primero relevamos esa info y Daniel arma la cotización con varias aseguradoras. ¿Seguimos con un par de preguntas?</td></tr>
+      </tbody></table></div>
+    </div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c7-1"><span class="check-label">NO dio una cifra ni un rango de prima</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c7-2"><span class="check-label">Explicó que depende de los datos y redirigió a calificar / cotizar</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c7-3"><span class="check-label">No prometió tiempos exactos (usó "hasta X días hábiles" si tocó el tema)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="7" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('7','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('7','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('7','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 8 -->
+  <article id="caso-8" class="case-card" data-case="8" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 08</span><span class="badge badge-critical">🔴 Crítico</span><span class="badge badge-rule">⚠️ Regla dura</span><span class="status-pill status-pending" id="status-8">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">NO interpreta archivos / imágenes adjuntas</h4>
+      <p class="text-sm text-zinc-400 mt-2">El lead manda un listado de bienes (PDF / foto). El bot registra "listado adjunto" y sigue; NO interpreta el contenido del archivo.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c8-1"><span class="check-label">Mandé un PDF/foto de bienes → el bot NO describió ni "leyó" su contenido</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c8-2"><span class="check-label">Guardó <code>valores_asegurados</code> = "listado adjunto" (o similar) y siguió el flujo</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c8-3"><span class="check-label">Indicó que Daniel revisa el adjunto al cotizar</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="8" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('8','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('8','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('8','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 9 -->
+  <article id="caso-9" class="case-card" data-case="9" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 09</span><span class="badge badge-critical">🔴 Crítico</span><span class="badge badge-rule">⚠️ Regla dura</span><span class="status-pill status-pending" id="status-9">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Solo las 4 preguntas · NO pide RUC ni datos extra</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot hace SOLO las 4 preguntas de calificación. RUC y otros datos los toma Daniel al cotizar.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c9-1"><span class="check-label">El bot NO pidió RUC en ningún momento</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c9-2"><span class="check-label">No agregó preguntas de calificación fuera de las 4 (vigencia · actividad · ramos+valores · siniestralidad)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c9-3"><span class="check-label">Nombre / teléfono / correo se capturan en campos nativos, no como pregunta de calificación</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="9" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('9','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('9','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('9','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 10 -->
+  <article id="caso-10" class="case-card" data-case="10" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 10</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-10">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Handoff · Siniestro / reembolso en curso</h4>
+      <p class="text-sm text-zinc-400 mt-2">No es una cotización nueva: hay un reclamo/reembolso en curso. El bot levanta la mano a Daniel.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c10-1"><span class="check-label">Mandé <em>"tengo un reclamo en curso"</em> / <em>"cómo va mi reembolso"</em> → Human Handover inmediato</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c10-2"><span class="check-label">Tag <code>transferencia a humano</code> aplicado · asignado a Daniel</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c10-3"><span class="check-label">Mensaje final empático ("te paso con Daniel, que toma tu caso de siniestro")</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c10-4"><span class="check-label">Bot pausado · se creó la tarea para Daniel</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="10" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('10','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('10','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('10','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 11 -->
+  <article id="caso-11" class="case-card" data-case="11" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 11</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-11">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Handoff · Duda sobre póliza vigente</h4>
+      <p class="text-sm text-zinc-400 mt-2">Consulta sobre una póliza ya contratada (coberturas, vigencia). El bot no la maneja: pasa a Daniel.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c11-1"><span class="check-label">Mandé <em>"es sobre una póliza que ya tengo"</em> / <em>"qué cubre mi seguro actual"</em> → Human Handover</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c11-2"><span class="check-label">Tag <code>transferencia a humano</code> aplicado · asignado a Daniel</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c11-3"><span class="check-label">No intentó responder coberturas de la póliza vigente por su cuenta</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="11" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('11','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('11','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('11','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 12 -->
+  <article id="caso-12" class="case-card" data-case="12" data-priority="critical">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 12</span><span class="badge badge-critical">🔴 Crítico</span><span class="status-pill status-pending" id="status-12">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Handoff · Cuenta grande / ramo complejo</h4>
+      <p class="text-sm text-zinc-400 mt-2">Ramo de alto valor o técnico (D&amp;O, cyber, reaseguro, fianzas grandes). Requiere revisión del asesor.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c12-1"><span class="check-label">Mandé <em>"necesito un seguro D&amp;O"</em> / <em>"requiere reaseguro"</em> / <em>"fianza de varios millones"</em> → Human Handover</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c12-2"><span class="check-label">Tag <code>transferencia a humano</code> aplicado · asignado a Daniel</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c12-3"><span class="check-label">Mensaje final indica que Daniel maneja directamente ese tipo de coberturas</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="12" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('12','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('12','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('12','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- 🟡 IMPORTANTES -->
+  <h3 class="text-xl font-semibold text-white mb-5 mt-12">🟡 Importantes · validar pre-launch + monitoreo activo</h3>
+
+  <!-- Caso 13 -->
+  <article id="caso-13" class="case-card" data-case="13" data-priority="important">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 13</span><span class="badge badge-important">🟡 Importante</span><span class="status-pill status-pending" id="status-13">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Handoff · Pide hablar con una persona (prebuilt)</h4>
+      <p class="text-sm text-zinc-400 mt-2">El escenario prebuilt "Solicitud de humano" queda activado por defecto.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c13-1"><span class="check-label">Mandé <em>"quiero hablar con una persona"</em> / <em>"pasame con un asesor"</em> → handoff inmediato</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c13-2"><span class="check-label">Bot respondió con tono empático, sin insistir en seguir él</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c13-3"><span class="check-label">Quedó asignado a Daniel · bot pausado</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="13" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('13','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('13','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('13','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 14 -->
+  <article id="caso-14" class="case-card" data-case="14" data-priority="important">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 14</span><span class="badge badge-important">🟡 Importante</span><span class="status-pill status-pending" id="status-14">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">"¿Sos un bot?" · responde con naturalidad</h4>
+      <p class="text-sm text-zinc-400 mt-2">No oculta que es asistente virtual ni se sobreexplica: dice que es el asistente de la agencia y que Daniel continúa el proceso.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c14-1"><span class="check-label">Mandé <em>"¿hablo con una persona o un bot?"</em> → respondió con naturalidad que es el asistente virtual de Dávalos &amp; Asociados</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c14-2"><span class="check-label">No negó ser bot ni hizo un descargo largo; redirigió a ayudar</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c14-3"><span class="check-label">Mencionó que Daniel, el asesor corporativo, continúa el proceso</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="14" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('14','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('14','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('14','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 15 -->
+  <article id="caso-15" class="case-card" data-case="15" data-priority="important">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 15</span><span class="badge badge-important">🟡 Importante</span><span class="status-pill status-pending" id="status-15">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Manejo de objeciones ("muy caro" / "ya tenemos seguro")</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot no entra en discusión de precio: ofrece valor del acompañamiento o una revisión gratuita de la cobertura actual.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c15-1"><span class="check-label"><em>"Está muy caro"</em> → habla del valor del acompañamiento y de un seguro que paga vs. uno que no</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c15-2"><span class="check-label"><em>"Ya tenemos seguro"</em> → ofrece revisión gratuita de la cobertura actual</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c15-3"><span class="check-label">Mantiene tono cálido, sin presión, y vuelve a encaminar a calificar</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="15" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('15','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('15','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('15','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 16 -->
+  <article id="caso-16" class="case-card" data-case="16" data-priority="important">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 16</span><span class="badge badge-important">🟡 Importante</span><span class="status-pill status-pending" id="status-16">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Fuera de horario (8-17h) · igual califica</h4>
+      <p class="text-sm text-zinc-400 mt-2">El bot atiende 24/7. Fuera de horario igual hace las 4 preguntas y captura todo; el handoff humano lo retoma Daniel al abrir.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c16-1"><span class="check-label">Escribiendo a la noche/fin de semana, el bot igual saluda y califica</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c16-2"><span class="check-label">Capturó los 4 campos sin avisar erróneamente que "está cerrado"</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c16-3"><span class="check-label">Si hubo handoff, aclaró que Daniel responde dentro del horario de atención</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="16" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('16','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('16','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('16','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 17 -->
+  <article id="caso-17" class="case-card" data-case="17" data-priority="important">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 17</span><span class="badge badge-important">🟡 Importante</span><span class="status-pill status-pending" id="status-17">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">FAQ desde Knowledge Base · sin inventar</h4>
+      <p class="text-sm text-zinc-400 mt-2">Ante una FAQ (aseguradoras, ramos, proceso), responde con la KB. Si no está, cae en Human Handover en vez de inventar.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c17-1"><span class="check-label">Pregunta cubierta por la KB → responde correcto (sin comprometer coberturas)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c17-2"><span class="check-label">Pregunta fuera de la KB → NO inventa; deriva a Daniel</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c17-3"><span class="check-label">No compara aseguradoras negativamente por nombre</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="17" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('17','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('17','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('17','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- 🟢 NICE-TO-HAVE -->
+  <h3 class="text-xl font-semibold text-white mb-5 mt-12">🟢 Nice-to-have · mejoras / pendientes</h3>
+
+  <!-- Caso 18 -->
+  <article id="caso-18" class="case-card" data-case="18" data-priority="nice">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 18</span><span class="badge badge-nice">🟢 Nice-to-have</span><span class="status-pill status-pending" id="status-18">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Appointment Booking · reunión con Daniel</h4>
+      <p class="text-sm text-zinc-400 mt-2">⚠️ Depende de conectar el Google Calendar de Daniel (hoy Thunderbird). El bot puede anular y reprogramar.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c18-1"><span class="check-label">Lead pide agendar → el bot ofrece el calendario <code>Reunión con Daniel</code></span></label>
+      <label class="check-item"><input type="checkbox" data-key="c18-2"><span class="check-label">Permite anular y reprogramar (toggles ON)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c18-3"><span class="check-label">Tras reservar, el WF Recordatorios dispara confirmación + 24h/2h/15min</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="18" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('18','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('18','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('18','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 19 -->
+  <article id="caso-19" class="case-card" data-case="19" data-priority="nice">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 19</span><span class="badge badge-nice">🟢 Nice-to-have</span><span class="status-pill status-pending" id="status-19">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Auto Follow-Up · lead callado mid-chat</h4>
+      <p class="text-sm text-zinc-400 mt-2">Si el lead deja de responder en medio de la calificación, el bot manda un mensaje IA contextual a las 2h.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c19-1"><span class="check-label">Dejé la conversación a medias → a las 2h llegó un mensaje IA para retomar</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c19-2"><span class="check-label">El mensaje fue contextual (retomó la pregunta pendiente, no un genérico)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c19-3"><span class="check-label">No se pisó con el WF Seguimiento a nivel pipeline (2h/24h/72h/96h)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="19" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('19','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('19','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('19','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 20 -->
+  <article id="caso-20" class="case-card" data-case="20" data-priority="nice">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 20</span><span class="badge badge-nice">🟢 Nice-to-have</span><span class="status-pill status-pending" id="status-20">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">Tono ejecutivo B2B · brevedad</h4>
+      <p class="text-sm text-zinc-400 mt-2">Estilo de la casa: ejecutivo, técnico y al grano, pero cálido. Máximo 2-3 frases por mensaje, una pregunta a la vez.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c20-1"><span class="check-label">Mensajes breves (2-3 frases), sin párrafos largos</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c20-2"><span class="check-label">Una sola pregunta por turno</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c20-3"><span class="check-label">Tono ejecutivo y cálido (no informal ni con jerga innecesaria)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="20" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('20','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('20','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('20','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Caso 21 -->
+  <article id="caso-21" class="case-card" data-case="21" data-priority="nice">
+    <div class="flex items-start justify-between gap-4 mb-4"><div>
+      <div class="flex items-center gap-2 mb-2 flex-wrap"><span class="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Caso 21</span><span class="badge badge-nice">🟢 Nice-to-have</span><span class="badge badge-rule">⚠️ Blind spot</span><span class="status-pill status-pending" id="status-21">Pendiente</span></div>
+      <h4 class="text-xl font-semibold text-white">"No me sirve, gracias" · Stop Bot vs Human Handover</h4>
+      <p class="text-sm text-zinc-400 mt-2">⚠️ Verificar prioridad: un "no me sirve, gracias" debe disparar una despedida natural (Stop Bot), no un Human Handover innecesario que sobrecargue a Daniel.</p>
+    </div></div>
+    <div><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">✅ Checklist</p><div class="space-y-1">
+      <label class="check-item"><input type="checkbox" data-key="c21-1"><span class="check-label">Mandé <em>"no me sirve, gracias"</em> → el bot se despide cordialmente (Stop Bot)</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c21-2"><span class="check-label">NO generó un handoff a Daniel por un simple desinterés</span></label>
+      <label class="check-item"><input type="checkbox" data-key="c21-3"><span class="check-label">Comportamiento consistente y documentado (no a veces handoff, a veces stop)</span></label>
+    </div></div>
+    <div class="mt-4"><p class="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">📝 Notas del tester (opcional)</p><textarea data-note="21" class="tester-note" placeholder="Observaciones, bugs, screenshots a adjuntar..."></textarea></div>
+    <div class="case-actions"><button onclick="markCase('21','passed')" class="btn btn-pass">✓ Pasado</button><button onclick="markCase('21','failed')" class="btn btn-fail">✗ Fallido</button><button onclick="markCase('21','pending')" class="btn btn-reset">Reset</button></div>
+  </article>
+
+  <!-- Cómo correrlo -->
+  <div class="mt-10 rounded-2xl border border-violet-400/20 bg-violet-500/5 p-5">
+    <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300/80 mb-2">🛠 Cómo correr las pruebas</p>
+    <p class="text-sm text-zinc-300 mb-2"><strong>Manual</strong> · usá un número distinto al de Daniel/Mauricio (si no, el filtro <code class="ic">Total messages = 1</code> del WF Entrada no aplica). Llevá esta pantalla abierta y andá tildando; el estado se sincroniza en vivo con el resto de los testers.</p>
+    <p class="text-sm text-zinc-300"><strong>Orden sugerido</strong> · primero los 🔴 críticos (calificación + reglas duras + handoffs) antes de pasar el bot de Suggestive a Auto Pilot.</p>
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -761,6 +1260,273 @@ Hola {{contact.first_name}}, mañana a las {{appointment.start_time}} tenemos la
     entries.forEach(e => { if (e.isIntersecting) { links.forEach(l => l.classList.remove('active')); if (map[e.target.id]) map[e.target.id].classList.add('active'); } });
   }, { rootMargin: '-30% 0px -60% 0px' });
   Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+
+  // === SECCIÓN 16 · Test plan interactivo (Supabase sync + localStorage cache + filters + progress + export) ===
+  const TEST_STORAGE_KEY = 'davalos-test-bot-v1';
+  const TESTER_STORAGE_KEY = 'al-tester-name';
+  const TOTAL_TEST_CASES = 21;
+  const PLAN_KEY = 'davalos-asociados-corporativo';
+  const SUPABASE_URL = 'https://clvsnjcbdxlwsuivanvl.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_WTKGm9nhW-YYqXlUfQFWdg_0LTRPRCi';
+
+  let testState = JSON.parse(localStorage.getItem(TEST_STORAGE_KEY) || '{"checks":{},"cases":{},"notes":{}}');
+  if (!testState.notes) testState.notes = {};
+  if (!testState.checks) testState.checks = {};
+  if (!testState.cases) testState.cases = {};
+
+  let testerName = localStorage.getItem(TESTER_STORAGE_KEY) || '';
+  if (!testerName) {
+    const ans = prompt('¿Quién sos? (ej: Andrés, Daniel, Montse)\nSe guarda solo en tu navegador para identificar quién marcó qué.');
+    testerName = (ans || 'anónimo').trim().slice(0, 40) || 'anónimo';
+    localStorage.setItem(TESTER_STORAGE_KEY, testerName);
+  }
+
+  const sb = (window.supabase && window.supabase.createClient)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { realtime: { params: { eventsPerSecond: 5 } } })
+    : null;
+
+  function setSyncStatus(state, text) {
+    const wrap = document.getElementById('syncStatus');
+    const txt = document.getElementById('syncStatusText');
+    if (!wrap || !txt) return;
+    wrap.className = 'sync-status sync-' + state;
+    txt.textContent = text;
+  }
+
+  function timeAgo(iso) {
+    if (!iso) return '';
+    const s = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
+    if (s < 60) return `hace ${s}s`;
+    if (s < 3600) return `hace ${Math.floor(s/60)}m`;
+    if (s < 86400) return `hace ${Math.floor(s/3600)}h`;
+    return `hace ${Math.floor(s/86400)}d`;
+  }
+
+  let lastRemoteMeta = { by: '', at: '' };
+  let suppressPush = false;
+  let pushTimer = null;
+
+  function saveTestState({ pushRemote = true } = {}) {
+    localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(testState));
+    if (pushRemote && sb && !suppressPush) schedulePush();
+  }
+
+  function schedulePush() {
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(pushState, 350);
+  }
+
+  async function pushState() {
+    if (!sb) return;
+    setSyncStatus('syncing', 'Guardando…');
+    const { error } = await sb
+      .from('test_plan_state')
+      .upsert({ plan_key: PLAN_KEY, state: testState, updated_by: testerName }, { onConflict: 'plan_key' });
+    if (error) {
+      console.warn('[sync] push failed:', error);
+      setSyncStatus('error', 'Error al guardar · cache local OK');
+      return;
+    }
+    lastRemoteMeta = { by: testerName, at: new Date().toISOString() };
+    setSyncStatus('online', `Guardado · ${testerName}`);
+  }
+
+  async function pullState() {
+    if (!sb) { setSyncStatus('offline', 'Sin sync · usá Export JSON'); return; }
+    setSyncStatus('syncing', 'Conectando…');
+    const { data, error } = await sb
+      .from('test_plan_state')
+      .select('state, updated_at, updated_by')
+      .eq('plan_key', PLAN_KEY)
+      .maybeSingle();
+    if (error) {
+      console.warn('[sync] pull failed:', error);
+      setSyncStatus('offline', 'Modo offline · cache local');
+      return;
+    }
+    if (data && data.state) {
+      testState = {
+        checks: data.state.checks || {},
+        cases: data.state.cases || {},
+        notes: data.state.notes || {}
+      };
+      lastRemoteMeta = { by: data.updated_by || '', at: data.updated_at || '' };
+      localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(testState));
+      applyAllToUI();
+      setSyncStatus('online', `Sincronizado · ${data.updated_by || 'remoto'} ${timeAgo(data.updated_at)}`);
+    } else {
+      await pushState();
+    }
+  }
+
+  function subscribeRealtime() {
+    if (!sb) return;
+    sb.channel(`tps-${PLAN_KEY}`)
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'test_plan_state',
+        filter: `plan_key=eq.${PLAN_KEY}`,
+      }, (payload) => {
+        const row = payload.new || payload.old;
+        if (!row || !row.state) return;
+        if (row.updated_by === testerName && lastRemoteMeta.at &&
+            Math.abs(new Date(row.updated_at) - new Date(lastRemoteMeta.at)) < 1500) return;
+        suppressPush = true;
+        testState = {
+          checks: row.state.checks || {},
+          cases: row.state.cases || {},
+          notes: row.state.notes || {}
+        };
+        localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(testState));
+        applyAllToUI();
+        lastRemoteMeta = { by: row.updated_by || '', at: row.updated_at || '' };
+        setSyncStatus('online', `Actualizado por ${row.updated_by || 'remoto'} ${timeAgo(row.updated_at)}`);
+        setTimeout(() => { suppressPush = false; }, 50);
+      })
+      .subscribe();
+  }
+
+  function markCase(caseId, status) {
+    testState.cases[caseId] = status;
+    saveTestState();
+    applyCaseStatus(caseId);
+    updateTestProgress();
+  }
+  window.markCase = markCase;
+
+  function applyCaseStatus(caseId) {
+    const card = document.querySelector(`[data-case="${caseId}"]`);
+    const pill = document.getElementById(`status-${caseId}`);
+    const status = testState.cases[caseId] || 'pending';
+    if (card) card.dataset.status = status;
+    if (pill) {
+      pill.className = 'status-pill status-' + status;
+      pill.textContent = status === 'passed' ? '✓ Pasado' : status === 'failed' ? '✗ Fallido' : 'Pendiente';
+    }
+  }
+
+  function applyAllTestStatuses() {
+    for (let i = 1; i <= TOTAL_TEST_CASES; i++) applyCaseStatus(String(i));
+  }
+
+  function applyAllToUI() {
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb => {
+      cb.checked = !!testState.checks[cb.dataset.key];
+    });
+    document.querySelectorAll('textarea[data-note]').forEach(ta => {
+      ta.value = testState.notes[ta.dataset.note] || '';
+    });
+    applyAllTestStatuses();
+    updateTestProgress();
+  }
+
+  function bindTestCheckboxes() {
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb => {
+      const key = cb.dataset.key;
+      if (testState.checks[key]) cb.checked = true;
+      cb.addEventListener('change', () => {
+        testState.checks[key] = cb.checked;
+        saveTestState();
+      });
+    });
+  }
+
+  function updateTestProgress() {
+    const allCases = Array.from({length: TOTAL_TEST_CASES}, (_, i) => String(i + 1));
+    const passed = allCases.filter(c => testState.cases[c] === 'passed').length;
+    const failed = allCases.filter(c => testState.cases[c] === 'failed').length;
+    const completed = passed + failed;
+    const numEl = document.getElementById('progressNum');
+    const circle = document.getElementById('progressCircle');
+    if (numEl) numEl.textContent = `${completed}/${TOTAL_TEST_CASES}`;
+    if (circle) {
+      const circumference = 2 * Math.PI * 20;
+      const offset = circumference - (completed / TOTAL_TEST_CASES) * circumference;
+      circle.style.strokeDashoffset = offset;
+      if (failed > 0) circle.style.stroke = '#F87171';
+      else if (completed === TOTAL_TEST_CASES) circle.style.stroke = '#4ADE80';
+      else circle.style.stroke = '#8B5CF6';
+    }
+  }
+
+  function filterTests(filter) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    const activePill = document.querySelector(`.filter-pill[data-filter="${filter}"]`);
+    if (activePill) activePill.classList.add('active');
+    document.querySelectorAll('[data-case]').forEach(card => {
+      const status = testState.cases[card.dataset.case] || 'pending';
+      const priority = card.dataset.priority;
+      let show = true;
+      if (filter === 'pending' && status !== 'pending') show = false;
+      else if (filter === 'passed' && status !== 'passed') show = false;
+      else if (filter === 'failed' && status !== 'failed') show = false;
+      else if (['critical','important','nice'].includes(filter) && priority !== filter) show = false;
+      card.dataset.hidden = show ? 'false' : 'true';
+    });
+  }
+  window.filterTests = filterTests;
+
+  function resetAllTests() {
+    if (!confirm('¿Borrar TODOS los tests y empezar de cero?\nSe sincroniza con todos los testers. El estado anterior queda en el history de Supabase por si hay que restaurarlo.')) return;
+    testState = { checks: {}, cases: {}, notes: {} };
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb => cb.checked = false);
+    document.querySelectorAll('textarea[data-note]').forEach(ta => ta.value = '');
+    applyAllTestStatuses();
+    updateTestProgress();
+    saveTestState();
+  }
+  window.resetAllTests = resetAllTests;
+
+  function exportTestResults() {
+    const allCases = Array.from({length: TOTAL_TEST_CASES}, (_, i) => String(i + 1));
+    const passed = allCases.filter(c => testState.cases[c] === 'passed').length;
+    const failed = allCases.filter(c => testState.cases[c] === 'failed').length;
+    const pending = TOTAL_TEST_CASES - passed - failed;
+    const result = {
+      cliente: 'Dávalos & Asociados',
+      bot: 'Bot Corporativo',
+      plan_key: PLAN_KEY,
+      exported_by: testerName,
+      timestamp: new Date().toISOString(),
+      summary: { total: TOTAL_TEST_CASES, passed, failed, pending },
+      cases: testState.cases,
+      checks: testState.checks,
+      notes: testState.notes
+    };
+    const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `test-bot-davalos-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  window.exportTestResults = exportTestResults;
+
+  function bindTesterNotes() {
+    document.querySelectorAll('textarea[data-note]').forEach(ta => {
+      const key = ta.dataset.note;
+      if (testState.notes[key]) ta.value = testState.notes[key];
+      ta.addEventListener('input', () => {
+        testState.notes[key] = ta.value;
+        saveTestState();
+      });
+    });
+  }
+
+  // Bootstrap test plan
+  bindTestCheckboxes();
+  bindTesterNotes();
+  applyAllTestStatuses();
+  updateTestProgress();
+  pullState().then(subscribeRealtime);
+
+  setInterval(() => {
+    if (lastRemoteMeta.at && document.getElementById('syncStatus')?.classList.contains('sync-online')) {
+      setSyncStatus('online', `Sincronizado · ${lastRemoteMeta.by || 'remoto'} ${timeAgo(lastRemoteMeta.at)}`);
+    }
+  }, 30000);
 </script>
 </body>
 </html>
