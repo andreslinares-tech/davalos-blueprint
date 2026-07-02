@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test de Bot · Corporativo · Dávalos & Asociados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: 'Geist', system-ui, sans-serif; background: #0a0a0a; color: #e4e4e7; }
+    html { scroll-behavior: smooth; }
+
+    /* grain */
+    .grain::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:0.015; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    /* hero */
+    .hero-grad { background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(139,92,246,.18), transparent 50%), radial-gradient(ellipse 60% 60% at 80% 30%, rgba(6,182,212,.12), transparent 55%); }
+    .hero-title { background: linear-gradient(180deg,#fafafa,#a1a1aa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+    /* pills */
+    .pill { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-family:'Geist Mono',ui-monospace,monospace; }
+    .pill-violet { background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); color:#c4b5fd; }
+    .pill-amber  { background:rgba(245,158,11,.15);  border:1px solid rgba(245,158,11,.3);  color:#fcd34d; }
+    .pill-cyan   { background:rgba(6,182,212,.15);   border:1px solid rgba(6,182,212,.3);   color:#a5f3fc; }
+    .pill-emerald{ background:rgba(16,185,129,.15);  border:1px solid rgba(16,185,129,.3);  color:#a7f3d0; }
+    .pill-rose   { background:rgba(244,63,94,.15);   border:1px solid rgba(244,63,94,.3);   color:#fda4af; }
+    .pill-zinc   { background:rgba(113,113,122,.15); border:1px solid rgba(113,113,122,.3); color:#d4d4d8; }
+
+    /* cards */
+    .card { background:rgba(9,9,11,.5); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:22px; }
+
+    /* test card */
+    .test-card {
+      background: rgba(9,9,11,.5);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+    .test-card.pass  { border-color: rgba(16,185,129,.4);  background: rgba(16,185,129,.04); }
+    .test-card.fail  { border-color: rgba(244,63,94,.4);   background: rgba(244,63,94,.04); }
+
+    /* radio group */
+    .radio-group { display:flex; gap:8px; flex-wrap:wrap; }
+    .radio-btn {
+      padding: 4px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.12);
+      background: transparent;
+      color: #71717a;
+      transition: all .15s;
+    }
+    .radio-btn:hover { color: #d4d4d8; border-color: rgba(255,255,255,.25); }
+    .radio-btn.selected-pass { background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.4); color: #a7f3d0; }
+    .radio-btn.selected-fail { background: rgba(244,63,94,.15);  border-color: rgba(244,63,94,.4);  color: #fda4af; }
+
+    /* notes textarea */
+    .notes-field {
+      width: 100%;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: #a1a1aa;
+      font-family: 'Geist', sans-serif;
+      resize: vertical;
+      min-height: 48px;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .notes-field:focus { border-color: rgba(139,92,246,.4); color: #e4e4e7; }
+    .notes-field::placeholder { color: #3f3f46; }
+
+    /* progress bar */
+    .progress-track { height: 6px; background: rgba(255,255,255,.06); border-radius: 99px; overflow: hidden; }
+    .progress-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #8b5cf6, #06b6d4); transition: width .4s ease; }
+
+    /* reset btn */
+    .reset-btn {
+      padding: 5px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      cursor: pointer;
+      border: 1px solid rgba(244,63,94,.3);
+      background: rgba(244,63,94,.08);
+      color: #fda4af;
+      transition: all .15s;
+    }
+    .reset-btn:hover { background: rgba(244,63,94,.18); }
+
+    /* table */
+    table.tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    table.tbl th { text-align:left; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#71717a; padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.08); }
+    table.tbl td { padding:9px 11px; border-bottom:1px solid rgba(255,255,255,.05); color:#d4d4d8; vertical-align:top; }
+    table.tbl tr:last-child td { border-bottom:none; }
+    table.tbl code { font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd; }
+
+    @media(max-width:768px) { .hero-pad { padding: 40px 20px 30px; } .content-pad { padding: 0 16px 80px; } }
+  </style>
+</head>
+<body class="grain">
+
+<!-- HERO -->
+<div class="hero-grad relative z-10">
+  <div class="hero-pad" style="padding:60px 48px 44px; max-width:1000px; margin:0 auto;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+      <span class="pill pill-violet">BOT CORPORATIVO</span>
+      <span class="pill pill-amber">PRE-LAUNCH</span>
+      <span class="pill pill-zinc" id="date-pill">—</span>
+    </div>
+    <h1 class="hero-title" style="font-size:clamp(28px,5vw,48px); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin-bottom:14px;">
+      Test de Bot<br>Dávalos & Asociados
+    </h1>
+    <p style="color:#a1a1aa; font-size:15px; max-width:560px; line-height:1.65;">
+      10 casos de prueba para validar el bot corporativo antes de pasar a <strong style="color:#e4e4e7">Auto Pilot</strong>.
+      Marcá cada caso como <span style="color:#a7f3d0">✓ Pasó</span> o <span style="color:#fda4af">✗ Falló</span> y dejá notas. El estado se guarda en el navegador.
+    </p>
+
+    <!-- Progress -->
+    <div style="margin-top:28px; max-width:480px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:12px; font-family:'Geist Mono',monospace; color:#71717a; text-transform:uppercase; letter-spacing:.08em;">Progreso</span>
+        <span id="progress-label" style="font-size:12px; font-family:'Geist Mono',monospace; color:#a1a1aa;">0 / 10 evaluados</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+      <div style="display:flex; gap:18px; margin-top:12px;">
+        <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#a7f3d0;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+          <span id="count-pass">0</span> pasaron
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#fda4af;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#f43f5e; display:inline-block;"></span>
+          <span id="count-fail">0</span> fallaron
+        </div>
+        <div style="margin-left:auto;">
+          <button class="reset-btn" onclick="resetAll()">Reiniciar todo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-pad" style="max-width:1000px; margin:0 auto; padding:40px 48px 80px;">
+
+  <!-- Instrucciones -->
+  <div class="card" style="margin-bottom:36px;">
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      <div style="font-size:22px; flex-shrink:0; margin-top:2px;">🧪</div>
+      <div>
+        <div style="font-size:14px; font-weight:600; color:#fafafa; margin-bottom:6px;">Cómo usar este checklist</div>
+        <ol style="font-size:13px; color:#a1a1aa; line-height:1.75; padding-left:18px; margin:0;">
+          <li>Mandá el mensaje de prueba al bot desde WhatsApp o el Live Chat de SHARP.</li>
+          <li>Verificá que la respuesta del bot coincida con el resultado esperado.</li>
+          <li>Marcá <strong style="color:#a7f3d0">Pasó</strong> o <strong style="color:#fda4af">Falló</strong> y dejá una nota si algo llama la atención.</li>
+          <li>Cuando todos los casos estén en verde, el bot puede pasar a <strong style="color:#e4e4e7">Auto Pilot</strong>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASOS DE TEST -->
+  <div style="display:flex; flex-direction:column; gap:14px;" id="tests-container">
+
+    <!-- T01 -->
+    <div class="test-card" id="card-1" data-id="1">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T01</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Flujo de calificación completo</div>
+            <span class="pill pill-violet" style="font-size:10px;">Flujo principal</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(1,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(1,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Mensaje de prueba</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">"Necesito seguro de transporte para mi importadora"</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot saluda y hace las <strong style="color:#e4e4e7">4 preguntas en orden</strong>: vigencia de póliza → actividad de la empresa → ramos/valores asegurados → siniestros últimos 5 años. Una pregunta a la vez, espera respuesta antes de seguir.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(1,this.value)" id="note-1"></textarea>
+    </div>
+
+    <!-- T02 -->
+    <div class="test-card" id="card-2" data-id="2">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T02</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Sin dar precio</div>
+            <span class="pill pill-amber" style="font-size:10px;">Regla crítica</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(2,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(2,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Mensaje de prueba</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">"¿Cuánto cuesta asegurar mi flota?"</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;"><strong style="color:#fda4af">NO</strong> da precio ni rango. Explica que el costo depende de los datos (valores asegurados, actividad, siniestralidad) y redirige al flujo de calificación.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(2,this.value)" id="note-2"></textarea>
+    </div>
+
+    <!-- T03 -->
+    <div class="test-card" id="card-3" data-id="3">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T03</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Calificado → ofrece agendar + dispara WF</div>
+            <span class="pill pill-cyan" style="font-size:10px;">Handoff</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(3,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(3,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">El lead respondió las 4 preguntas de calificación completas.</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot ofrece agendar asesoría con Daniel → dispara WF <code style="font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd;">Lead Calificado Corp</code> → contacto se mueve a etapa <strong style="color:#e4e4e7">Calificado</strong> en el pipeline y Daniel recibe notificación. (Agende o no la reunión, el WF se dispara igual.)</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(3,this.value)" id="note-3"></textarea>
+    </div>
+
+    <!-- T03b -->
+    <div class="test-card" id="card-3b" data-id="3b">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T03b</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Acepta agendar → Appointment Booking</div>
+            <span class="pill pill-cyan" style="font-size:10px;">Agendamiento</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult('3b','pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult('3b','fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">Tras las 4 preguntas, el lead dice "sí, quiero agendar".</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">Appointment Booking reserva automáticamente en el calendario <strong style="color:#e4e4e7">Reunión con Daniel</strong> y confirma día y hora al lead.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote('3b',this.value)" id="note-3b"></textarea>
+    </div>
+
+    <!-- T03c -->
+    <div class="test-card" id="card-3c" data-id="3c">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T03c</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">No quiere agendar → igual dispara WF</div>
+            <span class="pill pill-zinc" style="font-size:10px;">Calificado sin cita</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult('3c','pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult('3c','fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">Tras las 4 preguntas, el lead dice "no, prefiero que me contacten".</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot <strong style="color:#fda4af">no insiste</strong> con el agendamiento. Igual dispara WF <code style="font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd;">Lead Calificado Corp</code> y avisa que Daniel lo contacta.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote('3c',this.value)" id="note-3c"></textarea>
+    </div>
+
+    <!-- T04 -->
+    <div class="test-card" id="card-4" data-id="4">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T04</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">No pide RUC</div>
+            <span class="pill pill-amber" style="font-size:10px;">Regla crítica</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(4,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(4,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Mensaje de prueba</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">"¿Me van a pedir el RUC?"</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot aclara que <strong style="color:#fda4af">NO pide RUC</strong> en esta etapa — eso lo toma Daniel al cotizar. <strong style="color:#fda4af">No</strong> solicita el RUC al lead.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(4,this.value)" id="note-4"></textarea>
+    </div>
+
+    <!-- T05 -->
+    <div class="test-card" id="card-5" data-id="5">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T05</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">"No tengo póliza vigente"</div>
+            <span class="pill pill-zinc" style="font-size:10px;">Dato vacío</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(5,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(5,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">En la Pregunta 1 (vigencia), el lead responde que no tiene póliza vigente.</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">Registra <code style="font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd;">"No tiene"</code> en el campo <strong style="color:#e4e4e7">Finalización de vigencia</strong> y continúa con la Pregunta 2 sin problema.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(5,this.value)" id="note-5"></textarea>
+    </div>
+
+    <!-- T06 -->
+    <div class="test-card" id="card-6" data-id="6">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T06</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">P3 con ramos pero sin valores → repregunta</div>
+            <span class="pill pill-violet" style="font-size:10px;">Validación P3</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(6,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(6,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">En P3, el lead responde solo los ramos (ej. "transporte e incendio") sin dar los valores asegurados.</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot <strong style="color:#e4e4e7">repregunta amablemente</strong> por los valores asegurados antes de pasar a la Pregunta 4. <strong style="color:#fda4af">No</strong> avanza a P4 sin los valores.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(6,this.value)" id="note-6"></textarea>
+    </div>
+
+    <!-- T07 -->
+    <div class="test-card" id="card-7" data-id="7">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T07</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Envío de listado de bienes</div>
+            <span class="pill pill-zinc" style="font-size:10px;">Adjunto / texto</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(7,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(7,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">En P3, el lead envía un listado de bienes (texto largo o PDF adjunto).</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">Registra <code style="font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd;">"listado adjunto"</code> en <strong style="color:#e4e4e7">Valores asegurados</strong>, continúa a P4. <strong style="color:#fda4af">No</strong> intenta interpretar el archivo ni se traba.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(7,this.value)" id="note-7"></textarea>
+    </div>
+
+    <!-- T08 -->
+    <div class="test-card" id="card-8" data-id="8">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T08</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Reclamo en curso → Human Handover</div>
+            <span class="pill pill-rose" style="font-size:10px;">Handoff siniestro</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(8,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(8,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Mensaje de prueba</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">"Tengo un reclamo en curso y no sé en qué va"</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">Human Handover → tag <code style="font-family:'Geist Mono',monospace; font-size:12px; background:rgba(139,92,246,.1); padding:1px 6px; border-radius:4px; color:#c4b5fd;">transferencia a humano</code> → asigna a Daniel. El contacto <strong style="color:#fda4af">no</strong> se mueve a Calificado.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(8,this.value)" id="note-8"></textarea>
+    </div>
+
+    <!-- T09 -->
+    <div class="test-card" id="card-9" data-id="9">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T09</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Pide agendar antes de calificar</div>
+            <span class="pill pill-cyan" style="font-size:10px;">Agendamiento directo</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(9,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(9,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Mensaje de prueba</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">"Quiero agendar directamente con un asesor"</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot usa Appointment Booking con Daniel aunque las 4 preguntas no estén completas.</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(9,this.value)" id="note-9"></textarea>
+    </div>
+
+    <!-- T10 -->
+    <div class="test-card" id="card-10" data-id="10">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <span style="font-family:'Geist Mono',monospace; font-size:11px; color:#52525b; background:rgba(255,255,255,.04); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-top:2px;">T10</span>
+          <div>
+            <div style="font-size:15px; font-weight:600; color:#fafafa; line-height:1.35; margin-bottom:4px;">Mensaje a las 3 AM → fuera de horario</div>
+            <span class="pill pill-zinc" style="font-size:10px;">24/7</span>
+          </div>
+        </div>
+        <div class="radio-group">
+          <button class="radio-btn" onclick="setResult(10,'pass',this)">✓ Pasó</button>
+          <button class="radio-btn" onclick="setResult(10,'fail',this)">✗ Falló</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px;">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Condición</div>
+        <div style="font-size:13.5px; color:#e4e4e7;">Mensaje enviado fuera del horario de atención (antes de las 8h o después de las 17h).</div>
+      </div>
+      <div class="card" style="margin-bottom:12px; padding:14px 18px; border-color:rgba(16,185,129,.12);">
+        <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:6px;">Resultado esperado</div>
+        <div style="font-size:13px; color:#a1a1aa; line-height:1.6;">El bot califica y captura los datos igual. Avisa que Daniel responde cuando abran. Puede ofrecer agendar (el calendario reserva 24/7).</div>
+      </div>
+      <textarea class="notes-field" placeholder="Notas del tester…" oninput="saveNote(10,this.value)" id="note-10"></textarea>
+    </div>
+
+  </div><!-- /tests-container -->
+
+  <!-- Resumen final -->
+  <div class="card" id="summary-card" style="margin-top:40px; display:none;">
+    <div style="font-size:10px; font-family:'Geist Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:#52525b; margin-bottom:12px;">Resumen</div>
+    <div id="summary-content" style="font-size:14px; color:#a1a1aa; line-height:1.65;"></div>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,.05); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div style="font-size:12px; color:#3f3f46; font-family:'Geist Mono',monospace;">Dávalos & Asociados · Bot Corporativo v2 · Pre-launch checklist</div>
+    <a href="BLUEPRINT-BOT.html" style="font-size:12px; color:#8b5cf6; font-family:'Geist Mono',monospace; text-decoration:none; opacity:.7; transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7">← Ver Blueprint</a>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+  const STORAGE_KEY = 'davalos-test-v1';
+  const IDS = [1, 2, 3, '3b', '3c', 4, 5, 6, 7, 8, 9, 10];
+
+  // Set date pill
+  const d = new Date();
+  document.getElementById('date-pill').textContent = d.toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+
+  // Load state
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  let state = loadState();
+
+  function setResult(id, result, btn) {
+    state[id] = state[id] || {};
+    if (state[id].result === result) {
+      state[id].result = null;
+    } else {
+      state[id].result = result;
+    }
+    saveState(state);
+    renderCard(id);
+    renderProgress();
+  }
+
+  function saveNote(id, val) {
+    state[id] = state[id] || {};
+    state[id].note = val;
+    saveState(state);
+  }
+
+  function renderCard(id) {
+    const safeId = String(id).replace('3b','3b').replace('3c','3c');
+    const card = document.getElementById('card-' + safeId);
+    if (!card) return;
+    const s = state[id] || {};
+    card.classList.remove('pass','fail');
+    if (s.result === 'pass') card.classList.add('pass');
+    if (s.result === 'fail') card.classList.add('fail');
+
+    // update buttons
+    const btns = card.querySelectorAll('.radio-btn');
+    btns.forEach(b => {
+      b.classList.remove('selected-pass','selected-fail');
+      if (s.result === 'pass' && b.textContent.includes('Pasó')) b.classList.add('selected-pass');
+      if (s.result === 'fail' && b.textContent.includes('Falló')) b.classList.add('selected-fail');
+    });
+
+    // note
+    const noteEl = document.getElementById('note-' + safeId);
+    if (noteEl && s.note) noteEl.value = s.note;
+  }
+
+  function renderProgress() {
+    let evaluated = 0, pass = 0, fail = 0;
+    IDS.forEach(id => {
+      const s = state[id] || {};
+      if (s.result === 'pass') { evaluated++; pass++; }
+      if (s.result === 'fail') { evaluated++; fail++; }
+    });
+    const total = IDS.length;
+    const pct = Math.round((evaluated / total) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = evaluated + ' / ' + total + ' evaluados';
+    document.getElementById('count-pass').textContent = pass;
+    document.getElementById('count-fail').textContent = fail;
+
+    // Summary
+    const summaryCard = document.getElementById('summary-card');
+    const summaryContent = document.getElementById('summary-content');
+    if (evaluated === total) {
+      summaryCard.style.display = 'block';
+      if (fail === 0) {
+        summaryContent.innerHTML = '<span style="color:#a7f3d0; font-size:18px; font-weight:600;">✓ Todos los casos pasaron</span><br><span style="font-size:13px; color:#71717a;">El bot está listo para pasar a <strong style="color:#e4e4e7">Auto Pilot</strong>.</span>';
+      } else {
+        summaryContent.innerHTML = '<span style="color:#fda4af; font-size:18px; font-weight:600;">' + fail + ' caso' + (fail>1?'s':'') + ' fallaron</span><br><span style="font-size:13px; color:#71717a;">Revisá los casos marcados en rojo antes de pasar a Auto Pilot.</span>';
+      }
+    } else {
+      summaryCard.style.display = 'none';
+    }
+  }
+
+  function resetAll() {
+    if (!confirm('¿Reiniciar todos los resultados y notas?')) return;
+    state = {};
+    saveState(state);
+    IDS.forEach(id => {
+      renderCard(id);
+      const safeId = String(id);
+      const noteEl = document.getElementById('note-' + safeId);
+      if (noteEl) noteEl.value = '';
+    });
+    renderProgress();
+  }
+
+  // Init
+  IDS.forEach(id => renderCard(id));
+  renderProgress();
+</script>
+
+</body>
+</html>
